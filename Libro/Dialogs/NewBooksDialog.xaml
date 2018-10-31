@@ -1,0 +1,128 @@
+﻿<UserControl x:Class="Libro.Dialogs.NewBooksDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Libro.Dialogs"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:val="clr-namespace:Libro.Validation"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:model="clr-namespace:Libro.Models;assembly=Libro.Core"
+             xmlns:lib="clr-namespace:Libro"
+             xmlns:cnv="clr-namespace:Libro.Converters"
+             mc:Ignorable="d"
+             Padding="32"
+             MinWidth="471"
+             MaxWidth="666"
+             FocusManager.FocusedElement="{Binding ElementName=ItemsControl}"
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance local:NewBooksDialog}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <StackPanel>
+        <TextBlock Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
+                   Text="NEW BOOKS" />
+        <ItemsControl ItemsSource="{Binding ISBNs}"
+                      x:Name="ItemsControl">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+
+                        </Grid.ColumnDefinitions>
+                        <UniformGrid Columns="2"
+                                     Grid.Column="1"
+                                     Rows="1">
+                            <TextBox md:HintAssist.Hint="ISBN"
+                                     md:HintAssist.IsFloating="True"
+                                     Margin="0,8"
+                                     
+                                     lib:TextBoxHelper.OnInputCommand="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl},Path=DataContext.AddISBNCommand}"
+                                     lib:TextBoxHelper.InputCommandParameter="{Binding}"
+                                     Text="{Binding Isbn,UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox md:HintAssist.Hint="ACCESSION NUMBER"
+                                     Grid.Column="1"
+                                     md:HintAssist.IsFloating="True"
+                                     Margin="8"
+                                     
+                                     Text="{Binding AccessionNumber,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" />
+
+                        </UniformGrid>
+
+                        <Grid Grid.Column="0"
+                              Visibility="{Binding IsSearching, Converter={cnv:BooleanToVisibility Collapsed,Visible}}">
+                            <md:PackIcon Kind="BarcodeScan"
+                                         Visibility="{Binding IsSearchingComplete,Converter={cnv:BooleanToVisibility Collapsed,Visible}}"
+                                         Height="24"
+                                         Width="Auto"
+                                         VerticalAlignment="Bottom"
+                                         Margin="0 0 8 8" />
+                        </Grid>
+
+                        <ProgressBar Style="{DynamicResource MaterialDesignCircularProgressBar}"
+                                     IsIndeterminate="True"
+                                     Visibility="{Binding IsSearching,Converter={cnv:BooleanToVisibility}}"
+                                     ToolTip="Fetching Data..."
+                                     Width="24"
+                                     Height="24"
+                                     VerticalAlignment="Bottom"
+                                     Margin="0,0,8,8"
+                                     Grid.Column="0" />
+                        <Grid Grid.Column="0"
+                              Width="28"
+                              VerticalAlignment="Bottom"
+                              Margin="0 0 8 8"
+                              Visibility="{Binding IsSearchingComplete,Converter={cnv:BooleanToVisibility Visible,Hidden}}">
+                            <md:PackIcon Kind="CheckCircle"
+                                         Foreground="{DynamicResource PrimaryHueDarkBrush}"
+                                         Visibility="{Binding IsBookFound,Converter={cnv:BooleanToVisibility}}"
+                                         Height="26"
+                                         Width="26"
+                                         Padding="0" />
+                            <md:PackIcon Kind="CloseCircle"
+                                         ToolTip="No record found."
+                                         Foreground="{DynamicResource ValidationErrorBrush}"
+                                         Visibility="{Binding IsBookFound,Converter={cnv:BooleanToVisibility Collapsed,Visible}}"
+                                         Height="26"
+                                         Width="26"
+                                         Padding="0" />
+                        </Grid>
+                    </Grid>
+
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <UniformGrid HorizontalAlignment="Right"
+                     Columns="2"
+                     Margin="0,32,0,0"
+                     Rows="1">
+            <Button Margin="0,0,4,0"
+                    IsCancel="True"
+                    Command="{x:Static md:DialogHost.CloseDialogCommand}">
+                <Button.CommandParameter>
+                    <system:Boolean>False</system:Boolean>
+                </Button.CommandParameter> CANCEL
+            </Button>
+            <Button IsEnabled="{Binding IsValid}"
+                    Command="{x:Static md:DialogHost.CloseDialogCommand}"
+                    IsDefault="True"
+                    Margin="4,0,0,0">
+                <Button.CommandParameter>
+                    <system:Boolean>True</system:Boolean>
+                </Button.CommandParameter>
+                ADD BOOKS
+            </Button>
+        </UniformGrid>
+    </StackPanel>
+</UserControl>
