@@ -8,6 +8,7 @@
         xmlns:me="clr-namespace:MaterialDesignExtensions.Controls;assembly=MaterialDesignExtensions"
         xmlns:screens="clr-namespace:Libro.ViewModels"
         xmlns:views="clr-namespace:Libro.Views"
+        xmlns:converters="clr-namespace:Libro.Converters"
         mc:Ignorable="d"
         Background="{DynamicResource MaterialDesignBackground}" Foreground="{DynamicResource MaterialDesignBody}"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
@@ -39,25 +40,35 @@
         <me:AppBar x:Name="appBar" Padding="0"
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
-                   Title="LIBRARY MANAGEMENT SYSTEM">
+                   Title="NEGROS ORIENTAL STATE UNIVERSITY">
           <me:AppBar.AppIcon>
-            <Image Stretch="Uniform"
+            <Image Source="Resources/norsu.png" Stretch="Uniform"
                    Margin="0"
                    RenderOptions.BitmapScalingMode="HighQuality"/>
           </me:AppBar.AppIcon>
-          <Button Style="{StaticResource MaterialDesignToolForegroundButton}"
-                  md:RippleAssist.IsCentered="True"
-                  md:RippleAssist.Feedback="{DynamicResource MaterialDesignPaper}"
-                  Height="Auto">
-            <md:PackIcon Kind="AccountCircle" Height="27" Width="27"/>
+          <UniformGrid VerticalAlignment="Center" Rows="1">
+            <UniformGrid.Resources>
+              <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                  <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Teal.xaml" />
+                </ResourceDictionary.MergedDictionaries>
+                <SolidColorBrush x:Key="SecondaryAccentBrush" Color="{StaticResource Primary700Foreground}"/>
+                <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="{StaticResource Accent700Foreground}"/>
+              </ResourceDictionary>
+            </UniformGrid.Resources>
+            <RadioButton Content="_BOOKS" Style="{DynamicResource MaterialDesignTabRadioButton}"
+                       Cursor="Hand"
+                       IsChecked="True" x:Name="BooksTab"/>
+          <RadioButton Content="_BORROWERS" Style="{DynamicResource MaterialDesignTabRadioButton}"
+                       Cursor="Hand"
+                       x:Name="BorrowersTab"/>
+          </UniformGrid>
+          <Button>
+
           </Button>
-          <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
-          <RadioButton Content="_BOOKS" Style="{DynamicResource MaterialDesignTabRadioButton}"
-                       IsChecked="True"/>
-          <RadioButton Content="_BORROWERS" Style="{DynamicResource MaterialDesignTabRadioButton}"/>
-          </StackPanel>
         </me:AppBar>
-        <views:BooksView Grid.Row="1"/>
+        <views:BooksView Grid.Row="1" Visibility="{Binding ElementName=BooksTab,Path=IsChecked,Converter={converters:BooleanToVisibility}}"/>
+        <views:StudentsView Grid.Row="1" Visibility="{Binding ElementName=BorrowersTab,Path=IsChecked,Converter={converters:BooleanToVisibility}}"/>
       </Grid>
     </md:DrawerHost>
   </md:DialogHost>
