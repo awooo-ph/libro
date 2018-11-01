@@ -113,6 +113,7 @@
     <Compile Include="DataGridEx.cs" />
     <Compile Include="DateTimeHelper.cs" />
     <Compile Include="Dialogs\BookSelector.xaml.cs" />
+    <Compile Include="Dialogs\BorrowerEditor.xaml.cs" />
     <Compile Include="Dialogs\NewBook.cs" />
     <Compile Include="Dialogs\NewBookDialog.xaml.cs" />
     <Compile Include="Dialogs\NewBooksDialog.xaml.cs" />
@@ -122,9 +123,15 @@
     <Compile Include="ViewModelBase.cs" />
     <Compile Include="ViewModels\Books.cs" />
     <Compile Include="Dialogs\BorrowerSearch.xaml.cs" />
+    <Compile Include="ViewModels\Students.cs" />
     <Compile Include="ViewModels\TakeoutViewModel.cs" />
     <Compile Include="Views\BooksView.xaml.cs" />
+    <Compile Include="Views\StudentsView.xaml.cs" />
     <Page Include="Dialogs\BookSelector.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\BorrowerEditor.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -163,6 +170,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\StudentsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -197,6 +208,7 @@
       <Name>Libro.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Folder Include="Resources\" />
   </ItemGroup>

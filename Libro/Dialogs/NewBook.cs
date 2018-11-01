@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Libro.Annotations;
+using Libro.Google;
 using Libro.Models;
 
 namespace Libro.Dialogs
