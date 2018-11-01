@@ -39,9 +39,9 @@
         <me:AppBar x:Name="appBar" Padding="0"
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
-                   Title="LIBRARY MANAGEMENT SYSTEM">
+                   Title="{Binding AppTitle,Mode=OneTime}">
           <me:AppBar.AppIcon>
-            <Image Stretch="Uniform"
+            <Image Stretch="Uniform" Source="{Binding AppIcon,Mode=OneTime}"
                    Margin="0"
                    RenderOptions.BitmapScalingMode="HighQuality"/>
           </me:AppBar.AppIcon>

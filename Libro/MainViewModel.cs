@@ -8,9 +8,16 @@ using System.Windows.Input;
 
 namespace Libro
 {
-    class MainViewModel:ViewModelBase
+    partial class MainViewModel:ViewModelBase
     {
-        private MainViewModel(){}
+        private MainViewModel()
+        {
+            Initialize();
+        }
+
+        partial void Initialize();
+        public string AppTitle { get; private set; }
+        public string AppIcon { get; private set; }
 
         private static MainViewModel _instance;
         public static MainViewModel Instance => _instance ?? (_instance = new MainViewModel());
