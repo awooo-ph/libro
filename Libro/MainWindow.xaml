@@ -8,10 +8,13 @@
         xmlns:me="clr-namespace:MaterialDesignExtensions.Controls;assembly=MaterialDesignExtensions"
         xmlns:screens="clr-namespace:Libro.ViewModels"
         xmlns:views="clr-namespace:Libro.Views"
+        xmlns:converters="clr-namespace:Libro.Converters"
         mc:Ignorable="d"
         Background="{DynamicResource MaterialDesignBackground}" Foreground="{DynamicResource MaterialDesignBody}"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         Title="Libro - Library Management System" MinHeight="444" MinWidth="777">
+  <md:DialogHost Identifier="LoginDialog" CloseOnClickAway="False" Style="{DynamicResource MaterialDesignEmbeddedDialogHost}"
+                 x:Name="LoginDialogHost" x:FieldModifier="private">
   <md:DialogHost Identifier="RootDialog" 
                  CloseOnClickAway="False"
                  x:Name="DialogHost" x:FieldModifier="private">
@@ -45,20 +48,36 @@
                    Margin="0"
                    RenderOptions.BitmapScalingMode="HighQuality"/>
           </me:AppBar.AppIcon>
+       
+          <UniformGrid VerticalAlignment="Center" Rows="1" Margin="0 0 20 0">
+            <UniformGrid.Resources>
+              <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                  <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Teal.xaml" />
+                </ResourceDictionary.MergedDictionaries>
+                <SolidColorBrush x:Key="SecondaryAccentBrush" Color="{StaticResource Primary700Foreground}"/>
+                <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="{StaticResource Accent700Foreground}"/>
+              </ResourceDictionary>
+            </UniformGrid.Resources>
+            <RadioButton Content="_BOOKS" Style="{DynamicResource MaterialDesignTabRadioButton}"
+                         Cursor="Hand"
+                         IsChecked="True" x:Name="BooksTab"/>
+            <RadioButton Content="_BORROWERS" Style="{DynamicResource MaterialDesignTabRadioButton}"
+                         Cursor="Hand"
+                         x:Name="BorrowersTab"/>
+          </UniformGrid>
+
           <Button Style="{StaticResource MaterialDesignToolForegroundButton}"
                   md:RippleAssist.IsCentered="True"
                   md:RippleAssist.Feedback="{DynamicResource MaterialDesignPaper}"
                   Height="Auto">
-            <md:PackIcon Kind="AccountCircle" Height="27" Width="27"/>
+            <md:PackIcon Kind="Settings" Height="27" Width="27"/>
           </Button>
-          <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
-          <RadioButton Content="_BOOKS" Style="{DynamicResource MaterialDesignTabRadioButton}"
-                       IsChecked="True"/>
-          <RadioButton Content="_BORROWERS" Style="{DynamicResource MaterialDesignTabRadioButton}"/>
-          </StackPanel>
         </me:AppBar>
-        <views:BooksView Grid.Row="1"/>
+        <views:BooksView Grid.Row="1" Visibility="{Binding ElementName=BooksTab,Path=IsChecked,Converter={converters:BooleanToVisibility}}"/>
+        <views:StudentsView Grid.Row="1" Visibility="{Binding ElementName=BorrowersTab,Path=IsChecked,Converter={converters:BooleanToVisibility}}"/>
       </Grid>
     </md:DrawerHost>
+  </md:DialogHost>
   </md:DialogHost>
 </Window>

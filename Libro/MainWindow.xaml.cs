@@ -37,15 +37,27 @@ namespace Libro
 
             InitializeComponent();
 
+            LoginDialogHost.Loaded += async (sender, args) =>
+            {
+                await Task.Delay(111);
+                CheckAuthentication();
+            };
+
             Navigation.DataContext = this;
             DataContext = MainViewModel.Instance;
+
         }
 
         private bool _isAuthenticating;
-        protected override async void OnActivated(EventArgs e)
+        protected override void OnActivated(EventArgs e)
         {
             base.OnActivated(e);
-            if (!DialogHost.IsLoaded) return;
+            CheckAuthentication();
+        }
+
+        private async void CheckAuthentication()
+        {
+            if (!LoginDialogHost.IsLoaded) return;
             if (_isAuthenticating) return;
             
             if (!MainViewModel.Instance.IsAuthenticated)
@@ -55,7 +67,6 @@ namespace Libro
                 _isAuthenticating = false;
                 MainViewModel.Instance.Login(login);
             }
-            
         }
 
         private List<INavigationItem> _navigationItems;

@@ -18,7 +18,7 @@ namespace Libro.Dialogs
         public static async Task<NetworkCredential> Show()
         {
             var dlg = new LoginDialog();
-            var res = await DialogHost.Show(dlg, "RootDialog");
+            var res = await DialogHost.Show(dlg, "LoginDialog");
             if (res == null) return null;
             return new NetworkCredential(dlg.Username.Text,dlg.Password.SecurePassword);
         }
