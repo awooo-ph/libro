@@ -1,0 +1,3 @@
+[submodule "Libro.Core"]
+	path = Libro.Core
+	url = https://github.com/awooo-ph/libro.core.git

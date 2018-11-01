@@ -1,0 +1,119 @@
+﻿<UserControl x:Class="Libro.Dialogs.BorrowerEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Libro.Dialogs"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:ma="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:val="clr-namespace:Libro.Validation"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:model="clr-namespace:Libro.Models;assembly=Libro.Core"
+             xmlns:cnv="clr-namespace:Libro.Converters"
+             mc:Ignorable="d" 
+             Padding="32"
+             MinWidth="471"
+             FocusManager.FocusedElement="{Binding ElementName=TextBox}"
+             d:DesignHeight="300" d:DesignWidth="300" d:DataContext="{d:DesignInstance model:Borrower}">
+    <StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        Visibility="{Binding IsNew,Converter={cnv:BooleanToVisibility}}">
+                <TextBlock Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
+                           Text="NEW " />
+                <TextBlock Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
+                           Visibility="{Binding IsStudent,Converter={cnv:BooleanToVisibility}}"
+                           Text="STUDENT" />
+                <TextBlock Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
+                           Visibility="{Binding IsStudent,Converter={cnv:BooleanToVisibility Collapsed,Visible}}"
+                           Text="FACULTY" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        Visibility="{Binding IsNew,Converter={cnv:BooleanToVisibility Collapsed,Visible}}">
+                <TextBlock Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
+                           Text="EDIT " />
+                <TextBlock Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
+                           Visibility="{Binding IsStudent,Converter={cnv:BooleanToVisibility}}"
+                           Text="STUDENT" />
+                <TextBlock Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
+                           Visibility="{Binding IsStudent,Converter={cnv:BooleanToVisibility Collapsed,Visible}}"
+                           Text="FACULTY" />
+            </StackPanel>
+            <ListBox Grid.Column="1" TabIndex="74"
+                     Style="{DynamicResource MaterialDesignToolToggleListBox}"
+                     VerticalAlignment="Center"
+                     HorizontalContentAlignment="Center">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="2"
+                                     Rows="1" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBoxItem IsSelected="{Binding IsStudent,Converter={cnv:Inverter}}">FACULTY</ListBoxItem>
+                <ListBoxItem IsSelected="{Binding IsStudent}">STUDENT</ListBoxItem>
+            </ListBox>
+        </Grid>
+        
+        <UniformGrid Columns="2"
+                     Margin="0,8">
+            <TextBox md:HintAssist.Hint="SCHOOL ID"
+                     md:HintAssist.IsFloating="True"
+                     Margin="0,8,4,8"
+                     x:Name="TextBox"
+                     Text="{Binding SchoolId,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox md:HintAssist.Hint="LIBRARY ID"
+                     md:HintAssist.IsFloating="True"
+                     Margin="4,8,0,8"
+                     Text="{Binding Barcode, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" />
+            
+            <TextBox md:HintAssist.Hint="FIRSTNAME"
+                     md:HintAssist.IsFloating="True"
+                     Margin="0,8,4,8"
+                     Text="{Binding Firstname,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox md:HintAssist.Hint="LASTNAME"
+                     md:HintAssist.IsFloating="True"
+                     Margin="4,8,0,8"
+                     Text="{Binding Lastname,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"/>
+        </UniformGrid>
+        <TextBox md:HintAssist.Hint="COURSE"
+                 Visibility="{Binding IsStudent,Converter={cnv:BooleanToVisibility}}"
+                 md:HintAssist.IsFloating="True"
+                 Margin="0,8"
+                 Text="{Binding Course, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox md:HintAssist.Hint="CONTACT NUMBER"
+                 md:HintAssist.IsFloating="True"
+                 Margin="0,8"
+                 Text="{Binding ContactNumber}" />
+        <UniformGrid HorizontalAlignment="Right"
+                     Columns="2"
+                     Margin="0,16,0,0"
+                     Rows="1">
+            <Button Margin="0,0,4,0" IsCancel="True"
+                    Command="{x:Static md:DialogHost.CloseDialogCommand}">
+                <Button.CommandParameter>
+                    <system:Boolean>False</system:Boolean>
+                </Button.CommandParameter>CANCEL</Button>
+            <Button IsEnabled="{Binding IsValid}"
+                    Command="{x:Static md:DialogHost.CloseDialogCommand}"
+                    IsDefault="True"
+                    Margin="4,0,0,0">
+                <Button.CommandParameter>
+                    <system:Boolean>True</system:Boolean>
+                </Button.CommandParameter>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=local:BorrowerEditor},Path=AffirmativeText}"/>
+                    <TextBlock Text=" STUDENT" Visibility="{Binding IsStudent,Converter={cnv:BooleanToVisibility}}"/>
+                    <TextBlock Text=" FACULTY"
+                               Visibility="{Binding IsStudent,Converter={cnv:BooleanToVisibility Collapsed,Visible}}" />
+                </StackPanel>
+            </Button>
+        </UniformGrid>
+    </StackPanel>
+</UserControl>

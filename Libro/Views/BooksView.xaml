@@ -65,12 +65,13 @@
                         VerticalAlignment="Center"
                         HorizontalAlignment="Right"
                         Orientation="Horizontal">
-              <Button Command="{Binding AddBooksCommand}" Margin="8,0" Style="{DynamicResource MaterialDesignRaisedLightButton}">ADD MULTIPLE BOOKS</Button>
-                <Button Command="{Binding AddBookCommand}">ADD NEW BOOK</Button>
+              <Button Command="{Binding AddBooksCommand}" Margin="10,0" Style="{DynamicResource MaterialDesignRaisedLightButton}">ADD MULTIPLE BOOKS</Button>
+                <Button Command="{Binding AddBookCommand}" Margin="10 0 0 0">ADD NEW BOOK</Button>
                 
             </StackPanel>
 
-    <Separator Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"/>
+    <Rectangle Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Fill="{DynamicResource MaterialDesignDivider}"
+               Height="1"/>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -79,6 +80,7 @@
                 <Grid>
                     <DataGrid ItemsSource="{Binding BooksView}"
                               SelectedItem="{Binding SelectedBook,Mode=TwoWay}"
+                              IsSynchronizedWithCurrentItem="True"
                               lib:DataGridEx.SaveOnCommit="True"
                               SelectionMode="Single"
                               SelectionUnit="FullRow"
@@ -154,13 +156,14 @@
 
                 <Grid Grid.Column="1"
                       IsEnabled="{Binding SelectedBook,Converter={cnv:IsNullToBoolean Type={x:Type model:Book}},FallbackValue=False}"
-                      Margin="8">
+                      Margin="8 0 8 8">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <ListBox HorizontalContentAlignment="Center"
                              SelectedIndex="0"
+                             Visibility="Collapsed"
                              x:Name="ListBox"
                              VerticalContentAlignment="Center">
                         <ListBox.ItemsPanel>
@@ -169,11 +172,30 @@
                                              Rows="1" />
                             </ItemsPanelTemplate>
                         </ListBox.ItemsPanel>
-                        <ListBoxItem>DETAILS</ListBoxItem>
-                        <ListBoxItem>CARDS</ListBoxItem>
-                        <ListBoxItem>HISTORY</ListBoxItem>
-                        <ListBoxItem>TAKEOUT</ListBoxItem>
+                        <ListBoxItem IsSelected="{Binding ElementName=DetailsTab,Path=IsChecked}"/>
+                      <ListBoxItem IsSelected="{Binding ElementName=CardsTab,Path=IsChecked}"/>
+                      <ListBoxItem IsSelected="{Binding ElementName=HistoryTab,Path=IsChecked}"/>
+                      <ListBoxItem IsSelected="{Binding ElementName=TakeoutTab,Path=IsChecked}"/>
                     </ListBox>
+
+                  <Rectangle Fill="{DynamicResource MaterialDesignDivider}" Height="1" Grid.Row="0" VerticalAlignment="Bottom" Margin="-8 0"/>
+
+                  <UniformGrid Grid.Row="0" Rows="1" Margin="0 0 0 1">
+                    <UniformGrid.Resources>
+                      <ResourceDictionary>
+                        <ResourceDictionary.MergedDictionaries>
+                          <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Teal.xaml" />
+                        </ResourceDictionary.MergedDictionaries>
+                        <SolidColorBrush x:Key="SecondaryAccentBrush" Color="{StaticResource Accent700}"/>
+                        <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="{StaticResource Accent700Foreground}"/>
+                      </ResourceDictionary>
+                    </UniformGrid.Resources>
+                    <RadioButton Content="_DETAILS" IsChecked="True" x:Name="DetailsTab" x:FieldModifier="private" Style="{DynamicResource MaterialDesignTabRadioButton}"/>
+                    <!--<RadioButton Content="_CARDS" x:Name="CardsTab" x:FieldModifier="private" Style="{DynamicResource MaterialDesignTabRadioButton}"/>-->
+                    <RadioButton Content="_HISTORY" x:Name="HistoryTab" x:FieldModifier="private" Style="{DynamicResource MaterialDesignTabRadioButton}"/>
+                    <RadioButton Content="_TAKEOUT" x:Name="TakeoutTab" x:FieldModifier="private" Style="{DynamicResource MaterialDesignTabRadioButton}"/>
+                  </UniformGrid>
+                  
 
                     <md:Transitioner SelectedIndex="{Binding ElementName=ListBox,Path=SelectedIndex}"
                                      Grid.Row="1"
@@ -189,14 +211,14 @@
                             <ScrollViewer VerticalScrollBarVisibility="Auto"
                                           Grid.Row="1"
                                           HorizontalScrollBarVisibility="Disabled">
-                                <StackPanel Margin="0,0,0,32">
+                                <StackPanel Margin="10,10,10,32">
                                     <Grid Margin="4">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
                                         
-                                        <StackPanel VerticalAlignment="Top">
+                                        <StackPanel VerticalAlignment="Top" Margin="0 0 10 0">
                                             <!--<Grid.RowDefinitions>
                                                 <RowDefinition Height="*"/>
                                                 <RowDefinition Height="Auto"/>
@@ -228,9 +250,9 @@
                                                            RenderOptions.BitmapScalingMode="HighQuality" />
                                                 </Grid>
                                             </md:Card>
-                                            <md:RatingBar Grid.Row="1"
+                                            <!--<md:RatingBar Grid.Row="1"
                                                           Value="{Binding Converter={cnv:BookRating}}"
-                                                          IsHitTestVisible="False" />
+                                                          IsHitTestVisible="False" />-->
                                         </StackPanel>
                                         <StackPanel Grid.Column="1">
                                        
@@ -387,9 +409,11 @@
 
                                 </StackPanel>
                             </ScrollViewer>
-                            <UniformGrid Grid.Row="2"
+                            <UniformGrid Grid.Row="2" Rows="1"
                                          Margin="0,8,0,0">
-                                <Button Command="{Binding SaveCommand}">
+                              <Button Content="_DELETE" Style="{DynamicResource MaterialDesignRaisedLightButton}"/>
+                              <Rectangle IsHitTestVisible="False"/>
+                              <Button Command="{Binding SaveCommand}">
                                     <StackPanel Orientation="Horizontal">
                                         <md:PackIcon Kind="ContentSave"
                                                      VerticalAlignment="Stretch"
