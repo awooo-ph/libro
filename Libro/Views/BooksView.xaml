@@ -193,7 +193,7 @@
                     <RadioButton Content="_DETAILS" IsChecked="True" x:Name="DetailsTab" x:FieldModifier="private" Style="{DynamicResource MaterialDesignTabRadioButton}"/>
                     <!--<RadioButton Content="_CARDS" x:Name="CardsTab" x:FieldModifier="private" Style="{DynamicResource MaterialDesignTabRadioButton}"/>-->
                     <RadioButton Content="_HISTORY" x:Name="HistoryTab" x:FieldModifier="private" Style="{DynamicResource MaterialDesignTabRadioButton}"/>
-                    <RadioButton Content="_TAKEOUT" x:Name="TakeoutTab" x:FieldModifier="private" Style="{DynamicResource MaterialDesignTabRadioButton}"/>
+                    <RadioButton Content="_BORROW" x:Name="TakeoutTab" x:FieldModifier="private" Style="{DynamicResource MaterialDesignTabRadioButton}"/>
                   </UniformGrid>
                   
 

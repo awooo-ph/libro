@@ -28,7 +28,7 @@
                 <!-- accent color -->
                 <ResourceDictionary>
                     <ResourceDictionary.MergedDictionaries>
-                        <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Lime.xaml" />
+                        <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Red.xaml" />
                     </ResourceDictionary.MergedDictionaries>
                     <SolidColorBrush x:Key="SecondaryAccentBrush" Color="{StaticResource Accent400}"/>
                     <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="{StaticResource Accent400Foreground}"/>

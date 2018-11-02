@@ -49,7 +49,7 @@
                    RenderOptions.BitmapScalingMode="HighQuality"/>
           </me:AppBar.AppIcon>
        
-          <UniformGrid VerticalAlignment="Center" Rows="1" Margin="0 0 20 0">
+          <UniformGrid VerticalAlignment="Center" Rows="1" Margin="0 0 47 0">
             <UniformGrid.Resources>
               <ResourceDictionary>
                 <ResourceDictionary.MergedDictionaries>
@@ -66,13 +66,86 @@
                          Cursor="Hand"
                          x:Name="BorrowersTab"/>
           </UniformGrid>
-
-          <Button Style="{StaticResource MaterialDesignToolForegroundButton}"
+          
+          <Grid  x:Name="Grid">
+            
+          <Button Style="{DynamicResource MaterialDesignToolForegroundButton}"
+                  Margin="4 0"
+                  Command="{Binding ToggleNotifications}"
                   md:RippleAssist.IsCentered="True"
-                  md:RippleAssist.Feedback="{DynamicResource MaterialDesignPaper}"
-                  Height="Auto">
-            <md:PackIcon Kind="Settings" Height="27" Width="27"/>
+                  md:RippleAssist.Feedback="{DynamicResource MaterialDesignPaper}">
+            <md:Badged Badge="7">
+              <md:PackIcon Kind="Bell" Height="24" Width="24"/>
+            </md:Badged>
           </Button>
+            <Popup IsOpen="{Binding ShowNotifications}" AllowsTransparency="True" HorizontalAlignment="Center"
+                   StaysOpen="False" 
+                   HorizontalOffset="-274"
+                   Placement="Bottom">
+              <Grid>
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="Auto"/>
+                  <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <md:PackIcon Kind="Triangle" HorizontalAlignment="Right"
+                             Margin="0 2 47 0"
+                             Foreground="{DynamicResource MaterialDesignDarkForeground}"/>
+                <md:ColorZone Grid.Row="1" Margin="10 -2 10 10" md:ShadowAssist.ShadowEdges="Bottom,Left,Right" md:ShadowAssist.ShadowDepth="Depth1"
+                              Width="333">
+                <StackPanel SnapsToDevicePixels="True">
+                  <Grid>
+                    
+                    <TextBlock Text="NOTIFICATIONS" Opacity="0.7" Margin="10" FontWeight="Bold" FontSize="12pt"/>
+                    <Rectangle Height="1" VerticalAlignment="Bottom" Fill="{DynamicResource MaterialDesignDivider}"/>
+                  </Grid>
+                  <ScrollViewer MaxHeight="{Binding RelativeSource={RelativeSource AncestorType=local:MainWindow},Path=ActualHeight,Converter={converters:PercentageConverter 0.5}}" Focusable="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                  <ItemsControl Focusable="False" IsTabStop="False">
+                  <ListBoxItem BorderThickness="0 0 0 1" BorderBrush="{DynamicResource MaterialDesignDivider}">
+                    <Grid Margin="7">
+                      <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                      </Grid.ColumnDefinitions>
+                      <md:PackIcon Kind="Information" Margin="0 0 10 0"
+                                   Height="33" Width="33"
+                                   VerticalAlignment="Top"/>
+                      <StackPanel Grid.Column="1">
+                        <TextBlock Text="TITLE" Style="{DynamicResource MaterialDesignTitleTextBlock}"/>
+                        <TextBlock Text="Description" Style="{DynamicResource MaterialDesignSubheadingTextBlock}"/>
+                      </StackPanel>
+                    </Grid>
+                  </ListBoxItem>
+                    <ListBoxItem BorderThickness="0 0 0 1" BorderBrush="{DynamicResource MaterialDesignDivider}">
+                      <Grid>
+                        <Grid.ColumnDefinitions>
+                          <ColumnDefinition Width="Auto"/>
+                          <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <md:PackIcon Kind="Information" Margin="0 0 10 0"
+                                     Height="33" Width="33"
+                                     VerticalAlignment="Top"/>
+                        <StackPanel Grid.Column="1">
+                          <TextBlock Text="TITLE" Style="{DynamicResource MaterialDesignTitleTextBlock}"/>
+                          <TextBlock Text="Description" Style="{DynamicResource MaterialDesignSubheadingTextBlock}"/>
+                        </StackPanel>
+                      </Grid>
+                    </ListBoxItem>
+                    
+                  </ItemsControl>
+                  </ScrollViewer>
+                </StackPanel>
+              </md:ColorZone>
+              </Grid>
+            </Popup>
+          </Grid>
+          <md:PopupBox>
+
+            <md:PopupBox.PopupContent>
+              <StackPanel>
+                
+              </StackPanel>
+            </md:PopupBox.PopupContent>
+          </md:PopupBox>
         </me:AppBar>
         <views:BooksView Grid.Row="1" Visibility="{Binding ElementName=BooksTab,Path=IsChecked,Converter={converters:BooleanToVisibility}}"/>
         <views:StudentsView Grid.Row="1" Visibility="{Binding ElementName=BorrowersTab,Path=IsChecked,Converter={converters:BooleanToVisibility}}"/>

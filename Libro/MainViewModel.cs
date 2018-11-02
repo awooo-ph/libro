@@ -18,7 +18,7 @@ namespace Libro
         partial void Initialize();
         public string AppTitle { get; private set; }
         public string AppIcon { get; private set; }
-
+        
         private static MainViewModel _instance;
         public static MainViewModel Instance => _instance ?? (_instance = new MainViewModel());
 
@@ -34,6 +34,26 @@ namespace Libro
                 OnPropertyChanged(nameof(IsAuthenticated));
             }
         }
+
+        private bool _ShowNotifications;
+
+        public bool ShowNotifications
+        {
+            get => _ShowNotifications;
+            set
+            {
+                if (value == _ShowNotifications) return;
+                _ShowNotifications = value;
+                OnPropertyChanged(nameof(ShowNotifications));
+            }
+        }
+
+        private ICommand _toggleNotifications;
+
+        public ICommand ToggleNotifications => _toggleNotifications ?? (_toggleNotifications = new DelegateCommand(d =>
+        {
+            ShowNotifications = !ShowNotifications;
+        }));
 
         public bool Login(NetworkCredential login)
         {

@@ -105,6 +105,8 @@
     <Compile Include="Converters\LessThanToVisibility.cs" />
     <Compile Include="Converters\NullConverter.cs" />
     <Compile Include="Converters\PathToBitmapConverter.cs" />
+    <Compile Include="Converters\PercentageConverter.cs" />
+    <Compile Include="Converters\PopupOffset.cs" />
     <Compile Include="Converters\SizeConverter.cs" />
     <Compile Include="Converters\StringConverter.cs" />
     <Compile Include="Converters\ToUpper.cs" />
@@ -209,7 +211,9 @@
       <Name>Libro.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\SFC.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\norsu.png" />
   </ItemGroup>
