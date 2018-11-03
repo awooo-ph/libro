@@ -23,6 +23,27 @@ namespace Libro.Dialogs
         public NewBook(ObservableCollection<NewBook> parentList)
         {
             _parentList = parentList;
+            if(_parentList==null)
+                AccessionNumber = Book.GetNextNumber().ToString();
+            else
+            {
+                if (parentList.Any())
+                {
+                    var an = ToLong(parentList.OrderByDescending(x => ToLong(x.AccessionNumber)).FirstOrDefault()?.AccessionNumber);
+                    AccessionNumber = (++an).ToString();
+                }
+                else
+                {
+                    AccessionNumber = Book.GetNextNumber().ToString();
+                }
+            }
+        }
+
+        private long ToLong(string s)
+        {
+            if (string.IsNullOrEmpty(s)) return 0;
+            long.TryParse(s, out var l);
+            return l;
         }
 
         private ObservableCollection<NewBook> _parentList;
@@ -69,7 +90,7 @@ namespace Libro.Dialogs
                 
             }
         }
-
+        
         private string _callNumber;
 
         public string CallNumber
