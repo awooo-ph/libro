@@ -38,6 +38,8 @@ namespace Libro
             }
         }
 
+        
+        
         private bool _ShowNotifications;
 
         public bool ShowNotifications
@@ -56,7 +58,9 @@ namespace Libro
         public ICommand ToggleNotifications => _toggleNotifications ?? (_toggleNotifications = new DelegateCommand(d =>
         {
             ShowNotifications = !ShowNotifications;
-        }));
+        }));//, d =>(ShowNotifications && Notifications.Count>1)));
+
+        
         private ListCollectionView _notifications;
 
         public ListCollectionView Notifications
