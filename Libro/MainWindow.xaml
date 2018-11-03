@@ -9,7 +9,10 @@
         xmlns:screens="clr-namespace:Libro.ViewModels"
         xmlns:views="clr-namespace:Libro.Views"
         xmlns:converters="clr-namespace:Libro.Converters"
+        xmlns:models="clr-namespace:Libro.Models;assembly=Libro.Core"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
         Background="{DynamicResource MaterialDesignBackground}" Foreground="{DynamicResource MaterialDesignBody}"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         Title="Libro - Library Management System" MinHeight="444" MinWidth="777">
@@ -18,7 +21,8 @@
   <md:DialogHost Identifier="RootDialog" 
                  CloseOnClickAway="False"
                  x:Name="DialogHost" x:FieldModifier="private">
-  <md:DrawerHost IsLeftDrawerOpen="{Binding Path=IsNavigationDrawerOpen, ElementName=appBar}" LeftDrawerBackground="{DynamicResource MaterialDesignBackground}">
+  <md:DrawerHost IsLeftDrawerOpen="{Binding Path=IsNavigationDrawerOpen, ElementName=appBar}"
+                 LeftDrawerBackground="{DynamicResource MaterialDesignBackground}">
       <md:DrawerHost.LeftDrawerContent>
         <me:SideNavigation x:Name="Navigation" Items="{Binding NagivationItems, Mode=OneTime}" Width="280">
           <me:SideNavigation.Resources>
@@ -33,6 +37,7 @@
           </me:SideNavigation.Resources>
         </me:SideNavigation>
       </md:DrawerHost.LeftDrawerContent>
+
       <Grid>
         
         <Grid.RowDefinitions>
@@ -67,17 +72,16 @@
                          x:Name="BorrowersTab"/>
           </UniformGrid>
           
-          <Grid  x:Name="Grid">
-            
-          <Button Style="{DynamicResource MaterialDesignToolForegroundButton}"
-                  Margin="4 0"
-                  Command="{Binding ToggleNotifications}"
-                  md:RippleAssist.IsCentered="True"
-                  md:RippleAssist.Feedback="{DynamicResource MaterialDesignPaper}">
-            <md:Badged Badge="7">
-              <md:PackIcon Kind="Bell" Height="24" Width="24"/>
-            </md:Badged>
-          </Button>
+          <Grid>
+            <Button Style="{DynamicResource MaterialDesignToolForegroundButton}"
+                    Margin="4 0"
+                    Command="{Binding ToggleNotifications}"
+                    md:RippleAssist.IsCentered="True"
+                    md:RippleAssist.Feedback="{DynamicResource MaterialDesignPaper}">
+              <md:Badged Badge="{Binding UnreadNotifications}">
+                <md:PackIcon Kind="Bell" Height="22" Width="22"/>
+              </md:Badged>
+            </Button>
             <Popup IsOpen="{Binding ShowNotifications}" AllowsTransparency="True" HorizontalAlignment="Center"
                    StaysOpen="False" 
                    HorizontalOffset="-274"
@@ -88,35 +92,23 @@
                   <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <md:PackIcon Kind="Triangle" HorizontalAlignment="Right"
-                             Margin="0 2 47 0"
+                             Margin="0 2 50 0"
                              Foreground="{DynamicResource MaterialDesignDarkForeground}"/>
                 <md:ColorZone Grid.Row="1" Margin="10 -2 10 10" md:ShadowAssist.ShadowEdges="Bottom,Left,Right" md:ShadowAssist.ShadowDepth="Depth1"
                               Width="333">
                 <StackPanel SnapsToDevicePixels="True">
                   <Grid>
                     
-                    <TextBlock Text="NOTIFICATIONS" Opacity="0.7" Margin="10" FontWeight="Bold" FontSize="12pt"/>
+                    <TextBlock Text="NOTIFICATIONS" Opacity="0.7" Margin="10" FontWeight="Bold"/>
                     <Rectangle Height="1" VerticalAlignment="Bottom" Fill="{DynamicResource MaterialDesignDivider}"/>
                   </Grid>
                   <ScrollViewer MaxHeight="{Binding RelativeSource={RelativeSource AncestorType=local:MainWindow},Path=ActualHeight,Converter={converters:PercentageConverter 0.5}}" Focusable="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-                  <ItemsControl Focusable="False" IsTabStop="False">
-                  <ListBoxItem BorderThickness="0 0 0 1" BorderBrush="{DynamicResource MaterialDesignDivider}">
-                    <Grid Margin="7">
-                      <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                      </Grid.ColumnDefinitions>
-                      <md:PackIcon Kind="Information" Margin="0 0 10 0"
-                                   Height="33" Width="33"
-                                   VerticalAlignment="Top"/>
-                      <StackPanel Grid.Column="1">
-                        <TextBlock Text="TITLE" Style="{DynamicResource MaterialDesignTitleTextBlock}"/>
-                        <TextBlock Text="Description" Style="{DynamicResource MaterialDesignSubheadingTextBlock}"/>
-                      </StackPanel>
-                    </Grid>
-                  </ListBoxItem>
-                    <ListBoxItem BorderThickness="0 0 0 1" BorderBrush="{DynamicResource MaterialDesignDivider}">
-                      <Grid>
+                  <ItemsControl Focusable="False" IsTabStop="False" ItemsSource="{Binding Notifications}">
+                    <ItemsControl.ItemTemplate>
+                      <DataTemplate DataType="{x:Type models:Notification}">
+                      <ListBoxItem BorderThickness="0 0 0 1" BorderBrush="{DynamicResource MaterialDesignDivider}"
+                                   Focusable="False">
+                      <Grid Margin="7">
                         <Grid.ColumnDefinitions>
                           <ColumnDefinition Width="Auto"/>
                           <ColumnDefinition Width="*"/>
@@ -130,7 +122,8 @@
                         </StackPanel>
                       </Grid>
                     </ListBoxItem>
-                    
+                      </DataTemplate>
+                    </ItemsControl.ItemTemplate>
                   </ItemsControl>
                   </ScrollViewer>
                 </StackPanel>
@@ -138,6 +131,22 @@
               </Grid>
             </Popup>
           </Grid>
+          <Grid DataContext="{Binding Source={x:Static screens:Settings.Instance}}">
+            <Button Style="{DynamicResource MaterialDesignToolForegroundButton}"
+                    Margin="4 0"
+                    Command="{Binding ToggleSettings}"
+                    md:RippleAssist.IsCentered="True"
+                    md:RippleAssist.Feedback="{DynamicResource MaterialDesignPaper}">
+                <md:PackIcon Kind="Settings" Height="22" Width="22"/>              
+            </Button>
+            <Popup IsOpen="{Binding ShowSettings}" AllowsTransparency="True" HorizontalAlignment="Center"
+                   StaysOpen="False" 
+                   HorizontalOffset="-274"
+                   Placement="Bottom">
+              <views:Settings />
+            </Popup>
+          </Grid>
+          
           <md:PopupBox>
 
             <md:PopupBox.PopupContent>
@@ -149,6 +158,7 @@
         </me:AppBar>
         <views:BooksView Grid.Row="1" Visibility="{Binding ElementName=BooksTab,Path=IsChecked,Converter={converters:BooleanToVisibility}}"/>
         <views:StudentsView Grid.Row="1" Visibility="{Binding ElementName=BorrowersTab,Path=IsChecked,Converter={converters:BooleanToVisibility}}"/>
+        
       </Grid>
     </md:DrawerHost>
   </md:DialogHost>
