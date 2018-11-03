@@ -1,0 +1,257 @@
+﻿<UserControl x:Class="Libro.Views.Settings"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Libro.Views"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:me="clr-namespace:MaterialDesignExtensions.Controls;assembly=MaterialDesignExtensions"
+             xmlns:converters="clr-namespace:Libro.Converters"
+             xmlns:viewModels="clr-namespace:Libro.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" d:DataContext="{d:DesignInstance viewModels:Settings}">
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+    <md:PackIcon Kind="Triangle" HorizontalAlignment="Right"
+                     Margin="0 2 50 0"
+                     Foreground="{DynamicResource MaterialDesignDarkForeground}"/>
+    <md:ColorZone Grid.Row="1" Margin="10 -2 10 10" md:ShadowAssist.ShadowEdges="Bottom,Left,Right" md:ShadowAssist.ShadowDepth="Depth1"
+                      Width="333">
+      <Grid SnapsToDevicePixels="True">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid>
+          <Rectangle Height="1" VerticalAlignment="Bottom" Fill="{DynamicResource MaterialDesignDivider}"/>
+          <UniformGrid Rows="1">
+            <RadioButton Content="_GENERAL SETTINGS" Style="{DynamicResource MaterialDesignTabRadioButton}"
+                           IsChecked="{Binding ShowGeneralSettings,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"/>
+            <RadioButton Content="_SMS CONFIG" Style="{DynamicResource MaterialDesignTabRadioButton}"
+                           IsChecked="{Binding ShowGeneralSettings,Converter={converters:Inverter}}"/>
+          </UniformGrid>
+        </Grid>
+
+        <ScrollViewer Focusable="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"
+                      Grid.Row="1"
+                        Visibility="{Binding ShowGeneralSettings,Converter={converters:BooleanToVisibility},FallbackValue=Collapsed}">
+          <StackPanel>
+            <Grid Margin="20 10">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+              </Grid.ColumnDefinitions>
+              <StackPanel Margin="0 0 20 0" VerticalAlignment="Center">
+                <TextBlock Text="TAKEOUT HOURS" Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
+                             FontSize="14pt"/>
+                <TextBlock Style="{DynamicResource MaterialDesignSubheadingTextBlock}"
+                             FontSize="10pt"
+                             Text="Maximum number of hours a book can be taken out."
+                             TextWrapping="Wrap"
+                             Opacity="0.7"/>
+              </StackPanel>
+              <me:OversizedNumberSpinner SeparatorVisibility="Collapsed"
+                                           Value="{Binding MaximumTakeoutHours,Mode=TwoWay}" Min="7" Max="77" Grid.Column="1"/>
+            </Grid>
+            <Grid Margin="20 10">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+              </Grid.ColumnDefinitions>
+              <StackPanel Margin="0 0 20 0" VerticalAlignment="Center">
+                <TextBlock Text="PENALTY" Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
+                             FontSize="14pt"/>
+                <TextBlock Style="{DynamicResource MaterialDesignSubheadingTextBlock}"
+                             TextWrapping="Wrap"
+                             FontSize="10pt"
+                             Opacity="0.7"
+                             Text="The amount added every interval after the maximum hours has elapsed."/>
+              </StackPanel>
+              <me:OversizedNumberSpinner SeparatorVisibility="Collapsed" Value="{Binding Penalty,Mode=TwoWay}" Min="0" Max="777" Grid.Column="1"/>
+            </Grid>
+
+            <ListBoxItem Padding="0" HorizontalContentAlignment="Stretch">
+              <Grid>
+                <StackPanel HorizontalAlignment="Stretch" Margin="20">
+                  <TextBlock Text="PENALTY INTERVAL" Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
+                               FontSize="14pt"/>
+                  <md:Transitioner SelectedIndex="{Binding PenaltyInterval}">
+                    <md:Transitioner.Resources>
+                      <Style TargetType="md:TransitionerSlide">
+                        <Setter Property="ForwardWipe">
+                          <Setter.Value>
+                            <md:SlideWipe Direction="Down"/>
+                          </Setter.Value>
+                        </Setter>
+                        <Setter Property="BackwardWipe">
+                          <Setter.Value>
+                            <md:SlideWipe Direction="Down"/>
+                          </Setter.Value>
+                        </Setter>
+                      </Style>
+                    </md:Transitioner.Resources>
+                    <md:TransitionerSlide>
+                      <TextBlock Style="{DynamicResource MaterialDesignSubheadingTextBlock}"
+                                   TextWrapping="Wrap"
+                                   FontSize="10pt"
+                                   Text="Penalty does not increase."
+                                   Opacity="0.7"/>
+                    </md:TransitionerSlide>
+                    <md:TransitionerSlide>
+                      <TextBlock Style="{DynamicResource MaterialDesignSubheadingTextBlock}"
+                                   TextWrapping="Wrap"
+                                   FontSize="10pt"
+                                   Text="Penalty is incremented every hour after the maximum hours has elapsed."
+                                   Opacity="0.7"/>
+                    </md:TransitionerSlide>
+                    <md:TransitionerSlide>
+                      <TextBlock Style="{DynamicResource MaterialDesignSubheadingTextBlock}"
+                                   TextWrapping="Wrap"
+                                   FontSize="10pt"
+                                   Text="Penalty is incremented every day after the maximum hours has elapsed."
+                                   Opacity="0.7"/>
+                    </md:TransitionerSlide>
+                  </md:Transitioner>
+                </StackPanel>
+                <Button Style="{DynamicResource MaterialDesignToolButton}" Height="Auto" Padding="0"
+                          Command="{Binding TogglePenaltyIntervalCommand}"/>
+              </Grid>
+            </ListBoxItem>
+          </StackPanel>
+        </ScrollViewer>
+
+        <ScrollViewer Grid.Row="1" Focusable="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"
+                        Visibility="{Binding ShowGeneralSettings,Converter={converters:BooleanToVisibility Collapsed,Visible},FallbackValue=Collapsed}">
+          <StackPanel Margin="0 10 0 20">
+            <Grid Margin="20 10">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+              </Grid.ColumnDefinitions>
+              <StackPanel Margin="0 0 20 0" VerticalAlignment="Center">
+                <TextBlock Text="ENABLE NOTIFICATION" Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
+                             FontSize="14pt"/>
+                <TextBlock Style="{DynamicResource MaterialDesignSubheadingTextBlock}"
+                             FontSize="10pt"
+                             Text="Send SMS to borrowers who do not return the books."
+                             TextWrapping="Wrap"
+                             Opacity="0.7"/>
+              </StackPanel>
+              <ToggleButton IsChecked="{Binding SendSms}" Grid.Column="1" Style="{DynamicResource MaterialDesignSwitchToggleButton}"/>
+            </Grid>
+
+            <ListBoxItem HorizontalContentAlignment="Stretch" Padding="20" IsEnabled="{Binding SendSms}">
+              <Grid>
+                <StackPanel VerticalAlignment="Center">
+                  <TextBlock Text="MESSAGE TEMPLATE" Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
+                               FontSize="14pt"/>
+                  <TextBlock Style="{DynamicResource MaterialDesignSubheadingTextBlock}"
+                               FontSize="10pt"
+                               Text="Click to edit the notification message template."
+                               TextWrapping="Wrap"
+                               Opacity="0.7"/>
+                </StackPanel>
+              </Grid>
+            </ListBoxItem>
+            <Grid Margin="0 20" >
+              <Rectangle Fill="{DynamicResource MaterialDesignDivider}" Opacity="0.1"/>
+              <TextBlock Text="INTEGRATION" FontSize="10pt" FontWeight="Bold" Margin="20 10"/>
+              <ListBox IsEnabled="{Binding SendSms}" SelectedIndex="{Binding SmsIntegration}"
+                       HorizontalAlignment="Right">
+                <ListBox.ItemsPanel>
+                  <ItemsPanelTemplate>
+                    <UniformGrid Rows="1"/>
+                  </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBoxItem Content="_WEB" HorizontalContentAlignment="Center"/>
+                <ListBoxItem Content="_MODEM" HorizontalContentAlignment="Center"/>
+                <ListBoxItem Content="_CLI" HorizontalContentAlignment="Center"/>
+              </ListBox>
+              <Rectangle Fill="{DynamicResource MaterialDesignDivider}" VerticalAlignment="Bottom"
+                           Height="1"/>
+              <Rectangle Fill="{DynamicResource MaterialDesignDivider}" VerticalAlignment="Top"
+                           Height="1"/>
+            </Grid>
+
+            <Grid Margin="20 10" IsEnabled="{Binding SendSms}">
+              
+                <TextBox md:HintAssist.Hint="API ENDPOINT" md:HintAssist.IsFloating="True"
+                         Text="{Binding WebApi}"
+                         Visibility="{Binding SmsIntegration,Converter={converters:VisibilityConverter Value={}0}}"
+                           Style="{DynamicResource MaterialDesignFilledTextFieldTextBox}">
+                  <TextBox.ToolTip>
+                    <StackPanel>
+                      <TextBlock Text="VARIABLES" FontWeight="Bold" FontSize="10pt"/>
+                      <Grid>
+                        <Grid.ColumnDefinitions>
+                          <ColumnDefinition Width="Auto"/>
+                          <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                          <RowDefinition/>
+                          <RowDefinition/>
+                          <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="[MESSAGE]" Grid.Column="0" Grid.Row="1" Margin="0 4 10 4"/>
+                        <TextBlock Text="The message to send. This is the result after parsing the template." Grid.Column="1" Grid.Row="1"
+                                     TextWrapping="Wrap"
+                                     Margin="0 4"/>
+                        <TextBlock Text="[NUMBER]" Grid.Column="0" Grid.Row="2" Margin="0 4 10 4"/>
+                        <TextBlock Text="The recipient's mobile number." Grid.Column="1" Grid.Row="2"
+                                     TextWrapping="Wrap"
+                                     Margin="0 4"/>
+                      </Grid>
+                    </StackPanel>
+                  </TextBox.ToolTip>
+                </TextBox>
+              
+                <TextBox md:HintAssist.Hint="MODEM PORT" md:HintAssist.IsFloating="True"
+                         Text="{Binding ModemPort}"
+                         Visibility="{Binding SmsIntegration,Converter={converters:VisibilityConverter Value={}1}}"
+                         Style="{DynamicResource MaterialDesignFilledTextFieldTextBox}"
+                         ToolTip="Example: COM4"/>
+              
+                <StackPanel Visibility="{Binding SmsIntegration,Converter={converters:VisibilityConverter Value={}2}}">
+                  <TextBox md:HintAssist.Hint="COMMAND PATH" md:HintAssist.IsFloating="True"
+                           Text="{Binding CommandPath,UpdateSourceTrigger=PropertyChanged}"
+                           Style="{DynamicResource MaterialDesignFilledTextFieldTextBox}"/>
+                  <TextBox md:HintAssist.Hint="ARGUMENTS" md:HintAssist.IsFloating="True"
+                           Margin="0 20 0 0"
+                           Text="{Binding CommandArguments}"
+                           Style="{DynamicResource MaterialDesignFilledTextFieldTextBox}">
+                    <TextBox.ToolTip>
+                      <StackPanel>
+                        <TextBlock Text="VARIABLES" FontWeight="Bold" FontSize="10pt"/>
+                        <Grid>
+                          <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                          </Grid.ColumnDefinitions>
+                          <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                          </Grid.RowDefinitions>
+                          <TextBlock Text="[MESSAGE]" Grid.Column="0" Grid.Row="1" Margin="0 4 10 4"/>
+                          <TextBlock Text="The message to send. This is the result after parsing the template." Grid.Column="1" Grid.Row="1"
+                                     TextWrapping="Wrap"
+                                     Margin="0 4"/>
+                          <TextBlock Text="[NUMBER]" Grid.Column="0" Grid.Row="2" Margin="0 4 10 4"/>
+                          <TextBlock Text="The recipient's mobile number." Grid.Column="1" Grid.Row="2"
+                                     TextWrapping="Wrap"
+                                     Margin="0 4"/>
+                        </Grid>
+                      </StackPanel>
+                    </TextBox.ToolTip>
+                  </TextBox>
+                </StackPanel>
+            </Grid>
+          </StackPanel>
+        </ScrollViewer>
+      </Grid>
+    </md:ColorZone>
+  </Grid>
+</UserControl>

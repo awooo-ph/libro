@@ -79,6 +79,89 @@ namespace Libro.ViewModels
             }
         }
 
+        private string _WebApi;
+        [Trackable]
+        public string WebApi
+        {
+            get => _WebApi;
+            set
+            {
+                if (value == _WebApi) return;
+                _WebApi = value;
+                OnPropertyChanged(nameof(WebApi));
+            }
+        }
+
+        private string _ModemPort;
+        [Trackable]
+        public string ModemPort
+        {
+            get => _ModemPort;
+            set
+            {
+                if (value == _ModemPort) return;
+                _ModemPort = value;
+                OnPropertyChanged(nameof(ModemPort));
+            }
+        }
+
+        private string _CommandPath;
+        [Trackable]
+        public string CommandPath
+        {
+            get => _CommandPath;
+            set
+            {
+                if (value == _CommandPath) return;
+                _CommandPath = value;
+                OnPropertyChanged(nameof(CommandPath));
+            }
+        }
+
+        private string _CommandArguments;
+        [Trackable]
+        public string CommandArguments
+        {
+            get => _CommandArguments;
+            set
+            {
+                if (value == _CommandArguments) return;
+                _CommandArguments = value;
+                OnPropertyChanged(nameof(CommandArguments));
+            }
+        }
+
+
+
+        private int _SmsIntegrations;
+        [Trackable]
+        public int SmsIntegration
+        {
+            get => _SmsIntegrations;
+            set
+            {
+                if (value == _SmsIntegrations) return;
+                _SmsIntegrations = value;
+                OnPropertyChanged(nameof(SmsIntegration));
+            }
+        }
+        
+
+        private bool _SendSms;
+        [Trackable]
+        public bool SendSms
+        {
+            get => _SendSms;
+            set
+            {
+                if (value == _SendSms) return;
+                _SendSms = value;
+                OnPropertyChanged(nameof(SendSms));
+            }
+        }
+
+
+
         public enum PenaltyIntervals
         {
             Once,
