@@ -156,7 +156,7 @@
 
                 <Grid Grid.Column="1"
                       IsEnabled="{Binding SelectedBook,Converter={cnv:IsNullToBoolean Type={x:Type model:Book}},FallbackValue=False}"
-                      Margin="8 0 8 8">
+                      Margin="0 0 0 8">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
@@ -178,7 +178,7 @@
                       <ListBoxItem IsSelected="{Binding ElementName=TakeoutTab,Path=IsChecked}"/>
                     </ListBox>
 
-                  <Rectangle Fill="{DynamicResource MaterialDesignDivider}" Height="1" Grid.Row="0" VerticalAlignment="Bottom" Margin="-8 0"/>
+                  <Rectangle Fill="{DynamicResource MaterialDesignDivider}" Height="1" Grid.Row="0" VerticalAlignment="Bottom" Margin="0"/>
 
                   <UniformGrid Grid.Row="0" Rows="1" Margin="0 0 0 1">
                     <UniformGrid.Resources>
@@ -192,7 +192,7 @@
                     </UniformGrid.Resources>
                     <RadioButton Content="_DETAILS" IsChecked="True" x:Name="DetailsTab" x:FieldModifier="private" Style="{DynamicResource MaterialDesignTabRadioButton}"/>
                     <!--<RadioButton Content="_CARDS" x:Name="CardsTab" x:FieldModifier="private" Style="{DynamicResource MaterialDesignTabRadioButton}"/>-->
-                    <RadioButton Content="_HISTORY" x:Name="HistoryTab" x:FieldModifier="private" Style="{DynamicResource MaterialDesignTabRadioButton}"/>
+                    <RadioButton Content="ACTIVITY _LOG" x:Name="HistoryTab" x:FieldModifier="private" Style="{DynamicResource MaterialDesignTabRadioButton}"/>
                     <RadioButton Content="_BORROW" x:Name="TakeoutTab" x:FieldModifier="private" Style="{DynamicResource MaterialDesignTabRadioButton}"/>
                   </UniformGrid>
                   
@@ -409,20 +409,13 @@
 
                                 </StackPanel>
                             </ScrollViewer>
+                            <Rectangle Height="1" Fill="{DynamicResource MaterialDesignDivider}"
+                                       Grid.Row="2" VerticalAlignment="Top" SnapsToDevicePixels="True"/>
                             <UniformGrid Grid.Row="2" Rows="1"
-                                         Margin="0,8,0,0">
+                                         Margin="16,16,16,8">
                               <Button Content="_DELETE" Style="{DynamicResource MaterialDesignRaisedLightButton}"/>
                               <Rectangle IsHitTestVisible="False"/>
-                              <Button Command="{Binding SaveCommand}">
-                                    <StackPanel Orientation="Horizontal">
-                                        <md:PackIcon Kind="ContentSave"
-                                                     VerticalAlignment="Stretch"
-                                                     Padding="0" />
-                                        <TextBlock Text="SAVE CHANGES"
-                                                   Margin="4,0,0,0"
-                                                   VerticalAlignment="Center" />
-                                    </StackPanel>
-                                </Button>
+                              <Button Command="{Binding SaveCommand}" Content="_SAVE CHANGES"/>
                             </UniformGrid>
                         </Grid>
 
@@ -692,11 +685,12 @@
 
                         </Grid>
                             <StackPanel Visibility="{Binding SelectedBook.IsBorrowed,Converter={cnv:BooleanToVisibility}}">
-                                <md:ColorZone Mode="Accent" CornerRadius="4" md:ShadowAssist.ShadowDepth="Depth0"
+                                <md:ColorZone CornerRadius="2" md:ShadowAssist.ShadowDepth="Depth0"
+                                              BorderThickness="1" BorderBrush="{DynamicResource SecondaryAccentBrush}"
                                               x:Name="BookNotAvailableMessage"
                                               VerticalAlignment="Center"
                                               HorizontalAlignment="Center"
-                                              Padding="8">
+                                              Padding="16">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
@@ -706,27 +700,16 @@
                                                           Padding="0"
                                                           Height="47"
                                                           Width="47"
+                                                          Foreground="{DynamicResource SecondaryAccentBrush}"
                                                           VerticalAlignment="Top"
                                                           Margin="0,0,8,0" />
                                         <StackPanel Grid.Column="1">
                                             <TextBlock Text="BOOK NOT AVAILABLE!"
-                                                       TextAlignment="Center"
                                                        Style="{StaticResource MaterialDesignSubheadingTextBlock}"
                                                        FontWeight="Bold" />
                                             <TextBlock TextWrapping="Wrap">
-                                                This book was taken out by
-                                                <Hyperlink FontWeight="Bold"
-                                                           Style="{StaticResource MaterialDesignBody1Hyperlink}"
-                                                           Command="{Binding Source={x:Static lib:MainViewModel.ShowBorrowerCommand}}"
-                                                           CommandParameter="{Binding SelectedBook.TakeoutId}">
-                                                    <Hyperlink.ToolTip>
-                                                            <TextBlock>
-                                                                Click to view more details of <Run Text="{Binding SelectedBook,Converter={cnv:BookToBorrowerName}}" />.
-                                                            </TextBlock>
-                                                    </Hyperlink.ToolTip>
-                                                    <Run Text="{Binding SelectedBook,Converter={cnv:BookToBorrowerName}}" />
-                                                </Hyperlink>
-                                                last
+                                                <Run Text="{Binding SelectedBook,Converter={cnv:BookToBorrowerName}}" />                                                
+                                                has not returned this book yet. He/she borrowed it last
                                                 <Run Text="{Binding SelectedBook,Converter={cnv:LastTakeoutDate}}" />.
                                             </TextBlock>
                                         </StackPanel>
@@ -776,10 +759,10 @@
                                             </Grid.ColumnDefinitions>
                                             <TextBlock Text="BOOK RATING: " Style="{StaticResource MaterialDesignCaptionTextBlock}"
                                                        VerticalAlignment="Center"/>
-                                        <md:RatingBar md:HintAssist.Hint="BOOK RATING"
+                                        <!--<md:RatingBar md:HintAssist.Hint="BOOK RATING"
                                                       Value="{Binding BookRating,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                                       Grid.Column="1"
-                                                      VerticalAlignment="Center"/>
+                                                      VerticalAlignment="Center"/>-->
                                             <Button Grid.Column="2"
                                                     Command="{Binding RelativeSource={RelativeSource AncestorType=views:BooksView},Path=DataContext.ReturnBookCommand}"
                                                     CommandParameter="{Binding}">RETURN</Button>
