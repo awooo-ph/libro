@@ -88,6 +88,10 @@ namespace Libro.ViewModels
             {
                 if (_borrowersView != null) return _borrowersView;
                 _borrowersView = new ListCollectionView(Borrower.Cache);
+                _borrowersView.CurrentChanged += (sender, args) =>
+                {
+                    TakeoutsView.Refresh();
+                };
                 _borrowersView.Filter = FilterBorrower;
                 return _borrowersView;
             }
@@ -110,34 +114,34 @@ namespace Libro.ViewModels
             return false;
         }
 
-        private Borrower _selectedItem;
+        //private Borrower _selectedItem;
 
-        public Borrower SelectedItem
-        {
-            get { return _selectedItem; }
-            set
-            {
-                if (Equals(value, _selectedItem)) return;
-                _selectedItem = value;
-                OnPropertyChanged();
-                _takeouts = null;
-                _transactionsView = null;
-                OnPropertyChanged(nameof(Takeouts));
-                OnPropertyChanged(nameof(TakeoutsView));
-            }
-        }
+        //public Borrower SelectedItem
+        //{
+        //    get { return _selectedItem; }
+        //    set
+        //    {
+        //        if (Equals(value, _selectedItem)) return;
+        //        _selectedItem = value;
+        //        OnPropertyChanged();
+        //        _takeouts = null;
+        //        _transactionsView = null;
+        //        OnPropertyChanged(nameof(Takeouts));
+        //        OnPropertyChanged(nameof(TakeoutsView));
+        //    }
+        //}
 
-        private ObservableCollection<Takeout> _takeouts;
+        //private ObservableCollection<Takeout> _takeouts;
 
-        private ObservableCollection<Takeout> Takeouts
-        {
-            get
-            {
-                if (_takeouts != null) return _takeouts;
-                _takeouts = new ObservableCollection<Takeout>(Takeout.GetByBorrower(SelectedItem?.Id));
-                return _takeouts;
-            }
-        }
+        //private ObservableCollection<Takeout> Takeouts
+        //{
+        //    get
+        //    {
+        //        if (_takeouts != null) return _takeouts;
+        //        _takeouts = new ObservableCollection<Takeout>(Takeout.GetByBorrower(SelectedItem?.Id));
+        //        return _takeouts;
+        //    }
+        //}
 
         private ListCollectionView _transactionsView;
 
@@ -146,7 +150,7 @@ namespace Libro.ViewModels
             get
             {
                 if (_transactionsView != null) return _transactionsView;
-                _transactionsView = (ListCollectionView) CollectionViewSource.GetDefaultView(Takeouts);
+                _transactionsView = (ListCollectionView) CollectionViewSource.GetDefaultView(Takeout.Cache);
                 _transactionsView.Filter = FilterTransactions;
                 return _transactionsView;
             }
@@ -154,7 +158,9 @@ namespace Libro.ViewModels
 
         private bool FilterTransactions(object o)
         {
-            return true;
+            if (!(o is Takeout to)) return false;
+            if (!(BorrowersView.CurrentItem is Borrower b)) return false;
+            return to.BorrowerId == b.Id;
         }
         
         private ICommand _deleteCommand;
