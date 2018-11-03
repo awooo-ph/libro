@@ -100,7 +100,7 @@
                     </Grid.RowDefinitions>
                     
                     <ListBox ItemsSource="{Binding BorrowersView}"
-                             SelectedItem="{Binding SelectedItem}"
+                             IsSynchronizedWithCurrentItem="True"
                              HorizontalContentAlignment="Stretch"
                              Grid.Row="1"
                              Grid.IsSharedSizeScope="True"
@@ -247,7 +247,7 @@
                           CanUserDeleteRows="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding TakeoutDate}" Header="DATE" IsReadOnly="True"/>
-                        <DataGridTextColumn Binding="{Binding TakeoutCondition}"
+                        <DataGridTextColumn Binding="{Binding TakeOutCondition}"
                                             Header="CONDITION"
                                             IsReadOnly="True" />
                         <DataGridTextColumn Binding="{Binding BookId,Converter={cnv:BookIdToTitle}}"
