@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using System.Windows.Input;
+using Libro.Models;
 
 namespace Libro
 {
@@ -54,6 +57,38 @@ namespace Libro
         {
             ShowNotifications = !ShowNotifications;
         }));
+        private ListCollectionView _notifications;
+
+        public ListCollectionView Notifications
+        {
+            get
+            {
+                if (_notifications != null) return _notifications;
+                _notifications = (ListCollectionView) CollectionViewSource.GetDefaultView(Notification.Cache);
+                Notification.Cache.CollectionChanged += (sender, args) =>
+                {
+                    if (Notification.Cache.Any(x=>!x.Read))
+                        UnreadNotifications = Notification.Cache.Count(x=>!x.Read);
+                    else
+                        UnreadNotifications = null;
+                };
+                _notifications.SortDescriptions.Add(new SortDescription(nameof(Notification.Created), ListSortDirection.Descending));
+                return _notifications;
+            }
+        }
+
+        private long? _UnreadNotifications;
+
+        public long? UnreadNotifications
+        {
+            get => _UnreadNotifications;
+            set
+            {
+                if (value == _UnreadNotifications) return;
+                _UnreadNotifications = value;
+                OnPropertyChanged(nameof(UnreadNotifications));
+            }
+        }
 
         public bool Login(NetworkCredential login)
         {
