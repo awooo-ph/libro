@@ -138,7 +138,7 @@
                      Text="{Binding Price,UpdateSourceTrigger=PropertyChanged}" />
         </UniformGrid>
         <Grid Margin="0,16"
-              Height="174">
+              MaxHeight="174">
             <Grid Visibility="{Binding IsSearchingComplete,Converter={cnv:BooleanToVisibility Visible,Collapsed}}">
                 <md:Card Visibility="{Binding IsBookFound,Converter={cnv:BooleanToVisibility Collapsed,Visible},FallbackValue=Collapsed}"
                          VerticalAlignment="Stretch"
