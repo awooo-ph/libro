@@ -10,7 +10,7 @@
     <StackPanel>
       <StackPanel Orientation="Horizontal">
         <md:PackIcon Kind="KeyVariant" Height="44" Width="44" VerticalAlignment="Center" Margin="10"/>
-        <TextBlock Text="Signin" Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
+        <TextBlock Text="Sign In" Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
                    Margin="10" VerticalAlignment="Center"/>
       </StackPanel>
       <TextBox x:Name="Username" x:FieldModifier="private"
