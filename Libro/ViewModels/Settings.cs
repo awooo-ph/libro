@@ -118,6 +118,19 @@ namespace Libro.ViewModels
             }
         }
 
+        private long _ExpirationTimer=47;
+        [Trackable]
+        public long ExpirationTimer
+        {
+            get => _ExpirationTimer;
+            set
+            {
+                if (value == _ExpirationTimer) return;
+                _ExpirationTimer = value;
+                OnPropertyChanged(nameof(ExpirationTimer));
+            }
+        }
+        
         private string _CommandArguments;
         [Trackable]
         public string CommandArguments

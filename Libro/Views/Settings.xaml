@@ -45,6 +45,22 @@
                 <ColumnDefinition Width="Auto"/>
               </Grid.ColumnDefinitions>
               <StackPanel Margin="0 0 20 0" VerticalAlignment="Center">
+                <TextBlock Text="EXPIRATION CHECKER" Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
+                           FontSize="14pt"/>
+                <TextBlock Style="{DynamicResource MaterialDesignSubheadingTextBlock}"
+                           TextWrapping="Wrap"
+                           FontSize="10pt"
+                           Opacity="0.7"
+                           Text="Number of seconds to check for expired takeouts."/>
+              </StackPanel>
+              <me:OversizedNumberSpinner SeparatorVisibility="Collapsed" Value="{Binding ExpirationTimer,Mode=TwoWay}" Min="1" Max="7777" Grid.Column="1"/>
+            </Grid>
+            <Grid Margin="20 10">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+              </Grid.ColumnDefinitions>
+              <StackPanel Margin="0 0 20 0" VerticalAlignment="Center">
                 <TextBlock Text="TAKEOUT HOURS" Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
                              FontSize="14pt"/>
                 <TextBlock Style="{DynamicResource MaterialDesignSubheadingTextBlock}"
@@ -156,9 +172,9 @@
                 </StackPanel>
               </Grid>
             </ListBoxItem>
-            <Grid Margin="0 20" >
+            <Grid Margin="0 20"  Opacity="{Binding SendSms,Converter={converters:BooleanToObject 1, 0.7}}">
               <Rectangle Fill="{DynamicResource MaterialDesignDivider}" Opacity="0.1"/>
-              <TextBlock Text="INTEGRATION" FontSize="10pt" FontWeight="Bold" Margin="20 10"/>
+              <TextBlock Text="GATEWAY" FontSize="10pt" FontWeight="Bold" Margin="20 10"/>
               <ListBox IsEnabled="{Binding SendSms}" SelectedIndex="{Binding SmsIntegration}"
                        HorizontalAlignment="Right">
                 <ListBox.ItemsPanel>
