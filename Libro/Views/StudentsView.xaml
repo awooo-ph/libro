@@ -9,16 +9,86 @@
              xmlns:i="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:lib="clr-namespace:Libro"
              xmlns:viewModels="clr-namespace:Libro.ViewModels"
+             xmlns:models="clr-namespace:Libro.Models;assembly=Libro.Core"
              mc:Ignorable="d"
              DataContext="{Binding Source={x:Static viewModels:Students.Instance}}"
              d:DesignHeight="300" d:DesignWidth="300" d:DataContext="{d:DesignInstance viewModels:Students}">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+  <Grid IsSharedSizeScope="True">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
 
+    <Grid Grid.Row="0">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="400"/>
+        <ColumnDefinition Width="Auto"/>
+      </Grid.ColumnDefinitions>
+      <UniformGrid Grid.Row="0" VerticalAlignment="Stretch"
+                   Rows="1">
+        <UniformGrid.Resources>
+          <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+              <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Teal.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <SolidColorBrush x:Key="SecondaryAccentBrush" Color="{StaticResource Accent700}"/>
+            <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="{StaticResource Accent700Foreground}"/>
+          </ResourceDictionary>
+        </UniformGrid.Resources>
+        <RadioButton Style="{DynamicResource MaterialDesignTabRadioButton}"
+                     Height="Auto"
+                     Padding="0"
+                     VerticalAlignment="Stretch"
+                     VerticalContentAlignment="Stretch"
+                     HorizontalContentAlignment="Stretch"
+                     IsChecked="{Binding ShowAll,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+          <Grid>
+          <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10 0">
+            <TextBlock Text="ALL" TextAlignment="Center"/>
+            <TextBlock Text="View all students" FontSize="7pt" Opacity="0.7"
+                       TextWrapping="Wrap" TextAlignment="Center"/>
+          </StackPanel>
+            <Rectangle Width="1" Fill="{DynamicResource MaterialDesignDivider}" HorizontalAlignment="Right"
+                       SnapsToDevicePixels="True"/>
+          </Grid>
+        </RadioButton>
+        <RadioButton Style="{DynamicResource MaterialDesignTabRadioButton}"
+                     Height="Auto"
+                     Padding="0"
+                     VerticalAlignment="Stretch"
+                     VerticalContentAlignment="Stretch"
+                     HorizontalContentAlignment="Stretch"
+                     IsChecked="{Binding ShowExpired,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+          <Grid>
+          <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="4 0">
+            <TextBlock Text="EXPIRED" TextAlignment="Center"/>
+            <TextBlock Text="Students with un-returned books" FontSize="7pt" Opacity="0.7"
+                       TextWrapping="Wrap" TextAlignment="Center"/>
+          </StackPanel>
+            <Rectangle Width="1" Fill="{DynamicResource MaterialDesignDivider}" HorizontalAlignment="Right"
+                       SnapsToDevicePixels="True"/>
+          </Grid>
+        </RadioButton>
+        <RadioButton Style="{DynamicResource MaterialDesignTabRadioButton}"
+                     Height="Auto"
+                     Padding="0"
+                     VerticalAlignment="Stretch"
+                     VerticalContentAlignment="Stretch"
+                     HorizontalContentAlignment="Stretch"
+                     IsChecked="{Binding ShowUnpaid,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+          <Grid>
+          <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10 0">
+            <TextBlock Text="UNPAID" TextAlignment="Center"/>
+            <TextBlock Text="Students with unpaid penalty" FontSize="7pt" Opacity="0.7"
+                       TextWrapping="Wrap" TextAlignment="Center"/>
+          </StackPanel>
+            <Rectangle Width="1" Fill="{DynamicResource MaterialDesignDivider}" HorizontalAlignment="Right"
+                       SnapsToDevicePixels="True"/>
+          </Grid>
+        </RadioButton>
+      </UniformGrid>
       <md:ColorZone Mode="Light"
+                    Grid.Column="1"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Left"
                     Margin="20"
@@ -53,119 +123,83 @@
         </Grid>
 
       </md:ColorZone>
+    </Grid>
 
-      <UniformGrid Margin="8" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center"
-                  Rows="1">
-        <UniformGrid.Resources>
-          <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-              <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Teal.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-            <SolidColorBrush x:Key="SecondaryAccentBrush" Color="{StaticResource Accent700}"/>
-            <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="{StaticResource Accent700Foreground}"/>
-          </ResourceDictionary>
-        </UniformGrid.Resources>
-        <RadioButton Style="{DynamicResource MaterialDesignTabRadioButton}" Content="_SHOW ALL"
-                     IsChecked="{Binding ShowAll}"/>
-        <RadioButton Style="{DynamicResource MaterialDesignTabRadioButton}" Content="_FACULTY"
-                     IsChecked="{Binding ShowFaculty}"/>
-        <RadioButton Style="{DynamicResource MaterialDesignTabRadioButton}" Content="_STUDENTS"
-                     IsChecked="{Binding ShowStudents}"/>
-      </UniformGrid>
-       
-        <StackPanel Grid.Row="0"
+
+    <StackPanel Grid.Row="0"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">
-          <Button Grid.Row="2" Command="{Binding AddNewCommand}" Margin="20">_ADD NEW</Button>
-        </StackPanel>
+      <Button Grid.Row="2" Command="{Binding AddNewCommand}" Margin="20">_ADD NEW</Button>
+    </StackPanel>
 
-      <Rectangle Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Fill="{DynamicResource MaterialDesignDivider}"
+    <Rectangle Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Fill="{DynamicResource MaterialDesignDivider}"
                  Height="1"/>
 
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-          <Rectangle Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Right"  Fill="{DynamicResource MaterialDesignDivider}"
+    <Grid Grid.Row="1">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="400"/>
+        <ColumnDefinition Width="*"/>
+      </Grid.ColumnDefinitions>
+      <Rectangle Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Right"  Fill="{DynamicResource MaterialDesignDivider}"
                      Width="1"/>
-            <md:ColorZone Margin="0 0 1 0"
+      <md:ColorZone Margin="0 0 1 0"
                      VerticalAlignment="Stretch">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    
-                    <ListBox ItemsSource="{Binding BorrowersView}"
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+          </Grid.RowDefinitions>
+
+          <ListBox ItemsSource="{Binding BorrowersView}"
                              IsSynchronizedWithCurrentItem="True"
                              HorizontalContentAlignment="Stretch"
                              Grid.Row="1"
                              Grid.IsSharedSizeScope="True"
-                             MinWidth="400"
                              Padding="0"
                              VerticalAlignment="Stretch">
-                        <ListBox.ItemContainerStyle>
-                            <Style BasedOn="{StaticResource {x:Type ListBoxItem}}"
+            <ListBox.ItemContainerStyle>
+              <Style BasedOn="{StaticResource {x:Type ListBoxItem}}"
                                    TargetType="ListBoxItem">
-                                <Setter Property="Padding" Value="0"/>
-                            </Style>
-                        </ListBox.ItemContainerStyle>
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Border Background="Transparent">
-                                <Grid Margin="16 8 8 8">
-                                    <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-                                  
-                                        <i:PackIconModern Kind="{Binding IsStudent,Converter={cnv:BooleanToObject User,UserTie}}"
+                <Setter Property="Padding" Value="0"/>
+              </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemTemplate>
+              <DataTemplate>
+                <Border Background="Transparent">
+                  <Grid Margin="16 8 8 8">
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="Auto" />
+                      <ColumnDefinition Width="*" />
+                      <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <md:PackIcon Kind="AccountCircle"
                                                       VerticalAlignment="Center"
                                                           Opacity="0.7"
-                                                          Height="40"
-                                                          Width="40"
+                                                          Height="47"
+                                                          Width="47"
                                                       Margin="4"
                                                       Padding="0"/>
-                                    <!--<md:PackIcon Kind="Alert" Foreground="Gold"
+                    <!--<md:PackIcon Kind="Alert" Foreground="Gold"
                                                  Padding="0"
                                                  Height="20"
                                                  Width="20"
                                                  HorizontalAlignment="Left"
                                                  VerticalAlignment="Bottom"/>-->
-                                    <StackPanel Grid.Column="1" Margin="8,0"
+                    <StackPanel Grid.Column="1" Margin="8,0"
                                                 VerticalAlignment="Center">
-                                            <TextBlock Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
+                      <TextBlock Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
                                                        Text="{Binding Fullname}"/>
-                                            <Grid Opacity="0.4" Margin="0 2 0 0">
-                                              <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="Auto" SharedSizeGroup="a"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="*"/>
-                                              </Grid.ColumnDefinitions>
-                                              <md:PackIcon Kind="AccountCardDetails"
-                                                             VerticalAlignment="Center" />
-                                                <TextBlock Text="{Binding SchoolId}" FontSize="11pt"
-                                                           Grid.Column="1"
-                                                           Margin="4,0"
-                                                           VerticalAlignment="Center" />
-                                                <md:PackIcon Kind="School"
-                                                             Grid.Column="2"
-                                                             Visibility="{Binding IsStudent,Converter={cnv:BooleanToVisibility}}"
-                                                             Margin="8,0,4,0"/>
-                                                <TextBlock Text="{Binding Course}"
-                                                           Grid.Column="3"
-                                                           Visibility="{Binding IsStudent,Converter={cnv:BooleanToVisibility}}"
-                                                           VerticalAlignment="Center"
-                                                           FontSize="11pt" />
-                                            </Grid>
-                                            
-                                    </StackPanel>
-                                        <!--<StackPanel Orientation="Horizontal"
+                      <Grid Opacity="0.4" Margin="0 2 0 0">
+                        <TextBlock Text="{Binding Course}"
+                                   VerticalAlignment="Center"
+                                   FontSize="11pt" />
+                      </Grid>
+
+                    </StackPanel>
+                    <!--<StackPanel Orientation="Horizontal"
                                                     Grid.Column="2"
                                                     VerticalAlignment="Center">
                                             <i:PackIconFontAwesome Kind="Book"
@@ -175,112 +209,153 @@
                                                        Margin="4,0,8,0"
                                                        Text="{Binding TotalBooks,FallbackValue=0}" />
                                         </StackPanel>-->
-                                    <UniformGrid Columns="2" Rows="1"
-                                                 x:Name="Grid"
-                                                Grid.Column="0"
-                                                HorizontalAlignment="Right"
-                                                 Opacity="0"
-                                                Grid.ColumnSpan="3">
-                                        <Button ToolTip="Edit" Focusable="False"
-                                                Margin="0,0,4,0"
-                                                Command="{Binding Source={x:Static viewModels:Students.Instance}, Path=EditCommand}"
-                                                CommandParameter="{Binding}">
-                                            <md:PackIcon Kind="Pencil" Padding="0"/></Button>
-                                        <Button Margin="4,0,0,0" ToolTip="Delete"
-                                                Focusable="False"
-                                                    Command="{Binding Source={x:Static viewModels:Students.Instance}, Path=DeleteCommand}"
-                                                    CommandParameter="{Binding}">
-                                            <md:PackIcon Kind="Delete" Padding="0"/>
-                                        </Button>
-                                    </UniformGrid>
-                                </Grid>
-                                </Border>
-                                <DataTemplate.Triggers>
-                                    <MultiTrigger>
-                                        <MultiTrigger.Conditions>
-                                            <Condition Property="ListBoxItem.IsMouseOver"
+                    <StackPanel Orientation="Horizontal"
+                                x:Name="Grid"
+                                Grid.Column="0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Bottom"
+                                Opacity="0"
+                                Grid.ColumnSpan="3">
+                      <Button Content="_EDIT"
+                              Style="{DynamicResource MaterialDesignFlatButton}"
+                              Margin="0 0 4 0"
+                              Focusable="False"
+                              Command="{Binding Source={x:Static viewModels:Students.Instance}, Path=EditCommand}"
+                              CommandParameter="{Binding}"/>
+                      <Button ToolTip="Delete"
+                              Margin="4 0 0 0"
+                              Style="{DynamicResource MaterialDesignFlatButton}"
+                              Focusable="False"
+                              Content="_DELETE"
+                              Command="{Binding Source={x:Static viewModels:Students.Instance}, Path=DeleteCommand}"
+                              CommandParameter="{Binding}"/>
+                    </StackPanel>
+                  </Grid>
+                </Border>
+                <DataTemplate.Triggers>
+                  <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                      <Condition Property="ListBoxItem.IsMouseOver"
                                                        Value="True"/>
-                                            <Condition Property="ListBoxItem.IsSelected"
+                      <Condition Property="ListBoxItem.IsSelected"
                                                        Value="False"/>
-                                        </MultiTrigger.Conditions>
-                                        <MultiTrigger.Setters>
-                                            <Setter TargetName="Grid"
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                      <Setter TargetName="Grid"
                                                     Property="Opacity"
                                                     Value="0" />
-                                        </MultiTrigger.Setters>
-                                        <MultiTrigger.EnterActions>
-                                            <BeginStoryboard Name="Show">
-                                                <Storyboard>
-                                                    <DoubleAnimation To="1"
+                    </MultiTrigger.Setters>
+                    <MultiTrigger.EnterActions>
+                      <BeginStoryboard Name="Show">
+                        <Storyboard>
+                          <DoubleAnimation To="1"
                                                                      Duration="0:0:0.5" 
                                                                      Storyboard.TargetName="Grid"
                                                                      Storyboard.TargetProperty="Opacity"/>
-                                                </Storyboard>
-                                            </BeginStoryboard>
-                                        </MultiTrigger.EnterActions>
-                                        <MultiTrigger.ExitActions>
-                                            <StopStoryboard BeginStoryboardName="Show"/>
-                                            <BeginStoryboard>
-                                                <Storyboard>
-                                                    <DoubleAnimation To="0"
+                        </Storyboard>
+                      </BeginStoryboard>
+                    </MultiTrigger.EnterActions>
+                    <MultiTrigger.ExitActions>
+                      <StopStoryboard BeginStoryboardName="Show"/>
+                      <BeginStoryboard>
+                        <Storyboard>
+                          <DoubleAnimation To="0"
                                                                      Duration="0:0:0.5"
                                                                      Storyboard.TargetName="Grid"
                                                                      Storyboard.TargetProperty="Opacity" />
-                                                </Storyboard>
-                                            </BeginStoryboard>
-                                        </MultiTrigger.ExitActions>
-                                        
-                                    </MultiTrigger>
-                                </DataTemplate.Triggers>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                    
-                </Grid>
-            </md:ColorZone>
-            <md:ColorZone Grid.Column="1"
+                        </Storyboard>
+                      </BeginStoryboard>
+                    </MultiTrigger.ExitActions>
+
+                  </MultiTrigger>
+                </DataTemplate.Triggers>
+              </DataTemplate>
+            </ListBox.ItemTemplate>
+          </ListBox>
+
+        </Grid>
+      </md:ColorZone>
+      <md:ColorZone Grid.Column="1"
                      VerticalAlignment="Stretch"
                      HorizontalAlignment="Stretch">
-                <DataGrid ItemsSource="{Binding TakeoutsView}"
+        <DataGrid ItemsSource="{Binding TakeoutsView}"
                           AutoGenerateColumns="False"
                           CanUserAddRows="False"
                           CanUserDeleteRows="False">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding TakeoutDate}" Header="DATE" IsReadOnly="True"/>
-                        <DataGridTextColumn Binding="{Binding TakeOutCondition}"
+          <DataGrid.Columns>
+            <DataGridTextColumn Binding="{Binding TakeoutDate}" Header="DATE" IsReadOnly="True"/>
+            <!--<DataGridTextColumn Binding="{Binding TakeOutCondition}"
                                             Header="CONDITION"
-                                            IsReadOnly="True" />
-                        <DataGridTextColumn Binding="{Binding BookId,Converter={cnv:BookIdToTitle}}"
+                                            IsReadOnly="True" />-->
+            <DataGridTextColumn Binding="{Binding BookId,Converter={cnv:BookIdToTitle}}"
                                             Header="BOOK TITLE"
                                             IsReadOnly="True" />
-                        <DataGridTemplateColumn Header="RETURNED" SortMemberPath="Returned">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <TextBlock Text="{Binding Returned}"
-                                                   Visibility="{Binding IsReturned,Converter={cnv:BooleanToVisibility}}"/>
-                                        <TextBlock Text="NOT YET"
-                                                   Visibility="{Binding IsReturned,Converter={cnv:BooleanToVisibility Collapsed,Visible}}" />
-                                    </Grid>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTextColumn Binding="{Binding ReturnCondition}"
+            <DataGridTemplateColumn Header="RETURNED" SortMemberPath="Returned">
+              <DataGridTemplateColumn.CellTemplate>
+                <DataTemplate>
+                  <Grid>
+                    <TextBlock Text="{Binding Returned}" Visibility="{Binding IsReturned,Converter={cnv:BooleanToVisibility}}"/>
+                    <Grid Visibility="{Binding IsReturned,Converter={cnv:BooleanToVisibility Collapsed,Visible}}">
+                      <TextBlock Text="NOT YET" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                     Visibility="{Binding RelativeSource={RelativeSource AncestorType=DataGridCell},Path=IsMouseOver,Converter={cnv:BooleanToVisibility Collapsed,Visible}}"/>
+                      <Button Style="{DynamicResource MaterialDesignToolButton}"
+                              Command="{Binding DataContext.ReturnCommand,RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                              Height="Auto"
+                              Padding="0"
+                              Foreground="{DynamicResource PrimaryHueMidBrush}"
+                              HorizontalContentAlignment="Center"
+                              HorizontalAlignment="Stretch"
+                              CommandParameter="{Binding}"
+                              Visibility="{Binding RelativeSource={RelativeSource AncestorType=DataGridCell},Path=IsMouseOver,Converter={cnv:BooleanToVisibility}}"
+                              Content="RETURN"/>
+                    </Grid>
+                  </Grid>
+                </DataTemplate>
+              </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <!--<DataGridTextColumn Binding="{Binding ReturnCondition}"
                                             Header="RETURN CONDITION"
-                                            IsReadOnly="True" />
-                        <DataGridTextColumn Binding="{Binding ReturnNote}"
+                                            IsReadOnly="True" />-->
+            <DataGridTextColumn Binding="{Binding ReturnNote}"
+                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
                                             Header="REMARKS" />
-                        <DataGridTemplateColumn Header="PENALTY"
+            <DataGridTemplateColumn Header="PENALTY"
                                                 IsReadOnly="True">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding Penalty,StringFormat={}{0:#\,##0.00}}" TextAlignment="Right"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </md:ColorZone>
-        </Grid>
+              <DataGridTemplateColumn.CellTemplate>
+                <DataTemplate>
+                  <TextBlock Text="{Binding Penalty,StringFormat={}{0:#\,##0.00}}" TextAlignment="Right"/>
+                </DataTemplate>
+              </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="PAID" CanUserResize="False" SortMemberPath="Paid">
+              <DataGridTemplateColumn.CellTemplate>
+                <DataTemplate DataType="{x:Type models:Takeout}">
+                  <Grid Visibility="{Binding HasPenalty,Converter={cnv:BooleanToVisibility}}">
+                    <md:PackIcon Kind="Check" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                 Foreground="DarkBlue"
+                                 Visibility="{Binding Paid,Converter={cnv:BooleanToVisibility}}"/>
+                    <Grid Visibility="{Binding Paid,Converter={cnv:BooleanToVisibility Collapsed,Visible}}">
+                      <md:PackIcon Kind="Close" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   Foreground="Red"
+                                   Visibility="{Binding RelativeSource={RelativeSource AncestorType=DataGridCell},Path=IsMouseOver,Converter={cnv:BooleanToVisibility Collapsed,Visible}}"/>
+                      <Button Style="{DynamicResource MaterialDesignToolButton}"
+                              Command="{Binding DataContext.PayCommand,RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                              Height="Auto"
+                              Padding="0"
+                              Foreground="{DynamicResource PrimaryHueMidBrush}"
+                              HorizontalContentAlignment="Center"
+                              HorizontalAlignment="Stretch"
+                              CommandParameter="{Binding}"
+                              Visibility="{Binding RelativeSource={RelativeSource AncestorType=DataGridCell},Path=IsMouseOver,Converter={cnv:BooleanToVisibility}}"
+                              Content="PAY"/>
+                    </Grid>
+                  </Grid>
+                </DataTemplate>
+              </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+          </DataGrid.Columns>
+        </DataGrid>
+      </md:ColorZone>
     </Grid>
+  </Grid>
 </UserControl>

@@ -61,6 +61,7 @@ namespace Libro.Dialogs
         private bool Filter(object o)
         {
             var b = (Borrower) o;
+            if (!b.IsStudent) return false;
             if(b.Firstname.ToLower().Contains(SearchKeyword)) return true;
             if(b.Lastname.ToLower().Contains(SearchKeyword))
                 return true;

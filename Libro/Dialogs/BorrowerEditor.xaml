@@ -46,7 +46,7 @@
                            Visibility="{Binding IsStudent,Converter={cnv:BooleanToVisibility Collapsed,Visible}}"
                            Text="FACULTY" />
             </StackPanel>
-            <ListBox Grid.Column="1" TabIndex="74"
+            <!--<ListBox Grid.Column="1" TabIndex="74"
                      Style="{DynamicResource MaterialDesignToolToggleListBox}"
                      VerticalAlignment="Center"
                      HorizontalContentAlignment="Center">
@@ -58,7 +58,7 @@
                 </ListBox.ItemsPanel>
                 <ListBoxItem IsSelected="{Binding IsStudent,Converter={cnv:Inverter}}">FACULTY</ListBoxItem>
                 <ListBoxItem IsSelected="{Binding IsStudent}">STUDENT</ListBoxItem>
-            </ListBox>
+            </ListBox>-->
         </Grid>
         
         <UniformGrid Columns="2"
@@ -109,9 +109,9 @@
                 </Button.CommandParameter>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=local:BorrowerEditor},Path=AffirmativeText}"/>
-                    <TextBlock Text=" STUDENT" Visibility="{Binding IsStudent,Converter={cnv:BooleanToVisibility}}"/>
+                    <!--<TextBlock Text=" STUDENT" Visibility="{Binding IsStudent,Converter={cnv:BooleanToVisibility}}"/>
                     <TextBlock Text=" FACULTY"
-                               Visibility="{Binding IsStudent,Converter={cnv:BooleanToVisibility Collapsed,Visible}}" />
+                               Visibility="{Binding IsStudent,Converter={cnv:BooleanToVisibility Collapsed,Visible}}" />-->
                 </StackPanel>
             </Button>
         </UniformGrid>
