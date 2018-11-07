@@ -159,19 +159,13 @@
               <ToggleButton IsChecked="{Binding SendSms}" Grid.Column="1" Style="{DynamicResource MaterialDesignSwitchToggleButton}"/>
             </Grid>
 
-            <ListBoxItem HorizontalContentAlignment="Stretch" Padding="20" IsEnabled="{Binding SendSms}">
-              <Grid>
-                <StackPanel VerticalAlignment="Center">
-                  <TextBlock Text="MESSAGE TEMPLATE" Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
-                               FontSize="14pt"/>
-                  <TextBlock Style="{DynamicResource MaterialDesignSubheadingTextBlock}"
-                               FontSize="10pt"
-                               Text="Click to edit the notification message template."
-                               TextWrapping="Wrap"
-                               Opacity="0.7"/>
-                </StackPanel>
-              </Grid>
-            </ListBoxItem>
+            <TextBox Style="{DynamicResource MaterialDesignFilledTextFieldTextBox}"
+                     IsEnabled="{Binding SendSms}"
+                     Margin="20 0"
+                     Text="{Binding MessageTemplate}"
+                     md:HintAssist.Hint="MESSAGE TEMPLATE"
+                     md:HintAssist.IsFloating="True"/>
+
             <Grid Margin="0 20"  Opacity="{Binding SendSms,Converter={converters:BooleanToObject 1, 0.7}}">
               <Rectangle Fill="{DynamicResource MaterialDesignDivider}" Opacity="0.1"/>
               <TextBlock Text="GATEWAY" FontSize="10pt" FontWeight="Bold" Margin="20 10"/>
