@@ -1,5 +1,7 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows;
@@ -19,7 +21,7 @@ namespace Libro.ViewModels
 
         public bool ShowStudents
         {
-            get { return _showStudents; }
+            get { return true; }
             set
             {
                 if(value == _showStudents)
@@ -66,6 +68,36 @@ namespace Libro.ViewModels
             }
         }
 
+        private bool _ShowExpired;
+
+        public bool ShowExpired
+        {
+            get => _ShowExpired;
+            set
+            {
+                if (value == _ShowExpired) return;
+                _ShowExpired = value;
+                OnPropertyChanged(nameof(ShowExpired));
+                BorrowersView.Filter = FilterBorrower;
+            }
+        }
+
+        private bool _ShowUnpaid;
+
+        public bool ShowUnpaid
+        {
+            get => _ShowUnpaid;
+            set
+            {
+                if (value == _ShowUnpaid) return;
+                _ShowUnpaid = value;
+                OnPropertyChanged(nameof(ShowUnpaid));
+                BorrowersView.Filter = FilterBorrower;
+            }
+        }
+
+
+
         private string _searchKeyword;
 
         public string SearchKeyword
@@ -100,7 +132,11 @@ namespace Libro.ViewModels
         private bool FilterBorrower(object o)
         {
             var b = (Borrower) o;
-            if(!(ShowAll || (ShowStudents && b.IsStudent) || (ShowFaculty && !b.IsStudent))) return false;
+            if(!b.IsStudent) return false;
+
+            if (ShowUnpaid && Takeout.GetUnpaidByBorrower(b.Id).Count==0) return false;
+            if (ShowExpired && Takeout.GetUnreturnedByBorrower(b.Id).Count == 0) return false;
+
             if (string.IsNullOrEmpty(SearchKeyword)) return true;
             if (b.Firstname.ToLower().Contains(SearchKeyword.ToLower())) return true;
             if(b.Lastname.ToLower().Contains(SearchKeyword.ToLower()))
@@ -114,35 +150,6 @@ namespace Libro.ViewModels
             return false;
         }
 
-        //private Borrower _selectedItem;
-
-        //public Borrower SelectedItem
-        //{
-        //    get { return _selectedItem; }
-        //    set
-        //    {
-        //        if (Equals(value, _selectedItem)) return;
-        //        _selectedItem = value;
-        //        OnPropertyChanged();
-        //        _takeouts = null;
-        //        _transactionsView = null;
-        //        OnPropertyChanged(nameof(Takeouts));
-        //        OnPropertyChanged(nameof(TakeoutsView));
-        //    }
-        //}
-
-        //private ObservableCollection<Takeout> _takeouts;
-
-        //private ObservableCollection<Takeout> Takeouts
-        //{
-        //    get
-        //    {
-        //        if (_takeouts != null) return _takeouts;
-        //        _takeouts = new ObservableCollection<Takeout>(Takeout.GetByBorrower(SelectedItem?.Id));
-        //        return _takeouts;
-        //    }
-        //}
-
         private ListCollectionView _transactionsView;
 
         public ListCollectionView TakeoutsView
@@ -155,6 +162,8 @@ namespace Libro.ViewModels
                 return _transactionsView;
             }
         }
+
+
 
         private bool FilterTransactions(object o)
         {
@@ -170,19 +179,10 @@ namespace Libro.ViewModels
 
         private async void DeleteBorrower(Borrower obj)
         {
-            //var mv = Application.Current.MainWindow as MetroWindow;
-            //if (mv == null) return;
-            //var res = await mv.ShowMessageAsync("Delete " + obj.Fullname + "?",
-            //        $"You are about to delete {obj.Fullname}. This action can not be undone.",
-            //        MessageDialogStyle.AffirmativeAndNegative,
-            //        new MetroDialogSettings() {
-            //            AffirmativeButtonText = "DELETE",
-            //            NegativeButtonText = "CANCEL",
-            //            ColorScheme = MetroDialogColorScheme.Accented
-            //        });
-            //if (res == MessageDialogResult.Negative) return;
-           // Borrowers.Remove(obj);
-            obj.Delete();
+            var res = await MessageDialog.Show($"Confirm Delete {obj.Fullname}?",
+                $"Deleting borrowers can not be undone. Click DELETE to permanently delete {obj.Fullname}.",
+                "DELETE", "CANCEL");
+            if(res) obj.Delete();
         }
 
         private static Students _students;
@@ -202,7 +202,38 @@ namespace Libro.ViewModels
         {
            // context = SynchronizationContext.Current;
         }
+        
+        private static ICommand _payCommand;
+        public static ICommand PayCommand => _payCommand ?? (_payCommand = new DelegateCommand<Takeout>(async to =>
+        {
+            if (to == null) return;
+            if (!to.IsReturned)
+            {
+                await MessageDialog.Show("The book is not yet returned.",
+                    $"{to.Borrower.Fullname} has not returned the book {to.Book.Title} yet.",
+                    "OKAY");
+                return;
+            }
+            to.Update(nameof(to.Paid),true);
+        }, to=>to!=null));
 
+        private static ICommand _returnCommand;
+        public static ICommand ReturnCommand => _returnCommand ?? (_returnCommand = new DelegateCommand<Takeout>(async to =>
+        {
+            if (to == null) return;
+            if (to.HasPenalty)
+            {
+                var res = await MessageDialog.Show($"Has {to.Borrower.Firstname} paid the {to.Penalty:#,##0.00} penalty?",
+                    $"{to.Borrower.Fullname} has not returned the book {to.Book.Title} on time. He/she must pay {to.Penalty:#,##0.00} as penalty.\nClick YES if he/she has paid the full amount.",
+                    "YES", "NO", true);
+                if (res == null) return;
+                if((bool)res) to.Update(nameof(to.Paid),true);    
+            }
+
+            to.IsReturned = true;
+            to.Returned = DateTime.Now;
+            to.Save();
+        }, to=>to!=null));
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -237,7 +268,7 @@ namespace Libro.ViewModels
 
         private async void AddNew(object obj)
         {
-            var borrower = new Borrower() {IsStudent = ShowStudents};
+            var borrower = new Borrower() {IsStudent = true};
             
             var dlg = new BorrowerEditor("","ADD") {DataContext = borrower};
             var res = await DialogHost.Show(dlg, "RootDialog") as bool?;
@@ -275,6 +306,14 @@ namespace Libro.ViewModels
             item.Barcode = brw.Barcode;
             item.Save();
            
+        }
+
+        public void ShowBorrower(Borrower borrower)
+        {
+            ShowUnpaid = false;
+            ShowExpired = false;
+            ShowAll = true;
+            BorrowersView.MoveCurrentTo(borrower);
         }
     }
 }
