@@ -42,6 +42,10 @@ namespace Libro.ViewModels
                 if (value == _ShowSettings) return;
                 _ShowSettings = value;
                 OnPropertyChanged(nameof(ShowSettings));
+                if (!value)
+                {
+                    Messenger.Default.Broadcast(Messages.SettingsChanged);
+                }
             }
         }
 
@@ -128,6 +132,7 @@ namespace Libro.ViewModels
                 if (value == _ExpirationTimer) return;
                 _ExpirationTimer = value;
                 OnPropertyChanged(nameof(ExpirationTimer));
+                
             }
         }
         
@@ -170,6 +175,19 @@ namespace Libro.ViewModels
                 if (value == _SendSms) return;
                 _SendSms = value;
                 OnPropertyChanged(nameof(SendSms));
+            }
+        }
+
+        private string _MessageTemplate;
+        [Trackable]
+        public string MessageTemplate
+        {
+            get => _MessageTemplate;
+            set
+            {
+                if (value == _MessageTemplate) return;
+                _MessageTemplate = value;
+                OnPropertyChanged(nameof(MessageTemplate));
             }
         }
 
