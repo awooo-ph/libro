@@ -13,13 +13,17 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         WindowState="Maximized"
+        DataContext="{Binding Source={x:Static local:MainViewModel.Instance}}"
         Background="{DynamicResource MaterialDesignBackground}" Foreground="{DynamicResource MaterialDesignBody}"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         Title="Libro - Library Management System" MinHeight="444" MinWidth="777">
+  <Window.TaskbarItemInfo>
+    <TaskbarItemInfo Overlay="{Binding Overlay,Converter={converters:PathToBitmapConverter}}"/>
+  </Window.TaskbarItemInfo>
   <md:DialogHost Identifier="LoginDialog" CloseOnClickAway="False" Style="{DynamicResource MaterialDesignEmbeddedDialogHost}"
                  x:Name="LoginDialogHost" x:FieldModifier="private">
   <md:DialogHost Identifier="RootDialog" 
-                 CloseOnClickAway="False"
+                 CloseOnClickAway="True"
                  x:Name="DialogHost" x:FieldModifier="private">
   <md:DrawerHost IsLeftDrawerOpen="{Binding Path=IsNavigationDrawerOpen, ElementName=appBar}"
                  LeftDrawerBackground="{DynamicResource MaterialDesignBackground}">
@@ -66,6 +70,7 @@
             </UniformGrid.Resources>
             <RadioButton Content="_BOOKS" Style="{DynamicResource MaterialDesignTabRadioButton}"
                          Cursor="Hand"
+                         local:Extensions.PlayClick="True"
                          IsChecked="True" x:Name="BooksTab"/>
             <RadioButton Content="_BORROWERS" Style="{DynamicResource MaterialDesignTabRadioButton}"
                          Cursor="Hand"
@@ -114,12 +119,26 @@
                           <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <md:PackIcon Kind="Information" Margin="0 0 10 0"
+                                     Visibility="{Binding HasThumbnail,Converter={converters:BooleanToVisibility Collapsed,Visible},Mode=OneTime}"
                                      Height="33" Width="33"
                                      VerticalAlignment="Top"/>
-                        <StackPanel Grid.Column="1">
-                          <TextBlock Text="TITLE" Style="{DynamicResource MaterialDesignTitleTextBlock}"/>
-                          <TextBlock Text="Description" Style="{DynamicResource MaterialDesignSubheadingTextBlock}"/>
+                        <Image Source="{Binding Thumbnail,Converter={converters:PathToBitmapConverter}}"
+                               Visibility="{Binding HasThumbnail,Converter={converters:BooleanToVisibility}}"
+                               Height="47" MaxWidth="47"
+                               VerticalAlignment="Top"
+                               Margin="0 0 10 0"/>
+                        <StackPanel Grid.Column="1" Opacity="0.7">
+                          <TextBlock Text="{Binding Title}" Style="{DynamicResource MaterialDesignTitleTextBlock}"
+                                     FontSize="12pt"/>
+                          <TextBlock Text="{Binding Message}" Style="{DynamicResource MaterialDesignSubheadingTextBlock}"
+                                     FontSize="10pt"
+                                     TextWrapping="Wrap"/>
                         </StackPanel>
+                        <Button Grid.Column="0" Grid.ColumnSpan="2"
+                                Height="Auto" VerticalAlignment="Stretch"
+                                Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl},Path=DataContext.ShowBorrowerCommand}"
+                                CommandParameter="{Binding}"
+                                Style="{DynamicResource MaterialDesignToolButton}"/>
                       </Grid>
                     </ListBoxItem>
                       </DataTemplate>
@@ -158,7 +177,25 @@
         </me:AppBar>
         <views:BooksView Grid.Row="1" Visibility="{Binding ElementName=BooksTab,Path=IsChecked,Converter={converters:BooleanToVisibility}}"/>
         <views:StudentsView Grid.Row="1" Visibility="{Binding ElementName=BorrowersTab,Path=IsChecked,Converter={converters:BooleanToVisibility}}"/>
-        
+        <md:Snackbar Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center"
+                     MessageQueue="{Binding Messages}">
+          <md:Snackbar.Resources>
+            <DataTemplate DataType="{x:Type models:Notification}">
+              <Grid>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto"/>
+                  <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Image Source="{Binding Thumbnail,Converter={converters:PathToBitmapConverter}}" Margin="0 0 10 0" MaxWidth="74"
+                       Stretch="Uniform"/>
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="14pt" TextWrapping="Wrap">
+                  <Run Text="{Binding Borrower.Fullname,Mode=OneTime}" FontWeight="Bold"/> did not return a book he/she borrowed last 
+                  <Run Text="{Binding Takeout.TakeoutDate,Mode=OneTime}"/>
+                </TextBlock>
+              </Grid>
+            </DataTemplate>
+          </md:Snackbar.Resources>
+        </md:Snackbar>
       </Grid>
     </md:DrawerHost>
   </md:DialogHost>
