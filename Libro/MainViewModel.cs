@@ -4,18 +4,102 @@ using System.ComponentModel;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 using Libro.Models;
+using Libro.Properties;
+using Libro.ViewModels;
+using MaterialDesignThemes.Wpf;
+using Settings = Libro.ViewModels.Settings;
 
 namespace Libro
 {
     partial class MainViewModel:ViewModelBase
     {
+        private Timer _expirationTimer;
+        private Timer _penaltyUpdater;
         private MainViewModel()
         {
             Initialize();
+
+            _expirationTimer = new Timer(CheckExpiration, null, 0, Settings.Instance.ExpirationTimer*1000);
+            _penaltyUpdater = new Timer(state =>
+            { 
+                var expired = Takeout.Cache.Where(x => !x.IsReturned && IsExpired(x.TakeoutDate)).ToList();
+                foreach (var takeout in expired)
+                {
+                    var penalty = 0.0;
+                    if (Settings.Instance.PenaltyInterval == 0)
+                        penalty = Settings.Instance.Penalty;
+                    else if (Settings.Instance.PenaltyInterval == 1)
+                        penalty = ((long) Math.Ceiling((DateTime.Now - takeout.TakeoutDate)
+                            .Add(TimeSpan.FromHours(-Settings.Instance.MaximumTakeoutHours))
+                            .TotalHours));
+                    else if(Settings.Instance.PenaltyInterval == 2)
+                        penalty = ((long) Math.Ceiling((DateTime.Now - takeout.TakeoutDate)
+                            .Add(TimeSpan.FromHours(-Settings.Instance.MaximumTakeoutHours))
+                            .TotalDays)) * Settings.Instance.Penalty;
+
+                    if (penalty < 0) penalty = 0;
+                    takeout.Update(nameof(takeout.Penalty), penalty);
+                }
+            }, null, 0, Settings.Instance.PenaltyInterval*1000);
+
+            Messenger.Default.AddListener(Libro.Messages.SettingsChanged, () =>
+                {
+                    _expirationTimer.Change(0, Settings.Instance.ExpirationTimer * 1000);
+                });
+        }
+
+        private bool _checking;
+        private void CheckExpiration(object state)
+        {
+            if (_checking) return;
+            _checking = true;
+            
+            var expired = Takeout.Cache.Where(x => !x.IsReturned && IsExpired(x.TakeoutDate)).ToList();
+            foreach (var takeout in expired)
+            {
+                var notification = Notification.Cache.FirstOrDefault(x =>
+                    x.NotificationType == Notification.NotificationTypes.TakeoutExpired &&
+                    x.RecordId == takeout.Id);
+                if(notification!=null) continue;
+                var borrower = Borrower.GetById(takeout.BorrowerId);
+                var book = Book.GetById(takeout.BookId);
+                notification = new Notification()
+                {
+                    Thumbnail = book.Thumbnail,
+                    RecordId = takeout.Id, 
+                    NotificationType = Notification.NotificationTypes.TakeoutExpired,
+                    Title = "BOOK NOT RETURNED",
+                    Message = $"{borrower.Fullname} did not return the book {book.Title} borrowed last {takeout.TakeoutDate.ToShortDateString()}."
+                };
+                App.Current.Dispatcher.Invoke(() =>notification.Save());
+                Messages.Enqueue(notification);
+                Resources.chime_glass_note_hi.Play();
+
+            }
+
+            _checking = false;
+        }
+        
+        private bool IsExpired(DateTime date)
+        {
+            return (DateTime.Now - date).TotalHours > Settings.Instance.MaximumTakeoutHours;
+        }
+        
+        private SnackbarMessageQueue _messages;
+        public SnackbarMessageQueue Messages
+        {
+            get
+            {
+                if (_messages != null) return _messages;
+                _messages = new SnackbarMessageQueue(TimeSpan.FromSeconds(7));
+                return _messages;
+            }
         }
 
         partial void Initialize();
@@ -50,6 +134,15 @@ namespace Libro
                 if (value == _ShowNotifications) return;
                 _ShowNotifications = value;
                 OnPropertyChanged(nameof(ShowNotifications));
+                if (value)
+                {
+                    foreach (var notification in Notification.Cache)
+                    {
+                        notification.Update(nameof(Notification.Read),true);
+                    }
+
+                    UnreadNotifications = null;
+                }
             }
         }
 
@@ -57,8 +150,9 @@ namespace Libro
 
         public ICommand ToggleNotifications => _toggleNotifications ?? (_toggleNotifications = new DelegateCommand(d =>
         {
+            if (Notification.Cache.Count == 0) return;
             ShowNotifications = !ShowNotifications;
-        }));//, d =>(ShowNotifications && Notifications.Count>1)));
+        }));
 
         
         private ListCollectionView _notifications;
@@ -76,13 +170,19 @@ namespace Libro
                     else
                         UnreadNotifications = null;
                 };
+                if (Notification.Cache.Any(x=>!x.Read))
+                    UnreadNotifications = Notification.Cache.Count(x=>!x.Read);
+                else
+                    UnreadNotifications = null;
+                _notifications.LiveFilteringProperties.Add(nameof(Notification.Read));
+                _notifications.IsLiveFiltering = true;
                 _notifications.SortDescriptions.Add(new SortDescription(nameof(Notification.Created), ListSortDirection.Descending));
                 return _notifications;
             }
         }
-
+        
         private long? _UnreadNotifications;
-
+        
         public long? UnreadNotifications
         {
             get => _UnreadNotifications;
@@ -100,6 +200,16 @@ namespace Libro
             return true;
         }
 
-        public static ICommand ShowBorrowerCommand { get; }
+        private ICommand _showBorrowerCommand;
+
+        public ICommand ShowBorrowerCommand =>
+            _showBorrowerCommand ?? (_showBorrowerCommand = new DelegateCommand<Notification>(d =>
+            {
+                ShowNotifications = false;
+                ((MainWindow) App.Current.MainWindow).BorrowersTab.IsChecked = true;
+                Students.Instance.ShowBorrower(d.Borrower);
+                d.Update(nameof(d.Read),true);
+                d.Delete(true);
+            }));
     }
 }
