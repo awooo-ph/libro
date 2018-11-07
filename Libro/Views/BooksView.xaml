@@ -146,9 +146,9 @@
                             <DataGridTextColumn Binding="{Binding Subject}"
                                                 Header="SUBJECT"
                                                 EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
-                            <md:MaterialDataGridComboBoxColumn SelectedItemBinding="{Binding Condition}"
+                            <!--<md:MaterialDataGridComboBoxColumn SelectedItemBinding="{Binding Condition}"
                                                     Header="CONDITION"
-                                                    ItemsSource="{StaticResource BookConditions}"/>
+                                                    ItemsSource="{StaticResource BookConditions}"/>-->
                             
                         </DataGrid.Columns>
                     </DataGrid>
@@ -623,13 +623,12 @@
                                                           Width="73" />
                                         <StackPanel Grid.Column="1"
                                                     VerticalAlignment="Center">
-                                            <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}"
-                                                       FontWeight="Black">
-                                        <Run Text="NAME: " /><Run Text="{Binding TakeoutViewModel.Borrower.Fullname,Mode=OneWay,Converter={cnv:ToUpperCase}}" />
+                                            <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}" FontWeight="Black">
+                                              <Run Text="NAME: " /><Run Text="{Binding TakeoutViewModel.Borrower.Fullname,Mode=OneWay,Converter={cnv:ToUpperCase}}" />
                                             </TextBlock>
                                             <TextBlock Visibility="{Binding TakeoutViewModel.Borrower.IsStudent,Converter={cnv:BooleanToVisibility}}"
                                                        Style="{StaticResource MaterialDesignSubheadingTextBlock}">
-                                        <Run Text="COURSE: " /><Run Text="{Binding TakeoutViewModel.Borrower.Course}" />
+                                              <Run Text="COURSE: " /><Run Text="{Binding TakeoutViewModel.Borrower.Course}" />
                                             </TextBlock>
                                             <TextBlock Text="TYPE: FACULTY"
                                                        Style="{StaticResource MaterialDesignSubheadingTextBlock}"
@@ -639,13 +638,12 @@
                                                     <ColumnDefinition Width="*"/>
                                                     <ColumnDefinition Width="Auto"/>
                                                 </Grid.ColumnDefinitions>
-                                            
-                                            <ComboBox ItemsSource="{StaticResource BookConditions}"
-                                                      Text="{Binding SelectedBook.Condition,UpdateSourceTrigger=PropertyChanged}"
-                                                      IsEditable="True"
-                                                      md:HintAssist.Hint="BOOK CONDITION"
-                                                      md:HintAssist.IsFloating="True"
-                                                      Margin="0 8 16 0" />
+                                                <!--<ComboBox ItemsSource="{StaticResource BookConditions}"
+                                                          Text="{Binding SelectedBook.Condition,UpdateSourceTrigger=PropertyChanged}"
+                                                          IsEditable="True"
+                                                          md:HintAssist.Hint="BOOK CONDITION"
+                                                          md:HintAssist.IsFloating="True"
+                                                          Margin="0 8 16 0" />-->
                                                 <Button Grid.Column="1" VerticalAlignment="Bottom"
                                                         Command="{Binding CheckoutCommand}">TAKEOUT</Button>
                                             </Grid>
@@ -708,7 +706,7 @@
                                                        Style="{StaticResource MaterialDesignSubheadingTextBlock}"
                                                        FontWeight="Bold" />
                                             <TextBlock TextWrapping="Wrap">
-                                                <Run Text="{Binding SelectedBook,Converter={cnv:BookToBorrowerName}}" />                                                
+                                                <Run Text="{Binding SelectedBook.TakeoutId,Converter={cnv:BookToBorrowerName}}" />                                                
                                                 has not returned this book yet. He/she borrowed it last
                                                 <Run Text="{Binding SelectedBook,Converter={cnv:LastTakeoutDate}}" />.
                                             </TextBlock>
@@ -735,13 +733,13 @@
                                                         md:HintAssist.Hint="DATE RETURNED"/>
                                            
                                         </UniformGrid>
-                                        <ComboBox ItemsSource="{StaticResource BookConditions}"
+                                        <!--<ComboBox ItemsSource="{StaticResource BookConditions}"
                                                   Text="{Binding ReturnCondition,UpdateSourceTrigger=PropertyChanged}"
                                                   IsEditable="True"
                                                   md:HintAssist.Hint="BOOK CONDITION"
                                                   md:HintAssist.IsFloating="True"
                                                   Margin="0 8"
-                                                  VerticalAlignment="Bottom" />
+                                                  VerticalAlignment="Bottom" />-->
                                         <TextBox md:HintAssist.Hint="REMARKS"
                                                  Text="{Binding ReturnNote}"
                                                  AcceptsReturn="True"
