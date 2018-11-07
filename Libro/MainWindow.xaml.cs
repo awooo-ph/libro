@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Libro.Dialogs;
+using Libro.Properties;
 using MaterialDesignExtensions.Model;
 using MaterialDesignThemes.Wpf;
 
@@ -44,7 +45,6 @@ namespace Libro
             };
 
             Navigation.DataContext = this;
-            DataContext = MainViewModel.Instance;
 
         }
 
@@ -73,5 +73,14 @@ namespace Libro
 
         public List<INavigationItem> NagivationItems => _navigationItems;
 
+        private void BorrowersTab_OnChecked(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void BooksTab_OnClick(object sender, RoutedEventArgs e)
+        {
+            Libro.Properties.Resources.click_02.Play();
+        }
     }
 }
