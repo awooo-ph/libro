@@ -4,452 +4,451 @@
              xmlns:local="clr-namespace:Libro"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              StartupUri="MainWindow.xaml">
-<Application.Resources>
+  <Application.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <!-- material design styles -->
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignExtensions;component/Themes/MaterialDesignLightTheme.xaml" />
+        <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignExtensions;component/Themes/MaterialDesignDarkTheme.xaml" />-->
+
+        <!-- primary colors -->
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <!-- material design styles -->
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignExtensions;component/Themes/MaterialDesignLightTheme.xaml" />
-                <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignExtensions;component/Themes/MaterialDesignDarkTheme.xaml" />-->
+          <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Brown.xaml" />
+          </ResourceDictionary.MergedDictionaries>
+          <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="{StaticResource Primary100}"/>
+          <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="{StaticResource Primary100Foreground}"/>
+          <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="{StaticResource Primary500}"/>
+          <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="{StaticResource Primary500Foreground}"/>
+          <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="{StaticResource Primary600}"/>
+          <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="{StaticResource Primary600Foreground}"/>
+        </ResourceDictionary>
 
-                <!-- primary colors -->
-                <ResourceDictionary>
-                    <ResourceDictionary.MergedDictionaries>
-                        <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Teal.xaml" />
-                    </ResourceDictionary.MergedDictionaries>
-                    <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="{StaticResource Primary100}"/>
-                    <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="{StaticResource Primary100Foreground}"/>
-                    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="{StaticResource Primary500}"/>
-                    <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="{StaticResource Primary500Foreground}"/>
-                    <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="{StaticResource Primary600}"/>
-                    <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="{StaticResource Primary600Foreground}"/>
-                </ResourceDictionary>
+        <!-- accent color -->
+        <ResourceDictionary>
+          <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Red.xaml" />
+          </ResourceDictionary.MergedDictionaries>
+          <SolidColorBrush x:Key="SecondaryAccentBrush" Color="{StaticResource Accent400}"/>
+          <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="{StaticResource Accent400Foreground}"/>
+        </ResourceDictionary>
+      </ResourceDictionary.MergedDictionaries>
 
-                <!-- accent color -->
-                <ResourceDictionary>
-                    <ResourceDictionary.MergedDictionaries>
-                        <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Red.xaml" />
-                    </ResourceDictionary.MergedDictionaries>
-                    <SolidColorBrush x:Key="SecondaryAccentBrush" Color="{StaticResource Accent400}"/>
-                    <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="{StaticResource Accent400Foreground}"/>
-                </ResourceDictionary>
-
-            </ResourceDictionary.MergedDictionaries>
-        
 
       <x:Array Type="{x:Type system:String}"
                      x:Key="BookConditions">
-                <system:String>NEW</system:String>
-                <system:String>EXCELLENT</system:String>
-                <system:String>GOOD</system:String>
-                <system:String>POOR</system:String>
-                <system:String>DAMAGED</system:String>
-            </x:Array>
-            
-            <Path x:Key="BookIcon" Fill="Black" Data="M1410 2540 c-141 -40 -1106 -353 -1140 -370 -49 -25 -117 -101 -145 -163 -52 -114 -52 -264 0 -368 14 -26 21 -50 16 -54 -5 -3 -20 -36 -32 -73 -19 -54 -23 -89 -23 -182 0 -131 22 -217 75 -290 17 -23 230 -264 474 -535 323 -359 450 -494 471 -499 15 -4 57 -2 93 4 132 23 1187 261 1217 274 19 9 38 29 48 51 16 32 16 41 4 71 -7 19 -193 246 -413 506 -527 623 -529 625 -562 632 -20 5 -180 -39 -558 -154 -359 -108 -539 -158 -556 -154 -50 10 -64 38 -64 123 0 55 5 84 17 102 14 22 85 47 580 199 309 95 568 173 574 174 6 0 176 -202 378 -451 l366 -452 0 -53 c0 -75 24 -165 51 -194 55 -58 147 -45 181 26 14 30 15 44 6 95 -8 43 -8 72 0 102 10 36 9 52 -9 105 -14 42 -23 101 -26 173 -4 99 -2 118 21 188 22 68 24 82 13 112 -13 37 -848 1059 -873 1069 -29 11 -119 4 -184 -14z m446 -647 c198 -240 362 -442 366 -449 5 -7 2 -37 -5 -68 l-13 -56 -298 369 c-164 203 -310 374 -323 380 -13 6 -36 11 -51 11 -15 0 -288 -81 -607 -179 -637 -196 -597 -189 -611 -113 -9 48 13 137 40 163 16 15 193 77 577 200 305 98 557 178 560 178 4 1 168 -196 365 -436z m-137 -1269 c44 -37 75 -84 64 -95 -11 -11 -653 -169 -686 -169 -36 0 -144 128 -109 131 4 0 149 36 322 79 173 43 329 78 347 79 20 1 42 -8 62 -25z" />
+        <system:String>NEW</system:String>
+        <system:String>EXCELLENT</system:String>
+        <system:String>GOOD</system:String>
+        <system:String>POOR</system:String>
+        <system:String>DAMAGED</system:String>
+      </x:Array>
 
-            <Viewbox x:Key="Book" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      <Path x:Key="BookIcon" Fill="Black" Data="M1410 2540 c-141 -40 -1106 -353 -1140 -370 -49 -25 -117 -101 -145 -163 -52 -114 -52 -264 0 -368 14 -26 21 -50 16 -54 -5 -3 -20 -36 -32 -73 -19 -54 -23 -89 -23 -182 0 -131 22 -217 75 -290 17 -23 230 -264 474 -535 323 -359 450 -494 471 -499 15 -4 57 -2 93 4 132 23 1187 261 1217 274 19 9 38 29 48 51 16 32 16 41 4 71 -7 19 -193 246 -413 506 -527 623 -529 625 -562 632 -20 5 -180 -39 -558 -154 -359 -108 -539 -158 -556 -154 -50 10 -64 38 -64 123 0 55 5 84 17 102 14 22 85 47 580 199 309 95 568 173 574 174 6 0 176 -202 378 -451 l366 -452 0 -53 c0 -75 24 -165 51 -194 55 -58 147 -45 181 26 14 30 15 44 6 95 -8 43 -8 72 0 102 10 36 9 52 -9 105 -14 42 -23 101 -26 173 -4 99 -2 118 21 188 22 68 24 82 13 112 -13 37 -848 1059 -873 1069 -29 11 -119 4 -184 -14z m446 -647 c198 -240 362 -442 366 -449 5 -7 2 -37 -5 -68 l-13 -56 -298 369 c-164 203 -310 374 -323 380 -13 6 -36 11 -51 11 -15 0 -288 -81 -607 -179 -637 -196 -597 -189 -611 -113 -9 48 13 137 40 163 16 15 193 77 577 200 305 98 557 178 560 178 4 1 168 -196 365 -436z m-137 -1269 c44 -37 75 -84 64 -95 -11 -11 -653 -169 -686 -169 -36 0 -144 128 -109 131 4 0 149 36 322 79 173 43 329 78 347 79 20 1 42 -8 62 -25z" />
+
+      <Viewbox x:Key="Book" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                      Stretch="Uniform">
-                <Canvas Name="svg2"
+        <Canvas Name="svg2"
                         Width="744.09448819"
                         Height="1052.3622047">
-                    <Canvas.RenderTransform>
-                        <TranslateTransform X="0"
+          <Canvas.RenderTransform>
+            <TranslateTransform X="0"
                                             Y="0" />
-                    </Canvas.RenderTransform>
-                    <Canvas.Resources />
-                    <!--Unknown tag: sodipodi:namedview-->
-                    <!--Unknown tag: metadata-->
-                    <Canvas Name="layer1">
-                        <Canvas Name="layer11">
-                            <Canvas.RenderTransform>
-                                <MatrixTransform Matrix="0.1 0 0 0.1 62.126282 169.69229" />
-                            </Canvas.RenderTransform>
-                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+          </Canvas.RenderTransform>
+          <Canvas.Resources />
+          <!--Unknown tag: sodipodi:namedview-->
+          <!--Unknown tag: metadata-->
+          <Canvas Name="layer1">
+            <Canvas Name="layer11">
+              <Canvas.RenderTransform>
+                <MatrixTransform Matrix="0.1 0 0 0.1 62.126282 169.69229" />
+              </Canvas.RenderTransform>
+              <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                   Name="path3470"
                                   Fill="#FF000000">
-                                <Path.Data>
-                                    <PathGeometry Figures="M 2905 4930 C 2858 4920 585 4247 523 4224 455 4199 341 4119 264 4042 127 3906 41 3744 15 3569 -17 3360 5 3072 65 2885 99 2779 173 2631 223 2567 270 2508 2277 274 2308 247 c 27 -25 88 -46 133 -47 42 0 2486 544 2538 566 42 18 87 58 107 96 9 17 14 58 14 111 0 77 -2 87 -29 123 -63 85 -2108 2430 -2144 2458 -31 25 -49 31 -101 34 -59 4 -137 -17 -1102 -293 C 773 3023 680 2999 628 3003 c -115 10 -172 66 -203 199 -30 135 -12 297 47 418 33 68 121 166 174 193 36 18 2223 669 2234 665 5 -2 403 -478 885 -1058 l 876 -1055 -5 -40 c -26 -181 -16 -324 31 -468 43 -135 117 -193 229 -184 154 12 228 144 174 312 -27 86 -30 214 -5 295 9 30 19 82 21 115 4 50 1 67 -18 102 -31 55 -1950 2366 -1991 2397 -29 22 -98 47 -122 45 -5 -1 -28 -5 -50 -9 z m 854 -3241 c 43 -27 211 -221 211 -245 0 -28 -19 -52 -52 -63 -47 -17 -1465 -361 -1514 -368 -25 -3 -63 1 -97 11 -48 14 -64 26 -121 89 -120 133 -141 165 -130 195 6 17 22 31 45 40 20 7 364 94 765 193 803 197 810 198 893 148 z"
+                <Path.Data>
+                  <PathGeometry Figures="M 2905 4930 C 2858 4920 585 4247 523 4224 455 4199 341 4119 264 4042 127 3906 41 3744 15 3569 -17 3360 5 3072 65 2885 99 2779 173 2631 223 2567 270 2508 2277 274 2308 247 c 27 -25 88 -46 133 -47 42 0 2486 544 2538 566 42 18 87 58 107 96 9 17 14 58 14 111 0 77 -2 87 -29 123 -63 85 -2108 2430 -2144 2458 -31 25 -49 31 -101 34 -59 4 -137 -17 -1102 -293 C 773 3023 680 2999 628 3003 c -115 10 -172 66 -203 199 -30 135 -12 297 47 418 33 68 121 166 174 193 36 18 2223 669 2234 665 5 -2 403 -478 885 -1058 l 876 -1055 -5 -40 c -26 -181 -16 -324 31 -468 43 -135 117 -193 229 -184 154 12 228 144 174 312 -27 86 -30 214 -5 295 9 30 19 82 21 115 4 50 1 67 -18 102 -31 55 -1950 2366 -1991 2397 -29 22 -98 47 -122 45 -5 -1 -28 -5 -50 -9 z m 854 -3241 c 43 -27 211 -221 211 -245 0 -28 -19 -52 -52 -63 -47 -17 -1465 -361 -1514 -368 -25 -3 -63 1 -97 11 -48 14 -64 26 -121 89 -120 133 -141 165 -130 195 6 17 22 31 45 40 20 7 364 94 765 193 803 197 810 198 893 148 z"
                                                   FillRule="NonZero" />
-                                </Path.Data>
-                            </Path>
-                        </Canvas>
-                    </Canvas>
-                </Canvas>
-            </Viewbox>
+                </Path.Data>
+              </Path>
+            </Canvas>
+          </Canvas>
+        </Canvas>
+      </Viewbox>
 
-            <Viewbox x:Key="NewsPaperIcon" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      <Viewbox x:Key="NewsPaperIcon" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                      Stretch="Uniform">
-                <Canvas Name="svg2"
+        <Canvas Name="svg2"
                         Width="744.09448819"
                         Height="1052.3622047">
-                    <Canvas.RenderTransform>
-                        <TranslateTransform X="0"
+          <Canvas.RenderTransform>
+            <TranslateTransform X="0"
                                             Y="0" />
-                    </Canvas.RenderTransform>
-                    <Canvas.Resources />
-                    <!--Unknown tag: sodipodi:namedview-->
-                    <!--Unknown tag: metadata-->
-                    <Canvas Name="layer1">
-                        <Canvas Name="layer19">
-                            <Canvas.RenderTransform>
-                                <MatrixTransform Matrix="0.1 0 0 0.1 18.098399 36.362205" />
-                            </Canvas.RenderTransform>
-                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+          </Canvas.RenderTransform>
+          <Canvas.Resources />
+          <!--Unknown tag: sodipodi:namedview-->
+          <!--Unknown tag: metadata-->
+          <Canvas Name="layer1">
+            <Canvas Name="layer19">
+              <Canvas.RenderTransform>
+                <MatrixTransform Matrix="0.1 0 0 0.1 18.098399 36.362205" />
+              </Canvas.RenderTransform>
+              <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                   Name="path3377"
                                   Fill="#FF000000">
-                                <Path.Data>
-                                    <PathGeometry Figures="M 470 5101 C 316 5061 170 4914 117 4745 L 95 4675 95 2367 95 58 128 29 160 0 2348 0 c 2057 0 2188 1 2208 18 39 31 44 55 44 226 l 0 166 163 0 c 184 0 216 9 249 71 17 33 18 119 16 2307 l -3 2274 -33 29 -32 29 -2213 -1 C 696 5118 530 5117 470 5101 Z m 4320 -2331 0 -2120 -95 0 -95 0 0 1983 c 0 1945 0 1983 -20 2014 -10 17 -29 38 -42 45 -19 11 -410 14 -2101 18 l -2078 5 28 42 c 33 49 94 97 150 118 32 11 360 14 2146 14 l 2107 1 0 -2120 z m -430 -420 0 -2120 -2015 0 -2015 0 0 2120 0 2120 2015 0 2015 0 0 -2120 z"
+                <Path.Data>
+                  <PathGeometry Figures="M 470 5101 C 316 5061 170 4914 117 4745 L 95 4675 95 2367 95 58 128 29 160 0 2348 0 c 2057 0 2188 1 2208 18 39 31 44 55 44 226 l 0 166 163 0 c 184 0 216 9 249 71 17 33 18 119 16 2307 l -3 2274 -33 29 -32 29 -2213 -1 C 696 5118 530 5117 470 5101 Z m 4320 -2331 0 -2120 -95 0 -95 0 0 1983 c 0 1945 0 1983 -20 2014 -10 17 -29 38 -42 45 -19 11 -410 14 -2101 18 l -2078 5 28 42 c 33 49 94 97 150 118 32 11 360 14 2146 14 l 2107 1 0 -2120 z m -430 -420 0 -2120 -2015 0 -2015 0 0 2120 0 2120 2015 0 2015 0 0 -2120 z"
                                                   FillRule="NonZero" />
-                                </Path.Data>
-                            </Path>
-                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                </Path.Data>
+              </Path>
+              <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                   Name="path3379"
                                   Fill="#FF000000">
-                                <Path.Data>
-                                    <PathGeometry Figures="m 704 4060 c -41 -16 -74 -68 -74 -117 0 -38 5 -50 34 -79 l 34 -34 686 0 685 0 35 31 c 46 40 55 85 29 136 -39 76 -7 73 -748 72 -363 0 -669 -4 -681 -9 z"
+                <Path.Data>
+                  <PathGeometry Figures="m 704 4060 c -41 -16 -74 -68 -74 -117 0 -38 5 -50 34 -79 l 34 -34 686 0 685 0 35 31 c 46 40 55 85 29 136 -39 76 -7 73 -748 72 -363 0 -669 -4 -681 -9 z"
                                                   FillRule="NonZero" />
-                                </Path.Data>
-                            </Path>
-                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                </Path.Data>
+              </Path>
+              <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                   Name="path3381"
                                   Fill="#FF000000">
-                                <Path.Data>
-                                    <PathGeometry Figures="m 2624 4060 c -41 -16 -74 -68 -74 -117 0 -38 5 -50 34 -79 l 34 -34 686 0 685 0 35 31 c 46 40 55 85 29 135 -10 21 -34 45 -53 56 -33 17 -72 18 -695 17 -363 0 -669 -4 -681 -9 z"
+                <Path.Data>
+                  <PathGeometry Figures="m 2624 4060 c -41 -16 -74 -68 -74 -117 0 -38 5 -50 34 -79 l 34 -34 686 0 685 0 35 31 c 46 40 55 85 29 135 -10 21 -34 45 -53 56 -33 17 -72 18 -695 17 -363 0 -669 -4 -681 -9 z"
                                                   FillRule="NonZero" />
-                                </Path.Data>
-                            </Path>
-                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                </Path.Data>
+              </Path>
+              <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                   Name="path3383"
                                   Fill="#FF000000">
-                                <Path.Data>
-                                    <PathGeometry Figures="m 689 3625 c -56 -31 -78 -117 -43 -171 37 -55 17 -54 750 -54 l 676 0 33 33 c 58 58 58 116 0 174 l -33 33 -678 0 c -566 -1 -683 -3 -705 -15 z"
+                <Path.Data>
+                  <PathGeometry Figures="m 689 3625 c -56 -31 -78 -117 -43 -171 37 -55 17 -54 750 -54 l 676 0 33 33 c 58 58 58 116 0 174 l -33 33 -678 0 c -566 -1 -683 -3 -705 -15 z"
                                                   FillRule="NonZero" />
-                                </Path.Data>
-                            </Path>
-                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                </Path.Data>
+              </Path>
+              <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                   Name="path3385"
                                   Fill="#FF000000">
-                                <Path.Data>
-                                    <PathGeometry Figures="m 2609 3625 c -83 -45 -77 -178 8 -214 21 -8 212 -11 706 -9 l 679 3 29 32 c 51 58 51 108 0 166 l -29 32 -684 2 c -576 2 -687 0 -709 -12 z"
+                <Path.Data>
+                  <PathGeometry Figures="m 2609 3625 c -83 -45 -77 -178 8 -214 21 -8 212 -11 706 -9 l 679 3 29 32 c 51 58 51 108 0 166 l -29 32 -684 2 c -576 2 -687 0 -709 -12 z"
                                                   FillRule="NonZero" />
-                                </Path.Data>
-                            </Path>
-                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                </Path.Data>
+              </Path>
+              <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                   Name="path3387"
                                   Fill="#FF000000">
-                                <Path.Data>
-                                    <PathGeometry Figures="m 568 3187 c -14 -12 -31 -32 -37 -44 -17 -33 -15 -1350 2 -1382 6 -13 25 -34 40 -45 28 -21 32 -21 819 -21 l 790 0 34 37 34 38 0 686 0 686 -34 34 -34 34 -793 0 -794 0 -27 -23 z m 1442 -737 0 -520 -625 0 -625 0 0 520 0 520 625 0 625 0 0 -520 z"
+                <Path.Data>
+                  <PathGeometry Figures="m 568 3187 c -14 -12 -31 -32 -37 -44 -17 -33 -15 -1350 2 -1382 6 -13 25 -34 40 -45 28 -21 32 -21 819 -21 l 790 0 34 37 34 38 0 686 0 686 -34 34 -34 34 -793 0 -794 0 -27 -23 z m 1442 -737 0 -520 -625 0 -625 0 0 520 0 520 625 0 625 0 0 -520 z"
                                                   FillRule="NonZero" />
-                                </Path.Data>
-                            </Path>
-                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                </Path.Data>
+              </Path>
+              <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                   Name="path3389"
                                   Fill="#FF000000">
-                                <Path.Data>
-                                    <PathGeometry Figures="m 2584 3176 c -29 -29 -34 -41 -34 -80 0 -39 6 -52 34 -84 l 34 -37 674 -3 c 639 -2 675 -1 707 16 78 42 90 134 25 191 l -35 31 -685 0 -686 0 -34 -34 z"
+                <Path.Data>
+                  <PathGeometry Figures="m 2584 3176 c -29 -29 -34 -41 -34 -80 0 -39 6 -52 34 -84 l 34 -37 674 -3 c 639 -2 675 -1 707 16 78 42 90 134 25 191 l -35 31 -685 0 -686 0 -34 -34 z"
                                                   FillRule="NonZero" />
-                                </Path.Data>
-                            </Path>
-                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                </Path.Data>
+              </Path>
+              <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                   Name="path3391"
                                   Fill="#FF000000">
-                                <Path.Data>
-                                    <PathGeometry Figures="m 2624 2780 c -41 -16 -74 -68 -74 -117 0 -38 5 -50 34 -79 l 34 -34 686 0 685 0 35 31 c 46 40 55 85 29 135 -10 21 -34 45 -53 56 -33 17 -72 18 -695 17 -363 0 -669 -4 -681 -9 z"
+                <Path.Data>
+                  <PathGeometry Figures="m 2624 2780 c -41 -16 -74 -68 -74 -117 0 -38 5 -50 34 -79 l 34 -34 686 0 685 0 35 31 c 46 40 55 85 29 135 -10 21 -34 45 -53 56 -33 17 -72 18 -695 17 -363 0 -669 -4 -681 -9 z"
                                                   FillRule="NonZero" />
-                                </Path.Data>
-                            </Path>
-                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                </Path.Data>
+              </Path>
+              <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                   Name="path3393"
                                   Fill="#FF000000">
-                                <Path.Data>
-                                    <PathGeometry Figures="m 2609 2345 c -56 -31 -78 -117 -43 -171 37 -55 17 -54 741 -54 652 0 669 1 701 20 19 12 40 37 49 58 21 50 2 107 -46 139 l -34 23 -671 0 c -559 -1 -675 -3 -697 -15 z"
+                <Path.Data>
+                  <PathGeometry Figures="m 2609 2345 c -56 -31 -78 -117 -43 -171 37 -55 17 -54 741 -54 652 0 669 1 701 20 19 12 40 37 49 58 21 50 2 107 -46 139 l -34 23 -671 0 c -559 -1 -675 -3 -697 -15 z"
                                                   FillRule="NonZero" />
-                                </Path.Data>
-                            </Path>
-                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                </Path.Data>
+              </Path>
+              <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                   Name="path3395"
                                   Fill="#FF000000">
-                                <Path.Data>
-                                    <PathGeometry Figures="m 2584 1896 c -29 -29 -34 -41 -34 -80 0 -39 6 -52 34 -84 l 34 -37 674 -3 c 639 -2 675 -1 707 16 78 42 90 134 25 191 l -35 31 -685 0 -686 0 -34 -34 z"
+                <Path.Data>
+                  <PathGeometry Figures="m 2584 1896 c -29 -29 -34 -41 -34 -80 0 -39 6 -52 34 -84 l 34 -37 674 -3 c 639 -2 675 -1 707 16 78 42 90 134 25 191 l -35 31 -685 0 -686 0 -34 -34 z"
                                                   FillRule="NonZero" />
-                                </Path.Data>
-                            </Path>
-                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                </Path.Data>
+              </Path>
+              <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                   Name="path3397"
                                   Fill="#FF000000">
-                                <Path.Data>
-                                    <PathGeometry Figures="m 593 1495 c -18 -8 -42 -29 -53 -47 -20 -32 -20 -46 -18 -500 l 3 -466 24 -26 c 14 -15 41 -31 61 -37 74 -22 87 -9 327 310 l 218 291 5 -269 c 5 -269 5 -269 29 -295 14 -15 41 -31 61 -37 48 -15 102 8 130 53 19 32 20 49 20 489 l 0 456 -23 34 c -14 21 -38 39 -62 48 -77 27 -88 16 -332 -308 l -218 -291 -5 263 c -6 293 -8 305 -75 333 -42 17 -51 17 -92 -1 z"
+                <Path.Data>
+                  <PathGeometry Figures="m 593 1495 c -18 -8 -42 -29 -53 -47 -20 -32 -20 -46 -18 -500 l 3 -466 24 -26 c 14 -15 41 -31 61 -37 74 -22 87 -9 327 310 l 218 291 5 -269 c 5 -269 5 -269 29 -295 14 -15 41 -31 61 -37 48 -15 102 8 130 53 19 32 20 49 20 489 l 0 456 -23 34 c -14 21 -38 39 -62 48 -77 27 -88 16 -332 -308 l -218 -291 -5 263 c -6 293 -8 305 -75 333 -42 17 -51 17 -92 -1 z"
                                                   FillRule="NonZero" />
-                                </Path.Data>
-                            </Path>
-                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                </Path.Data>
+              </Path>
+              <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                   Name="path3399"
                                   Fill="#FF000000">
-                                <Path.Data>
-                                    <PathGeometry Figures="m 1664 1500 c -11 -4 -33 -22 -47 -40 l -27 -32 0 -469 0 -469 34 -38 34 -37 194 -3 c 220 -3 246 4 281 72 26 50 17 95 -29 135 -35 31 -35 31 -154 31 l -120 0 0 95 0 95 114 0 c 101 0 117 2 147 23 48 32 67 89 46 139 -27 63 -64 78 -194 78 l -113 0 0 95 0 95 120 0 c 119 0 119 0 154 31 46 40 55 85 29 135 -34 66 -63 74 -268 73 -99 0 -189 -4 -201 -9 z"
+                <Path.Data>
+                  <PathGeometry Figures="m 1664 1500 c -11 -4 -33 -22 -47 -40 l -27 -32 0 -469 0 -469 34 -38 34 -37 194 -3 c 220 -3 246 4 281 72 26 50 17 95 -29 135 -35 31 -35 31 -154 31 l -120 0 0 95 0 95 114 0 c 101 0 117 2 147 23 48 32 67 89 46 139 -27 63 -64 78 -194 78 l -113 0 0 95 0 95 120 0 c 119 0 119 0 154 31 46 40 55 85 29 135 -34 66 -63 74 -268 73 -99 0 -189 -4 -201 -9 z"
                                                   FillRule="NonZero" />
-                                </Path.Data>
-                            </Path>
-                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                </Path.Data>
+              </Path>
+              <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                   Name="path3401"
                                   Fill="#FF000000">
-                                <Path.Data>
-                                    <PathGeometry Figures="m 2515 1496 c -16 -7 -38 -22 -48 -34 -22 -25 -236 -866 -237 -929 0 -53 45 -109 95 -119 40 -7 97 17 119 51 9 13 42 128 74 256 l 58 233 43 -125 c 51 -146 76 -179 142 -186 35 -4 51 0 79 19 31 21 40 38 79 151 25 70 48 124 51 120 4 -5 32 -109 63 -232 60 -240 70 -261 133 -281 65 -22 139 24 150 91 7 45 -208 910 -237 950 -23 33 -77 53 -118 44 -54 -12 -82 -55 -136 -216 l -51 -152 -54 154 c -29 85 -60 162 -69 173 -17 20 -71 46 -93 46 -7 -1 -26 -7 -43 -14 z"
+                <Path.Data>
+                  <PathGeometry Figures="m 2515 1496 c -16 -7 -38 -22 -48 -34 -22 -25 -236 -866 -237 -929 0 -53 45 -109 95 -119 40 -7 97 17 119 51 9 13 42 128 74 256 l 58 233 43 -125 c 51 -146 76 -179 142 -186 35 -4 51 0 79 19 31 21 40 38 79 151 25 70 48 124 51 120 4 -5 32 -109 63 -232 60 -240 70 -261 133 -281 65 -22 139 24 150 91 7 45 -208 910 -237 950 -23 33 -77 53 -118 44 -54 -12 -82 -55 -136 -216 l -51 -152 -54 154 c -29 85 -60 162 -69 173 -17 20 -71 46 -93 46 -7 -1 -26 -7 -43 -14 z"
                                                   FillRule="NonZero" />
-                                </Path.Data>
-                            </Path>
-                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                </Path.Data>
+              </Path>
+              <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                   Name="path3403"
                                   Fill="#FF000000">
-                                <Path.Data>
-                                    <PathGeometry Figures="m 3594 1501 c -42 -18 -74 -69 -74 -118 0 -38 5 -50 34 -79 l 34 -34 171 0 171 0 0 -78 c 0 -101 -10 -112 -101 -112 -96 0 -158 -22 -220 -77 -79 -72 -99 -123 -99 -258 0 -86 5 -119 19 -151 27 -59 86 -121 145 -152 49 -25 60 -27 226 -30 200 -4 228 4 263 72 26 50 17 95 -29 135 l -35 31 -152 0 c -191 0 -197 3 -197 94 0 83 14 96 101 96 95 0 158 22 219 76 82 75 94 106 98 263 5 153 -4 194 -50 247 -63 72 -89 79 -308 81 -107 1 -204 -1 -216 -6 z"
+                <Path.Data>
+                  <PathGeometry Figures="m 3594 1501 c -42 -18 -74 -69 -74 -118 0 -38 5 -50 34 -79 l 34 -34 171 0 171 0 0 -78 c 0 -101 -10 -112 -101 -112 -96 0 -158 -22 -220 -77 -79 -72 -99 -123 -99 -258 0 -86 5 -119 19 -151 27 -59 86 -121 145 -152 49 -25 60 -27 226 -30 200 -4 228 4 263 72 26 50 17 95 -29 135 l -35 31 -152 0 c -191 0 -197 3 -197 94 0 83 14 96 101 96 95 0 158 22 219 76 82 75 94 106 98 263 5 153 -4 194 -50 247 -63 72 -89 79 -308 81 -107 1 -204 -1 -216 -6 z"
                                                   FillRule="NonZero" />
-                                </Path.Data>
-                            </Path>
-                        </Canvas>
-                    </Canvas>
-                </Canvas>
-            </Viewbox>
-            <Viewbox x:Key="StudentIcon" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                </Path.Data>
+              </Path>
+            </Canvas>
+          </Canvas>
+        </Canvas>
+      </Viewbox>
+      <Viewbox x:Key="StudentIcon" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                      Stretch="Uniform">
-                <Canvas Name="svg2"
+        <Canvas Name="svg2"
                         Width="744.09448819"
                         Height="1052.3622047">
-                    <Canvas.RenderTransform>
-                        <TranslateTransform X="0"
+          <Canvas.RenderTransform>
+            <TranslateTransform X="0"
                                             Y="0" />
-                    </Canvas.RenderTransform>
-                    <Canvas.Resources />
-                    <!--Unknown tag: sodipodi:namedview-->
-                    <!--Unknown tag: metadata-->
-                    <Canvas Name="layer1">
-                        <Canvas Name="layer16">
-                            <Canvas.RenderTransform>
-                                <MatrixTransform Matrix="0.1 0 0 0.1 99.909741 757.9668" />
-                            </Canvas.RenderTransform>
-                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+          </Canvas.RenderTransform>
+          <Canvas.Resources />
+          <!--Unknown tag: sodipodi:namedview-->
+          <!--Unknown tag: metadata-->
+          <Canvas Name="layer1">
+            <Canvas Name="layer16">
+              <Canvas.RenderTransform>
+                <MatrixTransform Matrix="0.1 0 0 0.1 99.909741 757.9668" />
+              </Canvas.RenderTransform>
+              <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                   Name="path3350"
                                   Fill="#FF000000">
-                                <Path.Data>
-                                    <PathGeometry Figures="M 97 1511 C 32 1497 5 1470 2 1414 -1 1353 30 1300 140 1180 181 1135 256 1050 305 991 407 872 492 802 574 771 c 155 -58 352 -49 491 22 74 37 153 107 261 230 60 67 134 150 166 185 83 90 108 133 108 185 0 113 -79 136 -385 116 -181 -11 -196 -14 -216 -35 -31 -33 -36 -100 -9 -142 24 -39 99 -76 141 -70 l 29 5 0 -114 c 0 -62 -4 -113 -8 -113 -5 0 -77 29 -161 64 l -153 63 2 172 1 171 -41 0 -40 0 0 -170 c 0 -163 -1 -170 -21 -181 -53 -28 -283 -119 -288 -113 -3 3 -8 53 -9 110 l -4 104 42 0 c 103 0 188 108 146 187 -32 64 -49 68 -281 70 -116 1 -227 -2 -248 -6 z"
+                <Path.Data>
+                  <PathGeometry Figures="M 97 1511 C 32 1497 5 1470 2 1414 -1 1353 30 1300 140 1180 181 1135 256 1050 305 991 407 872 492 802 574 771 c 155 -58 352 -49 491 22 74 37 153 107 261 230 60 67 134 150 166 185 83 90 108 133 108 185 0 113 -79 136 -385 116 -181 -11 -196 -14 -216 -35 -31 -33 -36 -100 -9 -142 24 -39 99 -76 141 -70 l 29 5 0 -114 c 0 -62 -4 -113 -8 -113 -5 0 -77 29 -161 64 l -153 63 2 172 1 171 -41 0 -40 0 0 -170 c 0 -163 -1 -170 -21 -181 -53 -28 -283 -119 -288 -113 -3 3 -8 53 -9 110 l -4 104 42 0 c 103 0 188 108 146 187 -32 64 -49 68 -281 70 -116 1 -227 -2 -248 -6 z"
                                                   FillRule="NonZero" />
-                                </Path.Data>
-                            </Path>
-                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                </Path.Data>
+              </Path>
+              <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                   Name="path3352"
                                   Fill="#FF000000">
-                                <Path.Data>
-                                    <PathGeometry Figures="M 712 661 C 621 629 532 540 509 457 c -16 -60 -7 -173 19 -222 25 -50 73 -96 132 -126 37 -20 60 -24 135 -24 81 0 95 3 143 29 144 80 205 253 138 390 -70 142 -219 207 -364 157 z"
+                <Path.Data>
+                  <PathGeometry Figures="M 712 661 C 621 629 532 540 509 457 c -16 -60 -7 -173 19 -222 25 -50 73 -96 132 -126 37 -20 60 -24 135 -24 81 0 95 3 143 29 144 80 205 253 138 390 -70 142 -219 207 -364 157 z"
                                                   FillRule="NonZero" />
-                                </Path.Data>
-                            </Path>
-                        </Canvas>
-                    </Canvas>
-                </Canvas>
-            </Viewbox>
+                </Path.Data>
+              </Path>
+            </Canvas>
+          </Canvas>
+        </Canvas>
+      </Viewbox>
 
-            <Viewbox x:Key="MagazineIcon" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      <Viewbox x:Key="MagazineIcon" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                      Stretch="Uniform">
-                <Canvas Name="svg2"
+        <Canvas Name="svg2"
                         Width="744.09448819"
                         Height="1052.3622047">
-                    <Canvas.RenderTransform>
-                        <TranslateTransform X="0"
+          <Canvas.RenderTransform>
+            <TranslateTransform X="0"
                                             Y="0" />
-                    </Canvas.RenderTransform>
-                    <Canvas.Resources />
-                    <!--Unknown tag: sodipodi:namedview-->
-                    <!--Unknown tag: metadata-->
-                    <Canvas Name="layer1">
-                        <Canvas Name="layer14">
-                            <Canvas.RenderTransform>
-                                <MatrixTransform Matrix="0.1 0 0 0.1 163.42857 167.09325" />
-                            </Canvas.RenderTransform>
-                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+          </Canvas.RenderTransform>
+          <Canvas.Resources />
+          <!--Unknown tag: sodipodi:namedview-->
+          <!--Unknown tag: metadata-->
+          <Canvas Name="layer1">
+            <Canvas Name="layer14">
+              <Canvas.RenderTransform>
+                <MatrixTransform Matrix="0.1 0 0 0.1 163.42857 167.09325" />
+              </Canvas.RenderTransform>
+              <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                   Name="path3429"
                                   Fill="#FF020202">
-                                <Path.Data>
-                                    <PathGeometry Figures="M 1604 2299 C 1394 2274 947 2145 393 1949 8 1813 30 1823 23 1789 20 1773 13 1757 9 1754 4 1751 0 1728 0 1702 0 1639 56 1536 247 1243 480 885 908 266 928 259 c 10 -4 101 11 203 32 378 81 634 113 851 107 123 -3 150 -7 193 -27 28 -13 60 -23 73 -23 29 -1 62 29 62 56 0 12 -47 99 -105 195 -57 96 -102 178 -99 183 3 4 24 8 48 8 31 0 56 -9 96 -35 60 -38 100 -44 124 -19 31 30 12 96 -72 248 -24 43 -41 81 -38 83 13 13 80 -11 142 -52 98 -63 154 -60 154 10 0 69 -86 214 -483 812 -164 249 -306 454 -316 457 -39 12 -91 13 -157 5 z m 343 -496 c 203 -307 348 -530 395 -608 4 -6 -23 -9 -75 -8 l -81 2 -94 153 c -190 311 -396 634 -421 661 -13 15 -41 32 -60 37 -54 15 -243 12 -367 -5 -121 -17 -325 -52 -364 -62 -14 -3 -23 -3 -20 0 7 8 321 102 479 144 153 40 257 60 317 62 l 41 1 250 -377 z m -365 110 c 31 -36 482 -764 592 -955 l 27 -48 -28 6 c -26 5 -87 -5 -125 -21 -14 -5 -70 83 -313 489 -232 387 -302 497 -320 502 -13 3 -63 -6 -112 -19 -181 -52 -375 -98 -518 -122 -179 -31 -422 -50 -456 -36 -13 5 -19 10 -14 10 6 1 105 23 220 50 336 79 587 127 820 154 17 2 71 5 121 6 75 1 94 -2 106 -16 z m 153 -773 c 201 -336 365 -612 365 -615 0 -2 -35 -2 -77 1 -159 12 -476 -25 -841 -98 C 1070 406 978 389 976 391 929 447 284 1410 192 1561 l -22 36 48 -8 c 194 -32 640 24 997 125 66 18 128 34 137 35 13 1 116 -164 383 -609 z"
+                <Path.Data>
+                  <PathGeometry Figures="M 1604 2299 C 1394 2274 947 2145 393 1949 8 1813 30 1823 23 1789 20 1773 13 1757 9 1754 4 1751 0 1728 0 1702 0 1639 56 1536 247 1243 480 885 908 266 928 259 c 10 -4 101 11 203 32 378 81 634 113 851 107 123 -3 150 -7 193 -27 28 -13 60 -23 73 -23 29 -1 62 29 62 56 0 12 -47 99 -105 195 -57 96 -102 178 -99 183 3 4 24 8 48 8 31 0 56 -9 96 -35 60 -38 100 -44 124 -19 31 30 12 96 -72 248 -24 43 -41 81 -38 83 13 13 80 -11 142 -52 98 -63 154 -60 154 10 0 69 -86 214 -483 812 -164 249 -306 454 -316 457 -39 12 -91 13 -157 5 z m 343 -496 c 203 -307 348 -530 395 -608 4 -6 -23 -9 -75 -8 l -81 2 -94 153 c -190 311 -396 634 -421 661 -13 15 -41 32 -60 37 -54 15 -243 12 -367 -5 -121 -17 -325 -52 -364 -62 -14 -3 -23 -3 -20 0 7 8 321 102 479 144 153 40 257 60 317 62 l 41 1 250 -377 z m -365 110 c 31 -36 482 -764 592 -955 l 27 -48 -28 6 c -26 5 -87 -5 -125 -21 -14 -5 -70 83 -313 489 -232 387 -302 497 -320 502 -13 3 -63 -6 -112 -19 -181 -52 -375 -98 -518 -122 -179 -31 -422 -50 -456 -36 -13 5 -19 10 -14 10 6 1 105 23 220 50 336 79 587 127 820 154 17 2 71 5 121 6 75 1 94 -2 106 -16 z m 153 -773 c 201 -336 365 -612 365 -615 0 -2 -35 -2 -77 1 -159 12 -476 -25 -841 -98 C 1070 406 978 389 976 391 929 447 284 1410 192 1561 l -22 36 48 -8 c 194 -32 640 24 997 125 66 18 128 34 137 35 13 1 116 -164 383 -609 z"
                                                   FillRule="NonZero" />
-                                </Path.Data>
-                            </Path>
-                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                </Path.Data>
+              </Path>
+              <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                   Name="path3431"
                                   Fill="#FF020202">
-                                <Path.Data>
-                                    <PathGeometry Figures="m 1165 1573 c -148 -13 -309 -39 -424 -69 -129 -33 -307 -96 -325 -114 -17 -17 5 -57 66 -118 92 -92 138 -112 262 -113 56 0 121 -4 146 -8 41 -6 48 -4 82 25 60 53 135 66 224 39 46 -14 51 -13 74 4 14 10 60 34 102 54 96 44 113 67 105 145 -7 63 -28 121 -52 146 -13 13 -37 16 -118 14 -56 -1 -120 -3 -142 -5 z"
+                <Path.Data>
+                  <PathGeometry Figures="m 1165 1573 c -148 -13 -309 -39 -424 -69 -129 -33 -307 -96 -325 -114 -17 -17 5 -57 66 -118 92 -92 138 -112 262 -113 56 0 121 -4 146 -8 41 -6 48 -4 82 25 60 53 135 66 224 39 46 -14 51 -13 74 4 14 10 60 34 102 54 96 44 113 67 105 145 -7 63 -28 121 -52 146 -13 13 -37 16 -118 14 -56 -1 -120 -3 -142 -5 z"
                                                   FillRule="NonZero" />
-                                </Path.Data>
-                            </Path>
-                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                </Path.Data>
+              </Path>
+              <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                   Name="path3433"
                                   Fill="#FF020202">
-                                <Path.Data>
-                                    <PathGeometry Figures="m 1064 1201 c -47 -12 -97 -46 -116 -79 -23 -39 -24 -134 -2 -152 8 -8 21 -28 29 -46 36 -86 205 -119 355 -69 92 31 137 57 151 89 14 30 5 70 -21 96 -11 11 -20 26 -20 33 0 18 -117 93 -175 112 -59 19 -158 27 -201 16 z m 179 -47 c 47 -17 137 -74 137 -87 0 -5 14 -25 30 -44 17 -18 30 -40 30 -48 0 -31 -62 -69 -163 -101 -50 -15 -67 -16 -123 -7 -80 14 -112 34 -133 84 -9 21 -22 39 -30 39 -10 0 -12 13 -9 56 4 42 11 61 30 80 52 52 133 62 231 28 z"
+                <Path.Data>
+                  <PathGeometry Figures="m 1064 1201 c -47 -12 -97 -46 -116 -79 -23 -39 -24 -134 -2 -152 8 -8 21 -28 29 -46 36 -86 205 -119 355 -69 92 31 137 57 151 89 14 30 5 70 -21 96 -11 11 -20 26 -20 33 0 18 -117 93 -175 112 -59 19 -158 27 -201 16 z m 179 -47 c 47 -17 137 -74 137 -87 0 -5 14 -25 30 -44 17 -18 30 -40 30 -48 0 -31 -62 -69 -163 -101 -50 -15 -67 -16 -123 -7 -80 14 -112 34 -133 84 -9 21 -22 39 -30 39 -10 0 -12 13 -9 56 4 42 11 61 30 80 52 52 133 62 231 28 z"
                                                   FillRule="NonZero" />
-                                </Path.Data>
-                            </Path>
-                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                </Path.Data>
+              </Path>
+              <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                   Name="path3435"
                                   Fill="#FF020202">
-                                <Path.Data>
-                                    <PathGeometry Figures="m 1660 791 c -42 -10 -64 -27 -57 -45 8 -21 29 -20 74 4 44 23 82 26 107 7 16 -12 14 -13 -17 -9 -20 2 -52 -1 -71 -8 -113 -37 -19 -139 117 -127 33 3 64 10 69 15 5 5 27 7 49 5 30 -4 39 -2 39 10 0 21 -88 126 -121 143 -29 14 -140 18 -189 5 z m 166 -87 c 47 -22 42 -48 -9 -52 -60 -5 -120 48 -69 61 32 9 44 7 78 -9 z"
+                <Path.Data>
+                  <PathGeometry Figures="m 1660 791 c -42 -10 -64 -27 -57 -45 8 -21 29 -20 74 4 44 23 82 26 107 7 16 -12 14 -13 -17 -9 -20 2 -52 -1 -71 -8 -113 -37 -19 -139 117 -127 33 3 64 10 69 15 5 5 27 7 49 5 30 -4 39 -2 39 10 0 21 -88 126 -121 143 -29 14 -140 18 -189 5 z m 166 -87 c 47 -22 42 -48 -9 -52 -60 -5 -120 48 -69 61 32 9 44 7 78 -9 z"
                                                   FillRule="NonZero" />
-                                </Path.Data>
-                            </Path>
-                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                </Path.Data>
+              </Path>
+              <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                   Name="path3437"
                                   Fill="#FF020202">
-                                <Path.Data>
-                                    <PathGeometry Figures="m 1516 713 c -3 -4 -38 -7 -76 -7 -57 -1 -73 -5 -91 -22 -19 -20 -19 -22 -4 -38 9 -9 27 -16 40 -16 27 0 42 -16 23 -24 -9 -3 -7 -9 6 -20 36 -29 197 -16 225 17 8 10 2 27 -22 65 -27 44 -37 52 -63 52 -17 0 -34 -3 -38 -7 z m 0 -48 c 18 -13 16 -14 -23 -15 -53 0 -80 9 -61 21 20 13 62 10 84 -6 z m 44 -44 c 0 -14 -54 -23 -86 -14 -29 8 -29 8 11 14 62 10 75 10 75 0 z"
+                <Path.Data>
+                  <PathGeometry Figures="m 1516 713 c -3 -4 -38 -7 -76 -7 -57 -1 -73 -5 -91 -22 -19 -20 -19 -22 -4 -38 9 -9 27 -16 40 -16 27 0 42 -16 23 -24 -9 -3 -7 -9 6 -20 36 -29 197 -16 225 17 8 10 2 27 -22 65 -27 44 -37 52 -63 52 -17 0 -34 -3 -38 -7 z m 0 -48 c 18 -13 16 -14 -23 -15 -53 0 -80 9 -61 21 20 13 62 10 84 -6 z m 44 -44 c 0 -14 -54 -23 -86 -14 -29 8 -29 8 11 14 62 10 75 10 75 0 z"
                                                   FillRule="NonZero" />
-                                </Path.Data>
-                            </Path>
-                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                </Path.Data>
+              </Path>
+              <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                   Name="path3439"
                                   Fill="#FF020202">
-                                <Path.Data>
-                                    <PathGeometry Figures="m 1205 669 c -4 -6 7 -28 24 -49 17 -21 31 -41 31 -44 0 -3 -15 -6 -33 -6 -26 0 -42 10 -77 45 -43 44 -71 54 -100 35 -12 -7 -9 -16 19 -50 27 -34 31 -44 20 -51 -22 -13 -50 0 -101 47 -48 45 -62 50 -87 35 -19 -12 -7 -39 39 -88 29 -33 47 -43 70 -43 16 0 30 3 30 8 0 4 29 7 64 7 38 0 70 6 80 14 9 8 26 11 41 7 27 -7 102 7 117 22 26 26 -55 122 -102 122 -16 0 -32 -5 -35 -11 z"
+                <Path.Data>
+                  <PathGeometry Figures="m 1205 669 c -4 -6 7 -28 24 -49 17 -21 31 -41 31 -44 0 -3 -15 -6 -33 -6 -26 0 -42 10 -77 45 -43 44 -71 54 -100 35 -12 -7 -9 -16 19 -50 27 -34 31 -44 20 -51 -22 -13 -50 0 -101 47 -48 45 -62 50 -87 35 -19 -12 -7 -39 39 -88 29 -33 47 -43 70 -43 16 0 30 3 30 8 0 4 29 7 64 7 38 0 70 6 80 14 9 8 26 11 41 7 27 -7 102 7 117 22 26 26 -55 122 -102 122 -16 0 -32 -5 -35 -11 z"
                                                   FillRule="NonZero" />
-                                </Path.Data>
-                            </Path>
-                        </Canvas>
-                    </Canvas>
-                </Canvas>
-            </Viewbox>
-            <Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                </Path.Data>
+              </Path>
+            </Canvas>
+          </Canvas>
+        </Canvas>
+      </Viewbox>
+      <Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                      x:Key="BookDownload2"
                      Stretch="Uniform">
-                <Canvas Name="svg2"
+        <Canvas Name="svg2"
                         Width="744.09448819"
                         Height="1052.3622047">
-                    <Canvas.RenderTransform>
-                        <TranslateTransform X="0"
+          <Canvas.RenderTransform>
+            <TranslateTransform X="0"
                                             Y="0" />
-                    </Canvas.RenderTransform>
-                    <Canvas.Resources />
-                    <!--Unknown tag: sodipodi:namedview-->
-                    <!--Unknown tag: metadata-->
-                    <Canvas Name="layer1">
-                        <Canvas Name="layer11">
-                            <Canvas.RenderTransform>
-                                <MatrixTransform Matrix="0.1 0 0 0.1 112.07481 99.220282" />
-                            </Canvas.RenderTransform>
-                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+          </Canvas.RenderTransform>
+          <Canvas.Resources />
+          <!--Unknown tag: sodipodi:namedview-->
+          <!--Unknown tag: metadata-->
+          <Canvas Name="layer1">
+            <Canvas Name="layer11">
+              <Canvas.RenderTransform>
+                <MatrixTransform Matrix="0.1 0 0 0.1 112.07481 99.220282" />
+              </Canvas.RenderTransform>
+              <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                   Name="path3500"
                                   Fill="#FF000000">
-                                <Path.Data>
-                                    <PathGeometry Figures="M 604 5105 C 460 5070 296 4930 221 4780 145 4625 150 4783 150 2565 150 347 145 505 221 350 276 240 390 123 497 67 632 -3 530 0 2538 0 l 1802 0 -2 2087 -3 2088 -1805 5 -1805 5 -50 25 c -63 31 -114 83 -145 145 -35 71 -35 189 0 260 31 62 82 114 145 145 l 50 25 1952 3 1953 2 2 -2077 3 -2078 170 0 170 0 3 2243 2 2242 -2162 -1 c -1691 -1 -2174 -4 -2214 -14 z m 2181 -2190 407 -540 -209 -5 -208 -5 -3 -617 -2 -618 -395 0 -395 0 -2 618 -3 617 -210 5 -211 5 410 543 c 225 298 410 541 412 540 1 -2 185 -246 409 -543 z m -15 -2095 0 -90 -395 0 -395 0 0 90 0 90 395 0 395 0 0 -90 z"
+                <Path.Data>
+                  <PathGeometry Figures="M 604 5105 C 460 5070 296 4930 221 4780 145 4625 150 4783 150 2565 150 347 145 505 221 350 276 240 390 123 497 67 632 -3 530 0 2538 0 l 1802 0 -2 2087 -3 2088 -1805 5 -1805 5 -50 25 c -63 31 -114 83 -145 145 -35 71 -35 189 0 260 31 62 82 114 145 145 l 50 25 1952 3 1953 2 2 -2077 3 -2078 170 0 170 0 3 2243 2 2242 -2162 -1 c -1691 -1 -2174 -4 -2214 -14 z m 2181 -2190 407 -540 -209 -5 -208 -5 -3 -617 -2 -618 -395 0 -395 0 -2 618 -3 617 -210 5 -211 5 410 543 c 225 298 410 541 412 540 1 -2 185 -246 409 -543 z m -15 -2095 0 -90 -395 0 -395 0 0 90 0 90 395 0 395 0 0 -90 z"
                                                   FillRule="NonZero" />
-                                </Path.Data>
-                            </Path>
-                        </Canvas>
-                    </Canvas>
-                </Canvas>
-            </Viewbox>
+                </Path.Data>
+              </Path>
+            </Canvas>
+          </Canvas>
+        </Canvas>
+      </Viewbox>
 
-            <Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      <Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                      x:Key="BookDownload"
                      Stretch="Uniform">
-                <Canvas Name="svg2"
+        <Canvas Name="svg2"
                         Width="744.09448819"
                         Height="1052.3622047">
-                    <Canvas.RenderTransform>
-                        <TranslateTransform X="0"
+          <Canvas.RenderTransform>
+            <TranslateTransform X="0"
                                             Y="0" />
-                    </Canvas.RenderTransform>
-                    <Canvas.Resources />
-                    <!--Unknown tag: sodipodi:namedview-->
-                    <!--Unknown tag: metadata-->
-                    <Canvas Name="layer1">
-                        <Canvas Name="layer12">
-                            <Canvas.RenderTransform>
-                                <MatrixTransform Matrix="0.1 0 0 0.1 109.21767 230.64978" />
-                            </Canvas.RenderTransform>
-                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+          </Canvas.RenderTransform>
+          <Canvas.Resources />
+          <!--Unknown tag: sodipodi:namedview-->
+          <!--Unknown tag: metadata-->
+          <Canvas Name="layer1">
+            <Canvas Name="layer12">
+              <Canvas.RenderTransform>
+                <MatrixTransform Matrix="0.1 0 0 0.1 109.21767 230.64978" />
+              </Canvas.RenderTransform>
+              <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                   Name="path3339"
                                   Fill="#FF000000">
-                                <Path.Data>
-                                    <PathGeometry Figures="M 610 5101 C 448 5049 304 4927 231 4780 155 4625 160 4783 160 2565 160 856 162 565 175 505 213 323 345 153 510 71 664 -4 528 0 2533 0 l 1797 0 0 2085 0 2085 -1802 2 -1803 3 -50 25 c -64 31 -124 91 -155 155 -35 71 -35 189 0 260 31 64 91 124 155 155 l 50 25 1958 3 1957 2 0 -2080 0 -2080 165 0 165 0 0 2240 0 2240 -2152 -1 C 787 5119 662 5118 610 5101 Z M 3233 3253 c 23 -14 55 -39 70 -55 16 -15 32 -28 36 -28 6 0 113 -103 145 -140 84 -98 160 -235 209 -380 68 -200 78 -385 32 -627 -2 -10 -4 -19 -5 -20 -2 -2 -4 -7 -5 -13 -1 -5 -4 -13 -5 -17 -2 -5 -4 -12 -5 -18 -3 -14 -14 -44 -31 -83 -8 -18 -14 -39 -14 -46 0 -8 -7 -19 -15 -26 -8 -7 -15 -21 -15 -31 0 -11 -5 -19 -11 -19 -5 0 -7 -4 -4 -10 3 -5 1 -10 -5 -10 -6 0 -9 -4 -5 -10 3 -5 -3 -18 -14 -29 -11 -11 -17 -22 -14 -25 4 -3 2 -6 -4 -6 -5 0 -14 -10 -20 -23 -17 -36 -123 -150 -234 -252 -33 -31 -222 -144 -249 -150 -13 -3 -82 -30 -145 -56 -26 -11 -134 -29 -200 -33 -11 -1 -24 -4 -30 -7 -18 -10 -241 2 -305 16 -14 3 -34 7 -45 9 -11 2 -33 9 -50 16 -16 6 -32 11 -35 11 -9 -1 -44 10 -75 24 -67 30 -90 38 -97 37 -5 -1 -8 2 -8 7 0 5 -11 12 -25 15 -14 4 -25 11 -25 17 0 6 -5 7 -10 4 -5 -3 -10 -1 -10 4 0 6 -6 11 -13 11 -8 0 -24 9 -37 20 -13 11 -29 20 -37 20 -7 0 -13 5 -13 11 0 5 -4 7 -10 4 -5 -3 -10 -2 -10 3 0 6 -11 13 -25 16 -14 4 -25 11 -25 17 0 6 -4 7 -10 4 -5 -3 -10 -2 -10 3 0 6 -11 13 -25 16 -14 4 -25 11 -25 17 0 6 -4 7 -10 4 -5 -3 -10 -1 -10 4 0 6 -6 11 -13 11 -8 0 -24 9 -37 20 -27 23 -55 27 -47 6 21 -54 88 -329 83 -341 -3 -8 -13 -15 -23 -16 -10 0 -25 -2 -33 -4 -8 -2 -26 -7 -40 -10 -14 -3 -32 -8 -40 -10 -8 -2 -15 -4 -15 -5 0 -1 -7 -3 -15 -5 -8 -2 -25 -6 -37 -9 -13 -3 -33 -9 -45 -12 -13 -3 -30 -7 -38 -9 -8 -2 -15 -4 -15 -5 0 -1 -7 -3 -15 -5 -74 -18 -80 -20 -100 -28 -8 -4 -27 -8 -42 -11 -15 -3 -32 -7 -37 -11 -9 -5 -26 40 -33 90 -2 11 -6 25 -10 30 -3 6 -9 24 -12 40 -6 28 -14 66 -19 90 -2 6 -5 15 -9 20 -6 10 -19 70 -19 90 -1 6 -5 15 -11 22 -5 7 -7 17 -4 22 4 5 2 12 -3 15 -7 5 -18 44 -26 96 0 3 -4 11 -8 18 -5 6 -6 16 -2 21 3 5 1 12 -4 15 -7 5 -18 44 -26 96 0 3 -3 10 -6 15 -6 9 -28 95 -32 126 -2 8 -5 19 -9 24 -6 10 -22 84 -20 95 0 3 -4 10 -10 17 -5 7 -7 17 -4 22 4 5 2 12 -3 15 -8 5 -23 67 -23 93 0 5 -4 13 -10 20 -5 7 -7 17 -4 22 4 5 2 12 -3 15 -8 5 -25 70 -26 100 0 5 8 11 18 13 35 6 42 9 52 15 13 8 78 20 86 16 3 -2 12 2 20 8 12 10 85 31 130 37 8 2 19 5 24 8 9 6 96 28 126 32 8 2 19 5 24 9 6 3 24 9 40 12 28 6 66 14 90 19 6 2 15 5 20 9 8 5 69 20 95 23 3 0 10 3 15 6 9 6 95 28 126 32 8 2 19 5 24 8 9 6 96 28 126 32 8 2 19 5 24 9 6 3 24 9 40 12 17 3 41 9 55 12 14 3 30 6 37 8 7 1 16 5 19 9 19 19 44 5 54 -30 5 -21 30 -114 55 -208 25 -93 51 -190 59 -215 l 13 -45 -170 -46 c -94 -25 -172 -50 -174 -56 -6 -17 395 -243 490 -277 72 -25 242 -26 347 -2 40 9 183 82 208 105 12 12 22 20 22 17 0 -18 93 93 130 154 40 67 84 160 75 160 -2 0 2 21 10 48 15 51 13 193 -5 246 -5 17 -11 43 -14 58 -6 35 -32 90 -72 153 -36 57 -139 167 -148 158 -3 -4 -6 -2 -6 4 0 5 -11 15 -25 21 l -25 12 24 37 c 43 66 236 405 236 414 0 14 7 11 53 -18 z"
+                <Path.Data>
+                  <PathGeometry Figures="M 610 5101 C 448 5049 304 4927 231 4780 155 4625 160 4783 160 2565 160 856 162 565 175 505 213 323 345 153 510 71 664 -4 528 0 2533 0 l 1797 0 0 2085 0 2085 -1802 2 -1803 3 -50 25 c -64 31 -124 91 -155 155 -35 71 -35 189 0 260 31 64 91 124 155 155 l 50 25 1958 3 1957 2 0 -2080 0 -2080 165 0 165 0 0 2240 0 2240 -2152 -1 C 787 5119 662 5118 610 5101 Z M 3233 3253 c 23 -14 55 -39 70 -55 16 -15 32 -28 36 -28 6 0 113 -103 145 -140 84 -98 160 -235 209 -380 68 -200 78 -385 32 -627 -2 -10 -4 -19 -5 -20 -2 -2 -4 -7 -5 -13 -1 -5 -4 -13 -5 -17 -2 -5 -4 -12 -5 -18 -3 -14 -14 -44 -31 -83 -8 -18 -14 -39 -14 -46 0 -8 -7 -19 -15 -26 -8 -7 -15 -21 -15 -31 0 -11 -5 -19 -11 -19 -5 0 -7 -4 -4 -10 3 -5 1 -10 -5 -10 -6 0 -9 -4 -5 -10 3 -5 -3 -18 -14 -29 -11 -11 -17 -22 -14 -25 4 -3 2 -6 -4 -6 -5 0 -14 -10 -20 -23 -17 -36 -123 -150 -234 -252 -33 -31 -222 -144 -249 -150 -13 -3 -82 -30 -145 -56 -26 -11 -134 -29 -200 -33 -11 -1 -24 -4 -30 -7 -18 -10 -241 2 -305 16 -14 3 -34 7 -45 9 -11 2 -33 9 -50 16 -16 6 -32 11 -35 11 -9 -1 -44 10 -75 24 -67 30 -90 38 -97 37 -5 -1 -8 2 -8 7 0 5 -11 12 -25 15 -14 4 -25 11 -25 17 0 6 -5 7 -10 4 -5 -3 -10 -1 -10 4 0 6 -6 11 -13 11 -8 0 -24 9 -37 20 -13 11 -29 20 -37 20 -7 0 -13 5 -13 11 0 5 -4 7 -10 4 -5 -3 -10 -2 -10 3 0 6 -11 13 -25 16 -14 4 -25 11 -25 17 0 6 -4 7 -10 4 -5 -3 -10 -2 -10 3 0 6 -11 13 -25 16 -14 4 -25 11 -25 17 0 6 -4 7 -10 4 -5 -3 -10 -1 -10 4 0 6 -6 11 -13 11 -8 0 -24 9 -37 20 -27 23 -55 27 -47 6 21 -54 88 -329 83 -341 -3 -8 -13 -15 -23 -16 -10 0 -25 -2 -33 -4 -8 -2 -26 -7 -40 -10 -14 -3 -32 -8 -40 -10 -8 -2 -15 -4 -15 -5 0 -1 -7 -3 -15 -5 -8 -2 -25 -6 -37 -9 -13 -3 -33 -9 -45 -12 -13 -3 -30 -7 -38 -9 -8 -2 -15 -4 -15 -5 0 -1 -7 -3 -15 -5 -74 -18 -80 -20 -100 -28 -8 -4 -27 -8 -42 -11 -15 -3 -32 -7 -37 -11 -9 -5 -26 40 -33 90 -2 11 -6 25 -10 30 -3 6 -9 24 -12 40 -6 28 -14 66 -19 90 -2 6 -5 15 -9 20 -6 10 -19 70 -19 90 -1 6 -5 15 -11 22 -5 7 -7 17 -4 22 4 5 2 12 -3 15 -7 5 -18 44 -26 96 0 3 -4 11 -8 18 -5 6 -6 16 -2 21 3 5 1 12 -4 15 -7 5 -18 44 -26 96 0 3 -3 10 -6 15 -6 9 -28 95 -32 126 -2 8 -5 19 -9 24 -6 10 -22 84 -20 95 0 3 -4 10 -10 17 -5 7 -7 17 -4 22 4 5 2 12 -3 15 -8 5 -23 67 -23 93 0 5 -4 13 -10 20 -5 7 -7 17 -4 22 4 5 2 12 -3 15 -8 5 -25 70 -26 100 0 5 8 11 18 13 35 6 42 9 52 15 13 8 78 20 86 16 3 -2 12 2 20 8 12 10 85 31 130 37 8 2 19 5 24 8 9 6 96 28 126 32 8 2 19 5 24 9 6 3 24 9 40 12 28 6 66 14 90 19 6 2 15 5 20 9 8 5 69 20 95 23 3 0 10 3 15 6 9 6 95 28 126 32 8 2 19 5 24 8 9 6 96 28 126 32 8 2 19 5 24 9 6 3 24 9 40 12 17 3 41 9 55 12 14 3 30 6 37 8 7 1 16 5 19 9 19 19 44 5 54 -30 5 -21 30 -114 55 -208 25 -93 51 -190 59 -215 l 13 -45 -170 -46 c -94 -25 -172 -50 -174 -56 -6 -17 395 -243 490 -277 72 -25 242 -26 347 -2 40 9 183 82 208 105 12 12 22 20 22 17 0 -18 93 93 130 154 40 67 84 160 75 160 -2 0 2 21 10 48 15 51 13 193 -5 246 -5 17 -11 43 -14 58 -6 35 -32 90 -72 153 -36 57 -139 167 -148 158 -3 -4 -6 -2 -6 4 0 5 -11 15 -25 21 l -25 12 24 37 c 43 66 236 405 236 414 0 14 7 11 53 -18 z"
                                                   FillRule="NonZero" />
-                                </Path.Data>
-                            </Path>
-                        </Canvas>
-                    </Canvas>
-                </Canvas>
-            </Viewbox>
+                </Path.Data>
+              </Path>
+            </Canvas>
+          </Canvas>
+        </Canvas>
+      </Viewbox>
 
-            <Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      <Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                      x:Key="BorrowIcon"
                      Stretch="Uniform">
-                <Canvas Name="svg2"
+        <Canvas Name="svg2"
                         Width="744.09448819"
                         Height="1052.3622047">
-                    <Canvas.RenderTransform>
-                        <TranslateTransform X="0"
+          <Canvas.RenderTransform>
+            <TranslateTransform X="0"
                                             Y="0" />
-                    </Canvas.RenderTransform>
-                    <Canvas.Resources />
-                    <!--Unknown tag: sodipodi:namedview-->
-                    <!--Unknown tag: metadata-->
-                    <Canvas Name="layer1">
-                        <Canvas Name="layer19">
-                            <Canvas.RenderTransform>
-                                <MatrixTransform Matrix="0.1 0 0 0.1 206.92776 224.82339" />
-                            </Canvas.RenderTransform>
-                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+          </Canvas.RenderTransform>
+          <Canvas.Resources />
+          <!--Unknown tag: sodipodi:namedview-->
+          <!--Unknown tag: metadata-->
+          <Canvas Name="layer1">
+            <Canvas Name="layer19">
+              <Canvas.RenderTransform>
+                <MatrixTransform Matrix="0.1 0 0 0.1 206.92776 224.82339" />
+              </Canvas.RenderTransform>
+              <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                   Name="path3484"
                                   Fill="#FF000000">
-                                <Path.Data>
-                                    <PathGeometry Figures="M 323 1890 C 233 1858 147 1807 94 1755 41 1703 10 1642 33 1636 c 157 -44 428 -169 542 -251 43 -31 90 -61 103 -66 38 -15 129 -10 210 10 80 21 172 34 355 51 109 10 160 26 171 55 14 37 6 86 -19 110 -27 28 -22 28 -247 25 -96 -1 -168 2 -168 7 0 12 180 33 274 33 87 0 138 -15 173 -52 24 -25 28 -38 28 -82 l -1 -52 181 -52 c 217 -63 272 -67 316 -23 35 35 37 66 7 92 -13 11 -76 44 -140 73 -134 62 -224 109 -391 209 l -118 70 -200 -13 c -367 -24 -528 2 -665 106 -36 28 -52 29 -121 4 z"
+                <Path.Data>
+                  <PathGeometry Figures="M 323 1890 C 233 1858 147 1807 94 1755 41 1703 10 1642 33 1636 c 157 -44 428 -169 542 -251 43 -31 90 -61 103 -66 38 -15 129 -10 210 10 80 21 172 34 355 51 109 10 160 26 171 55 14 37 6 86 -19 110 -27 28 -22 28 -247 25 -96 -1 -168 2 -168 7 0 12 180 33 274 33 87 0 138 -15 173 -52 24 -25 28 -38 28 -82 l -1 -52 181 -52 c 217 -63 272 -67 316 -23 35 35 37 66 7 92 -13 11 -76 44 -140 73 -134 62 -224 109 -391 209 l -118 70 -200 -13 c -367 -24 -528 2 -665 106 -36 28 -52 29 -121 4 z"
                                                   FillRule="NonZero" />
-                                </Path.Data>
-                            </Path>
-                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                </Path.Data>
+              </Path>
+              <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                   Name="path3486"
                                   Fill="#FF000000">
-                                <Path.Data>
-                                    <PathGeometry Figures="M 961 1254 C 622 1153 600 1142 554 1064 c -25 -42 -26 -50 -22 -152 3 -81 9 -116 24 -144 10 -21 147 -180 302 -353 207 -230 289 -315 305 -315 40 0 662 142 685 157 18 11 22 22 20 48 -2 29 -49 87 -282 355 -153 176 -287 325 -298 331 -17 9 -77 -5 -309 -71 -278 -80 -289 -82 -314 -66 -22 15 -25 23 -25 76 0 51 4 64 29 92 25 29 55 40 322 119 l 293 86 231 -277 230 -278 0 -64 c 1 -80 21 -118 65 -118 48 0 56 17 55 123 l 0 96 -247 298 c -299 361 -282 343 -316 342 -15 0 -168 -43 -341 -95 z m 576 -785 c 16 -17 28 -36 28 -42 0 -12 -369 -106 -417 -107 -17 0 -35 10 -52 31 -22 26 -32 48 -23 49 1 1 90 23 197 50 107 26 205 48 217 49 14 1 34 -12 50 -30 z"
+                <Path.Data>
+                  <PathGeometry Figures="M 961 1254 C 622 1153 600 1142 554 1064 c -25 -42 -26 -50 -22 -152 3 -81 9 -116 24 -144 10 -21 147 -180 302 -353 207 -230 289 -315 305 -315 40 0 662 142 685 157 18 11 22 22 20 48 -2 29 -49 87 -282 355 -153 176 -287 325 -298 331 -17 9 -77 -5 -309 -71 -278 -80 -289 -82 -314 -66 -22 15 -25 23 -25 76 0 51 4 64 29 92 25 29 55 40 322 119 l 293 86 231 -277 230 -278 0 -64 c 1 -80 21 -118 65 -118 48 0 56 17 55 123 l 0 96 -247 298 c -299 361 -282 343 -316 342 -15 0 -168 -43 -341 -95 z m 576 -785 c 16 -17 28 -36 28 -42 0 -12 -369 -106 -417 -107 -17 0 -35 10 -52 31 -22 26 -32 48 -23 49 1 1 90 23 197 50 107 26 205 48 217 49 14 1 34 -12 50 -30 z"
                                                   FillRule="NonZero" />
-                                </Path.Data>
-                            </Path>
-                        </Canvas>
-                    </Canvas>
-                </Canvas>
-            </Viewbox>
+                </Path.Data>
+              </Path>
+            </Canvas>
+          </Canvas>
+        </Canvas>
+      </Viewbox>
 
-            <Viewbox x:Key="BookShelf" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      <Viewbox x:Key="BookShelf" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                      Stretch="Uniform">
-                <Canvas Name="svg2"
+        <Canvas Name="svg2"
                         Width="744.09448819"
                         Height="1052.3622047">
-                    <Canvas.RenderTransform>
-                        <TranslateTransform X="0"
+          <Canvas.RenderTransform>
+            <TranslateTransform X="0"
                                             Y="0" />
-                    </Canvas.RenderTransform>
-                    <Canvas.Resources />
-                    <!--Unknown tag: sodipodi:namedview-->
-                    <!--Unknown tag: metadata-->
-                    <Canvas Name="layer1">
-                        <Canvas Name="layer14">
-                            <Canvas.RenderTransform>
-                                <MatrixTransform Matrix="0.1 0 0 0.1 -20 660.93363" />
-                            </Canvas.RenderTransform>
-                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+          </Canvas.RenderTransform>
+          <Canvas.Resources />
+          <!--Unknown tag: sodipodi:namedview-->
+          <!--Unknown tag: metadata-->
+          <Canvas Name="layer1">
+            <Canvas Name="layer14">
+              <Canvas.RenderTransform>
+                <MatrixTransform Matrix="0.1 0 0 0.1 -20 660.93363" />
+              </Canvas.RenderTransform>
+              <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                   Name="path3586"
                                   Fill="#FF010101">
-                                <Path.Data>
-                                    <PathGeometry Figures="M 260 1981 C 246 1954 246 46 260 19 270 0 289 0 1000 0 c 711 0 730 0 740 19 14 27 14 1935 0 1962 -10 19 -29 19 -740 19 -711 0 -730 0 -740 -19 z m 170 -266 0 -165 70 0 70 0 0 165 0 165 25 0 25 0 0 -165 0 -165 70 0 70 0 0 165 0 165 25 0 25 0 0 -165 0 -165 75 0 75 0 0 165 0 165 25 0 25 0 0 -165 0 -165 70 0 70 0 0 165 0 165 128 0 c 75 0 121 -4 113 -9 -8 -5 -11 -16 -6 -30 11 -35 126 -285 135 -295 5 -5 30 0 60 12 l 50 21 0 -105 0 -104 -630 0 -630 0 0 255 0 255 30 0 30 0 0 -165 z m 1200 53 c 0 -61 -2 -109 -4 -107 -5 5 -96 210 -96 215 0 2 23 4 50 4 l 50 0 0 -112 z m -1200 -718 0 -170 70 0 70 0 0 170 0 170 25 0 25 0 0 -170 0 -170 70 0 70 0 0 170 0 170 25 0 25 0 0 -170 0 -170 75 0 75 0 0 170 0 170 25 0 25 0 0 -170 0 -170 70 0 70 0 0 30 0 30 60 -30 61 -31 74 157 c 41 86 75 162 75 170 0 11 21 14 105 14 l 105 0 0 -245 0 -245 -630 0 -630 0 0 245 0 245 30 0 30 0 0 -170 z m 784 53 c -30 -64 -57 -119 -59 -122 -3 -2 -5 50 -5 117 l 0 122 60 0 59 0 -55 -117 z m -774 -698 0 -175 70 0 70 0 0 175 c 0 168 1 175 20 175 19 0 20 -7 20 -175 l 0 -175 75 0 75 0 0 175 c 0 168 1 175 20 175 19 0 20 -7 20 -175 l 0 -175 70 0 70 0 0 175 0 175 30 0 30 0 0 -175 0 -175 70 0 70 0 0 175 0 175 113 0 113 0 68 -165 c 39 -94 74 -165 81 -165 7 0 34 9 59 20 l 46 19 0 -84 0 -85 -630 0 -630 0 0 230 0 230 35 0 35 0 0 -175 z m 1190 63 -1 -113 -38 92 c -60 142 -60 133 -7 133 l 46 0 0 -112 z"
+                <Path.Data>
+                  <PathGeometry Figures="M 260 1981 C 246 1954 246 46 260 19 270 0 289 0 1000 0 c 711 0 730 0 740 19 14 27 14 1935 0 1962 -10 19 -29 19 -740 19 -711 0 -730 0 -740 -19 z m 170 -266 0 -165 70 0 70 0 0 165 0 165 25 0 25 0 0 -165 0 -165 70 0 70 0 0 165 0 165 25 0 25 0 0 -165 0 -165 75 0 75 0 0 165 0 165 25 0 25 0 0 -165 0 -165 70 0 70 0 0 165 0 165 128 0 c 75 0 121 -4 113 -9 -8 -5 -11 -16 -6 -30 11 -35 126 -285 135 -295 5 -5 30 0 60 12 l 50 21 0 -105 0 -104 -630 0 -630 0 0 255 0 255 30 0 30 0 0 -165 z m 1200 53 c 0 -61 -2 -109 -4 -107 -5 5 -96 210 -96 215 0 2 23 4 50 4 l 50 0 0 -112 z m -1200 -718 0 -170 70 0 70 0 0 170 0 170 25 0 25 0 0 -170 0 -170 70 0 70 0 0 170 0 170 25 0 25 0 0 -170 0 -170 75 0 75 0 0 170 0 170 25 0 25 0 0 -170 0 -170 70 0 70 0 0 30 0 30 60 -30 61 -31 74 157 c 41 86 75 162 75 170 0 11 21 14 105 14 l 105 0 0 -245 0 -245 -630 0 -630 0 0 245 0 245 30 0 30 0 0 -170 z m 784 53 c -30 -64 -57 -119 -59 -122 -3 -2 -5 50 -5 117 l 0 122 60 0 59 0 -55 -117 z m -774 -698 0 -175 70 0 70 0 0 175 c 0 168 1 175 20 175 19 0 20 -7 20 -175 l 0 -175 75 0 75 0 0 175 c 0 168 1 175 20 175 19 0 20 -7 20 -175 l 0 -175 70 0 70 0 0 175 0 175 30 0 30 0 0 -175 0 -175 70 0 70 0 0 175 0 175 113 0 113 0 68 -165 c 39 -94 74 -165 81 -165 7 0 34 9 59 20 l 46 19 0 -84 0 -85 -630 0 -630 0 0 230 0 230 35 0 35 0 0 -175 z m 1190 63 -1 -113 -38 92 c -60 142 -60 133 -7 133 l 46 0 0 -112 z"
                                                   FillRule="NonZero" />
-                                </Path.Data>
-                            </Path>
-                        </Canvas>
-                    </Canvas>
-                </Canvas>
-            </Viewbox>
+                </Path.Data>
+              </Path>
+            </Canvas>
+          </Canvas>
+        </Canvas>
+      </Viewbox>
 
-        </ResourceDictionary>
-    </Application.Resources>
+    </ResourceDictionary>
+  </Application.Resources>
 </Application>
