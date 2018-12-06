@@ -29,8 +29,9 @@
           <Rectangle Height="1" VerticalAlignment="Bottom" Fill="{DynamicResource MaterialDesignDivider}"/>
           <UniformGrid Rows="1">
             <RadioButton Content="_GENERAL SETTINGS" Style="{DynamicResource MaterialDesignTabRadioButton}"
-                           IsChecked="{Binding ShowGeneralSettings,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"/>
+                           IsChecked="True"/>
             <RadioButton Content="_SMS CONFIG" Style="{DynamicResource MaterialDesignTabRadioButton}"
+                         Visibility="Hidden"
                            IsChecked="{Binding ShowGeneralSettings,Converter={converters:Inverter}}"/>
           </UniformGrid>
         </Grid>
