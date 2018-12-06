@@ -132,6 +132,7 @@ namespace Libro.ViewModels
         private bool FilterBorrower(object o)
         {
             var b = (Borrower) o;
+            if (b == null) return false;
             if(!b.IsStudent) return false;
 
             if (ShowUnpaid && Takeout.GetUnpaidByBorrower(b.Id).Count==0) return false;

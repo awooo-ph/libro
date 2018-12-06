@@ -174,9 +174,10 @@ namespace Libro.ViewModels
                 if (Equals(value, _selectedBook)) return;
                 _selectedBook = value;
                 OnPropertyChanged();
-                _takeouts = null;
-                _bookTakeouts = null;
-                OnPropertyChanged(nameof(Takeouts));
+                //_takeouts = null;
+                //_bookTakeouts = null;
+                Takeouts.Refresh();
+                //OnPropertyChanged(nameof(Takeouts));
             }
         }
 
@@ -186,9 +187,14 @@ namespace Libro.ViewModels
         {
             get
             {
-                if(_takeouts != null)
-                    return _takeouts;
-                _takeouts = (ListCollectionView)CollectionViewSource.GetDefaultView(BookTakeouts);
+                if(_takeouts != null) return _takeouts;
+                _takeouts = new ListCollectionView(Takeout.Cache);
+                _takeouts.Filter = o =>
+                {
+                    if (!(o is Takeout t)) 
+                        return false;
+                    return t.BookId == SelectedBook?.Id;
+                };
                 return _takeouts;
             }
         }
@@ -237,18 +243,18 @@ namespace Libro.ViewModels
             Messenger.Default.Broadcast(Messages.TakeoutsChanged);
         }
         
-        private ObservableCollection<Takeout> _bookTakeouts;
+        //private ObservableCollection<Takeout> _bookTakeouts;
 
-        private ObservableCollection<Takeout> BookTakeouts
-        {
-            get
-            {
-                if(_bookTakeouts != null)
-                    return _bookTakeouts;
-                _bookTakeouts = new ObservableCollection<Takeout>(Takeout.GetByBook(SelectedBook?.Id));
-                return _bookTakeouts;
-            }
-        }
+        //private ObservableCollection<Takeout> BookTakeouts
+        //{
+        //    get
+        //    {
+        //        if(_bookTakeouts != null)
+        //            return _bookTakeouts;
+        //        _bookTakeouts = new ObservableCollection<Takeout>(Takeout.Cache);
+        //        return _bookTakeouts;
+        //    }
+        //}
 
         private ICommand _printCardsCommand;
         public ICommand PrintCards => _printCardsCommand ?? (_printCardsCommand = new DelegateCommand(_PrintCards));

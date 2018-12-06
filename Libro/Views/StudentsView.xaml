@@ -213,21 +213,14 @@
                                 x:Name="Grid"
                                 Grid.Column="0"
                                 HorizontalAlignment="Right"
-                                VerticalAlignment="Bottom"
+                                VerticalAlignment="Center"
                                 Opacity="0"
                                 Grid.ColumnSpan="3">
-                      <Button Content="_EDIT"
-                              Style="{DynamicResource MaterialDesignFlatButton}"
+                      <Button Content="{md:PackIcon Kind=Pencil}"
+                              Style="{DynamicResource MaterialDesignFloatingActionMiniButton}"
                               Margin="0 0 4 0"
                               Focusable="False"
                               Command="{Binding Source={x:Static viewModels:Students.Instance}, Path=EditCommand}"
-                              CommandParameter="{Binding}"/>
-                      <Button ToolTip="Delete"
-                              Margin="4 0 0 0"
-                              Style="{DynamicResource MaterialDesignFlatButton}"
-                              Focusable="False"
-                              Content="_DELETE"
-                              Command="{Binding Source={x:Static viewModels:Students.Instance}, Path=DeleteCommand}"
                               CommandParameter="{Binding}"/>
                     </StackPanel>
                   </Grid>

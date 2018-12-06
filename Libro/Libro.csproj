@@ -116,7 +116,9 @@
     <Compile Include="DataGridEx.cs" />
     <Compile Include="DateTimeHelper.cs" />
     <Compile Include="Dialogs\BookSelector.xaml.cs" />
-    <Compile Include="Dialogs\BorrowerEditor.xaml.cs" />
+    <Compile Include="Dialogs\BorrowerEditor.xaml.cs">
+      <DependentUpon>BorrowerEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\MessageDialog.xaml.cs">
       <DependentUpon>MessageDialog.xaml</DependentUpon>
     </Compile>
@@ -228,7 +230,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Libro.Core\Libro.Core.csproj">
+    <ProjectReference Include="..\..\Libro.Core\Libro.Core.csproj">
       <Project>{ccef9e29-5943-4056-90d3-4de1a7bc7fd7}</Project>
       <Name>Libro.Core</Name>
     </ProjectReference>
@@ -239,9 +241,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\SFC.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\norsu.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\chime_glass_note_hi.wav" />

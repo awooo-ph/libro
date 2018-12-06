@@ -78,7 +78,7 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Grid>
-                    <DataGrid ItemsSource="{Binding BooksView}"
+          <DataGrid ItemsSource="{Binding BooksView}"
                               SelectedItem="{Binding SelectedBook,Mode=TwoWay}"
                               IsSynchronizedWithCurrentItem="True"
                               lib:DataGridEx.SaveOnCommit="True"
@@ -199,7 +199,7 @@
 
                     <md:Transitioner SelectedIndex="{Binding ElementName=ListBox,Path=SelectedIndex}"
                                      Grid.Row="1"
-                                     Width="500">
+                                     Width="555">
                         <!-- Details -->
                         <Grid DataContext="{Binding SelectedBook}">
                             <Grid.RowDefinitions>
@@ -259,8 +259,10 @@
 
                                         <TextBox Grid.Row="0"
                                                  Margin="0 0 4 0"
-                                                 MaxHeight="471"
+                                                 MaxHeight="222"
                                                  Text="{Binding Synopsis}"
+                                                 md:TextFieldAssist.HasFilledTextField="True"
+                                                 md:TextFieldAssist.RippleOnFocusEnabled="True"
                                                  md:HintAssist.Hint="DESCRIPTION"
                                                  md:HintAssist.IsFloating="True"
                                                  Grid.Column="1"
@@ -273,6 +275,8 @@
                                                      Margin="0,8,4,4"
                                                      Grid.Row="1"
                                                      Grid.Column="1"
+                                                     md:TextFieldAssist.HasFilledTextField="True"
+                                                     md:TextFieldAssist.RippleOnFocusEnabled="True"
                                                      md:HintAssist.Hint="COAUTHORS"
                                                      md:HintAssist.IsFloating="True" />
                                         </StackPanel>
@@ -282,24 +286,34 @@
                                                Style="{StaticResource MaterialDesignCaptionTextBlock}"
                                                Margin="4 16 4 0" />
                                     <UniformGrid Columns="2">
-                                        <DatePicker SelectedDate="{Binding DateReceived}"
+                    <Border Background="{StaticResource MaterialDesignTextFieldBoxBackground}" Padding="2"
+                            Margin="7">
+                                      <DatePicker SelectedDate="{Binding DateReceived}"
                                                     Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                                                    md:TextFieldAssist.HasFilledTextField="True"
+                                                    md:TextFieldAssist.RippleOnFocusEnabled="True"
                                                     md:HintAssist.Hint="DATE RECEIVED"
-                                                    Margin="4"
                                                     VerticalAlignment="Bottom"
                                                     md:HintAssist.IsFloating="True" />
-                                        <TextBox Text="{Binding AccessionNumber}"
-                                                 Margin="4"
+                    </Border>
+                    <TextBox Text="{Binding AccessionNumber}"
+                             md:TextFieldAssist.HasFilledTextField="True"
+                             md:TextFieldAssist.RippleOnFocusEnabled="True"
+                                                 Margin="7"
                                                  VerticalAlignment="Bottom"
                                                  md:HintAssist.Hint="ACCESSION NUMBER"
                                                  md:HintAssist.IsFloating="True" />
                                         <TextBox Text="{Binding Fund}"
-                                                 Margin="4"
+                                                 Margin="7"
+                                                 md:TextFieldAssist.HasFilledTextField="True"
+                                                 md:TextFieldAssist.RippleOnFocusEnabled="True"
                                                  VerticalAlignment="Bottom"
                                                  md:HintAssist.Hint="SOURCE OF FUND"
                                                  md:HintAssist.IsFloating="True" />
                                         <TextBox Text="{Binding Price}"
-                                                 Margin="4"
+                                                 Margin="7"
+                                                 md:TextFieldAssist.HasFilledTextField="True"
+                                                 md:TextFieldAssist.RippleOnFocusEnabled="True"
                                                  VerticalAlignment="Bottom"
                                                  md:HintAssist.Hint="COST PRICE"
                                                  md:HintAssist.IsFloating="True" />
@@ -310,16 +324,22 @@
                                                Margin="4 16 4 0" />
                                     <UniformGrid Columns="3">
                                         <TextBox Text="{Binding Publisher}"
-                                                 Margin="4"
+                                                 Margin="7"
+                                                 md:TextFieldAssist.HasFilledTextField="True"
+                                                 md:TextFieldAssist.RippleOnFocusEnabled="True"
                                                  md:HintAssist.Hint="PUBLISHER"
                                                  md:HintAssist.IsFloating="True" />
                                         <TextBox Text="{Binding PublicationPlace}"
-                                                 Margin="4"
-                                                 md:HintAssist.Hint="PLACE"
+                                                 Margin="7"
+                                                 md:TextFieldAssist.HasFilledTextField="True"
+                                                 md:TextFieldAssist.RippleOnFocusEnabled="True"
+                                                 md:HintAssist.Hint="PLACE PUBLISHED"
                                                  md:HintAssist.IsFloating="True" />
                                         <TextBox Text="{Binding Published}"
-                                                 Margin="4"
-                                                 md:HintAssist.Hint="DATE"
+                                                 Margin="7"
+                                                 md:TextFieldAssist.HasFilledTextField="True"
+                                                 md:TextFieldAssist.RippleOnFocusEnabled="True"
+                                                 md:HintAssist.Hint="DATE PUBLISHED"
                                                  md:HintAssist.IsFloating="True" />
                                     </UniformGrid>
 
@@ -328,15 +348,21 @@
                                                Margin="4 16 4 0" />
                                     <UniformGrid Columns="3">
                                         <TextBox Text="{Binding Volume}"
-                                                 Margin="4"
+                                                 Margin="7"
+                                                 md:TextFieldAssist.HasFilledTextField="True"
+                                                 md:TextFieldAssist.RippleOnFocusEnabled="True"
                                                  md:HintAssist.Hint="VOLUME"
                                                  md:HintAssist.IsFloating="True" />
                                         <TextBox Text="{Binding Edition}"
-                                                 Margin="4"
+                                                 Margin="7"
+                                                 md:TextFieldAssist.HasFilledTextField="True"
+                                                 md:TextFieldAssist.RippleOnFocusEnabled="True"
                                                  md:HintAssist.Hint="EDITION"
                                                  md:HintAssist.IsFloating="True" />
                                         <TextBox Text="{Binding Series}"
-                                                 Margin="4"
+                                                 Margin="7"
+                                                 md:TextFieldAssist.HasFilledTextField="True"
+                                                 md:TextFieldAssist.RippleOnFocusEnabled="True"
                                                  md:HintAssist.Hint="SERIES"
                                                  md:HintAssist.IsFloating="True" />
                                     </UniformGrid>
@@ -346,15 +372,21 @@
                                                Margin="4 16 4 0" />
                                     <UniformGrid Columns="3">
                                         <TextBox Text="{Binding Location}"
-                                                 Margin="4"
+                                                 Margin="7"
+                                                 md:TextFieldAssist.HasFilledTextField="True"
+                                                 md:TextFieldAssist.RippleOnFocusEnabled="True"
                                                  md:HintAssist.Hint="LOCATION SYMBOL"
                                                  md:HintAssist.IsFloating="True" />
                                         <TextBox Text="{Binding ClassificationNumber}"
-                                                 Margin="4"
+                                                 Margin="7"
+                                                 md:TextFieldAssist.HasFilledTextField="True"
+                                                 md:TextFieldAssist.RippleOnFocusEnabled="True"
                                                  md:HintAssist.Hint="DEWEY"
                                                  md:HintAssist.IsFloating="True" />
                                         <TextBox Text="{Binding AuthorNumber}"
-                                                 Margin="4"
+                                                 Margin="7"
+                                                 md:TextFieldAssist.HasFilledTextField="True"
+                                                 md:TextFieldAssist.RippleOnFocusEnabled="True"
                                                  md:HintAssist.Hint="AUTHOR NUMBER"
                                                  md:HintAssist.IsFloating="True" />
                                     </UniformGrid>
@@ -365,19 +397,27 @@
                                                Margin="4 16 4 0" />
                                     <UniformGrid Columns="4">
                                         <TextBox Text="{Binding Isbn}"
-                                                 Margin="4"
+                                                 Margin="7"
+                                                 md:TextFieldAssist.HasFilledTextField="True"
+                                                 md:TextFieldAssist.RippleOnFocusEnabled="True"
                                                  md:HintAssist.Hint="ISBN 10"
                                                  md:HintAssist.IsFloating="True" />
                                         <TextBox Text="{Binding Isbn13}"
-                                                 Margin="4"
+                                                 Margin="7"
+                                                 md:TextFieldAssist.HasFilledTextField="True"
+                                                 md:TextFieldAssist.RippleOnFocusEnabled="True"
                                                  md:HintAssist.Hint="ISBN 13"
                                                  md:HintAssist.IsFloating="True" />
                                         <TextBox Text="{Binding Issn}"
-                                                 Margin="4"
+                                                 Margin="7"
+                                                 md:TextFieldAssist.HasFilledTextField="True"
+                                                 md:TextFieldAssist.RippleOnFocusEnabled="True"
                                                  md:HintAssist.Hint="ISSN"
                                                  md:HintAssist.IsFloating="True" />
                                         <TextBox Text="{Binding Barcode}"
-                                                 Margin="4"
+                                                 Margin="7"
+                                                 md:TextFieldAssist.HasFilledTextField="True"
+                                                 md:TextFieldAssist.RippleOnFocusEnabled="True"
                                                  md:HintAssist.Hint="BARCODE"
                                                  md:HintAssist.IsFloating="True" />
                                     </UniformGrid>
@@ -387,19 +427,27 @@
                                                Margin="4 16 4 0" />
                                     <UniformGrid Columns="4">
                                         <TextBox Text="{Binding InitialPages}"
-                                                 Margin="4"
+                                                 Margin="7"
+                                                 md:TextFieldAssist.HasFilledTextField="True"
+                                                 md:TextFieldAssist.RippleOnFocusEnabled="True"
                                                  md:HintAssist.Hint="INITIAL PAGES"
                                                  md:HintAssist.IsFloating="True" />
                                         <TextBox Text="{Binding Pages}"
-                                                 Margin="4"
+                                                 Margin="7"
+                                                 md:TextFieldAssist.HasFilledTextField="True"
+                                                 md:TextFieldAssist.RippleOnFocusEnabled="True"
                                                  md:HintAssist.Hint="PAGES"
                                                  md:HintAssist.IsFloating="True" />
                                         <TextBox Text="{Binding Illustrations}"
-                                                 Margin="4"
+                                                 Margin="7"
+                                                 md:TextFieldAssist.HasFilledTextField="True"
+                                                 md:TextFieldAssist.RippleOnFocusEnabled="True"
                                                  md:HintAssist.Hint="ILLUSTRATIONS"
                                                  md:HintAssist.IsFloating="True" />
                                         <TextBox Text="{Binding Height}"
-                                                 Margin="4"
+                                                 Margin="7"
+                                                 md:TextFieldAssist.HasFilledTextField="True"
+                                                 md:TextFieldAssist.RippleOnFocusEnabled="True"
                                                  md:HintAssist.Hint="HEIGHT (CM)"
                                                  md:HintAssist.IsFloating="True" />
 
@@ -751,18 +799,12 @@
                                                  Margin="0 8"
                                                  md:HintAssist.IsFloating="True"/>
                                         <Grid Margin="0,8,0,0">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Text="BOOK RATING: " Style="{StaticResource MaterialDesignCaptionTextBlock}"
-                                                       VerticalAlignment="Center"/>
-                                        <!--<md:RatingBar md:HintAssist.Hint="BOOK RATING"
-                                                      Value="{Binding BookRating,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                                                      Grid.Column="1"
-                                                      VerticalAlignment="Center"/>-->
-                                            <Button Grid.Column="2"
+                      <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                      </Grid.ColumnDefinitions>
+                      <Button Grid.Column="2"
                                                     Command="{Binding RelativeSource={RelativeSource AncestorType=views:BooksView},Path=DataContext.ReturnBookCommand}"
                                                     CommandParameter="{Binding}">RETURN</Button>
                                         </Grid>

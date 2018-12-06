@@ -10,6 +10,7 @@
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:model="clr-namespace:Libro.Models;assembly=Libro.Core"
              xmlns:cnv="clr-namespace:Libro.Converters"
+             xmlns:viewModels="clr-namespace:Libro.ViewModels"
              mc:Ignorable="d" 
              Padding="32"
              MinWidth="471"
@@ -91,11 +92,22 @@
                  md:HintAssist.IsFloating="True"
                  Margin="0,8"
                  Text="{Binding ContactNumber}" />
-        <UniformGrid HorizontalAlignment="Right"
+    <Grid>
+      <Button ToolTip="Delete"
+              Visibility="{Binding IsNew,Converter={cnv:BooleanToVisibility Collapsed,Visible}}"
+              Margin="4 0 0 0"
+              Style="{DynamicResource MaterialDesignFlatButton}"
+              Focusable="False"
+              HorizontalAlignment="Left"
+              VerticalAlignment="Bottom"
+              Content="_DELETE"
+              Command="{Binding DeleteCommand}"/>
+    <UniformGrid HorizontalAlignment="Right"
                      Columns="2"
                      Margin="0,16,0,0"
                      Rows="1">
             <Button Margin="0,0,4,0" IsCancel="True"
+                    Style="{StaticResource MaterialDesignFlatButton}"
                     Command="{x:Static md:DialogHost.CloseDialogCommand}">
                 <Button.CommandParameter>
                     <system:Boolean>False</system:Boolean>
@@ -115,5 +127,6 @@
                 </StackPanel>
             </Button>
         </UniformGrid>
-    </StackPanel>
+    </Grid>
+  </StackPanel>
 </UserControl>
