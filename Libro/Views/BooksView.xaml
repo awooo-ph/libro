@@ -413,7 +413,8 @@
                                        Grid.Row="2" VerticalAlignment="Top" SnapsToDevicePixels="True"/>
                             <UniformGrid Grid.Row="2" Rows="1"
                                          Margin="16,16,16,8">
-                              <Button Content="_DELETE" Style="{DynamicResource MaterialDesignRaisedLightButton}"/>
+                              <Button Content="_DELETE" Style="{DynamicResource MaterialDesignRaisedLightButton}"
+                                      Command="{Binding DeleteCommand}"/>
                               <Rectangle IsHitTestVisible="False"/>
                               <Button Command="{Binding SaveCommand}" Content="_SAVE CHANGES"/>
                             </UniformGrid>
