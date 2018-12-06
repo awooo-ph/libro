@@ -51,14 +51,13 @@
         <me:AppBar x:Name="appBar" Padding="0"
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
-                   Title="{Binding AppTitle,Mode=OneTime}">
+                   Title="NEGROS ORIENTAL STATE UNIVERSITY">
           <me:AppBar.AppIcon>
-            <Image Stretch="Uniform" Source="{Binding AppIcon,Mode=OneTime}"
+            <Image Source="Resources/norsu.png" Stretch="Uniform"
                    Margin="0"
                    RenderOptions.BitmapScalingMode="HighQuality"/>
           </me:AppBar.AppIcon>
-       
-          <UniformGrid VerticalAlignment="Center" Rows="1" Margin="0 0 47 0">
+          <UniformGrid VerticalAlignment="Center" Rows="1">
             <UniformGrid.Resources>
               <ResourceDictionary>
                 <ResourceDictionary.MergedDictionaries>
@@ -69,6 +68,7 @@
               </ResourceDictionary>
             </UniformGrid.Resources>
             <RadioButton Content="_BOOKS" Style="{DynamicResource MaterialDesignTabRadioButton}"
+
                          Cursor="Hand"
                          local:Extensions.PlayClick="True"
                          IsChecked="True" x:Name="BooksTab"/>
