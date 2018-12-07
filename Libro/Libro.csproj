@@ -116,7 +116,9 @@
     <Compile Include="DataGridEx.cs" />
     <Compile Include="DateTimeHelper.cs" />
     <Compile Include="Dialogs\BookSelector.xaml.cs" />
-    <Compile Include="Dialogs\BorrowerEditor.xaml.cs" />
+    <Compile Include="Dialogs\BorrowerEditor.xaml.cs">
+      <DependentUpon>BorrowerEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\MessageDialog.xaml.cs">
       <DependentUpon>MessageDialog.xaml</DependentUpon>
     </Compile>
@@ -124,6 +126,7 @@
     <Compile Include="Dialogs\NewBookDialog.xaml.cs" />
     <Compile Include="Dialogs\NewBooksDialog.xaml.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Windows.cs" />
     <Compile Include="MainViewModel.cs" />
     <Compile Include="MainVM.cs" />
@@ -228,7 +231,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Libro.Core\Libro.Core.csproj">
+    <ProjectReference Include="..\..\Libro.Core\Libro.Core.csproj">
       <Project>{ccef9e29-5943-4056-90d3-4de1a7bc7fd7}</Project>
       <Name>Libro.Core</Name>
     </ProjectReference>
@@ -241,14 +244,14 @@
     <Resource Include="Resources\SFC.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\norsu.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\chime_glass_note_hi.wav" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\click_02.wav" />
     <Resource Include="Resources\norsu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <SplashScreen Include="SplashScreen1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.109.2\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.109.2\build\net46\System.Data.SQLite.Core.targets')" />

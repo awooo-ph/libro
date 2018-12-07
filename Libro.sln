@@ -5,9 +5,9 @@ VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Libro", "Libro\Libro.csproj", "{5E18DD28-CFDD-466F-8EB8-1AAF345361DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Libro.Core", "Libro.Core\Libro.Core.csproj", "{CCEF9E29-5943-4056-90D3-4DE1A7BC7FD7}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaterialDesignExtensions", "E:\Git\MaterialDesignExtensions-dev\MaterialDesignExtensions\MaterialDesignExtensions.csproj", "{809632DA-5EB8-4EE8-AD71-57239701550C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Libro.Core", "..\Libro.Core\Libro.Core.csproj", "{CCEF9E29-5943-4056-90D3-4DE1A7BC7FD7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +19,14 @@ Global
 		{5E18DD28-CFDD-466F-8EB8-1AAF345361DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E18DD28-CFDD-466F-8EB8-1AAF345361DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E18DD28-CFDD-466F-8EB8-1AAF345361DF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CCEF9E29-5943-4056-90D3-4DE1A7BC7FD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CCEF9E29-5943-4056-90D3-4DE1A7BC7FD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CCEF9E29-5943-4056-90D3-4DE1A7BC7FD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CCEF9E29-5943-4056-90D3-4DE1A7BC7FD7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{809632DA-5EB8-4EE8-AD71-57239701550C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{809632DA-5EB8-4EE8-AD71-57239701550C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{809632DA-5EB8-4EE8-AD71-57239701550C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{809632DA-5EB8-4EE8-AD71-57239701550C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCEF9E29-5943-4056-90D3-4DE1A7BC7FD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCEF9E29-5943-4056-90D3-4DE1A7BC7FD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCEF9E29-5943-4056-90D3-4DE1A7BC7FD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCEF9E29-5943-4056-90D3-4DE1A7BC7FD7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

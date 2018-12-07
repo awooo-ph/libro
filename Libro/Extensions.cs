@@ -7,6 +7,8 @@ using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using Libro.Properties;
 
 namespace Libro
@@ -18,11 +20,15 @@ namespace Libro
 
         private static void OnPlayClickChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (!(d is FrameworkElement f)) return;
-            f.MouseDown += (sender, args) =>
+            switch (d)
             {
-                Resources.click_02.Play();
-            };
+                case ButtonBase btn:
+                    btn.Click += (sender, args) => Resources.click_02.Play();
+                    break;
+                case FrameworkElement fe:
+                    fe.MouseDown += (sender, args) => Resources.click_02.Play();
+                    break;
+            }
         }
 
         public static void SetPlayClick(DependencyObject element, bool value)
@@ -35,7 +41,7 @@ namespace Libro
             return (bool) element.GetValue(PlayClickProperty);
         }
 
-        public static async void Play(this UnmanagedMemoryStream res)
+        public static void Play(this UnmanagedMemoryStream res)
         {
             using (var player = new SoundPlayer(res))
             {
@@ -43,7 +49,7 @@ namespace Libro
             }
         }
 
-        public static async void Log(this Exception exception, string source = null, bool includeStackTrace = false)
+        public static async Task Log(this Exception exception, string source = null, bool includeStackTrace = false)
         {
             if (exception == null) return;
             if (!string.IsNullOrEmpty(source))

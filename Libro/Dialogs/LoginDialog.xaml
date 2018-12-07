@@ -8,21 +8,27 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel>
-      <StackPanel Orientation="Horizontal">
+      <!--<StackPanel Orientation="Horizontal">
         <md:PackIcon Kind="KeyVariant" Height="44" Width="44" VerticalAlignment="Center" Margin="10"/>
         <TextBlock Text="Sign In" Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
                    Margin="10" VerticalAlignment="Center"/>
-      </StackPanel>
+      </StackPanel>-->
+    <StackPanel Orientation="Horizontal">
+      <Image Source="/Resources/SFC.png" Height="174" Stretch="Uniform " Margin="20" RenderOptions.BitmapScalingMode="HighQuality"/>
+      <StackPanel VerticalAlignment="Center" Margin="0 0 20 0">
       <TextBox x:Name="Username" x:FieldModifier="private"
                   md:HintAssist.Hint="USERNAME"
                   Margin="20 10"
+               Width="222"
                   Style="{DynamicResource MaterialDesignFilledTextFieldTextBox}"/>
         <PasswordBox x:Name="Password" x:FieldModifier="private"
                      md:HintAssist.Hint="PASSWORD"
                      Margin="20 10"
                      Style="{DynamicResource MaterialDesignFilledPasswordFieldPasswordBox}"/>
-      <UniformGrid Margin="20" Rows="1">
-        <Button Style="{DynamicResource MaterialDesignFlatButton}" Content="_EXIT"
+      </StackPanel>
+    </StackPanel>
+    <UniformGrid Margin="20" Rows="1">
+        <Button Style="{DynamicResource MaterialDesignRaisedLightButton}" Content="_EXIT"
                 Click="ButtonBase_OnClick"/>
         <Rectangle IsHitTestVisible="False"/>
         <Button Content="_LOGIN" Command="{Binding Source={x:Static md:DialogHost.CloseDialogCommand}}">

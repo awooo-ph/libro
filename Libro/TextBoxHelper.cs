@@ -144,7 +144,7 @@ namespace Libro
 
         public static object GetInputCommandParameter(DependencyObject element)
         {
-            return (object) element.GetValue(InputCommandParameterProperty);
+            return element.GetValue(InputCommandParameterProperty);
         }
 
         public static readonly DependencyProperty EnterCommandProperty = DependencyProperty.RegisterAttached(
@@ -228,7 +228,7 @@ namespace Libro
                 if (e.Key == Key.Left)
                 {
                     if(tb.Text.Length>0)
-                    tb.Text = tb.Text.Substring(0, tb.Text.Length - 1);
+                        tb.Text = tb.Text.Substring(0, tb.Text.Length - 1);
                     e.Handled = true;
                     tb.SelectionStart = tb.Text.Length;
                 } else if (e.Key == Key.Home)

@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Threading;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -68,15 +65,15 @@ namespace Libro.ViewModels
             }
         }
 
-        private bool _ShowExpired;
+        private bool _showExpired;
 
         public bool ShowExpired
         {
-            get => _ShowExpired;
+            get => _showExpired;
             set
             {
-                if (value == _ShowExpired) return;
-                _ShowExpired = value;
+                if (value == _showExpired) return;
+                _showExpired = value;
                 OnPropertyChanged(nameof(ShowExpired));
                 BorrowersView.Filter = FilterBorrower;
             }
@@ -132,6 +129,7 @@ namespace Libro.ViewModels
         private bool FilterBorrower(object o)
         {
             var b = (Borrower) o;
+            if (b == null) return false;
             if(!b.IsStudent) return false;
 
             if (ShowUnpaid && Takeout.GetUnpaidByBorrower(b.Id).Count==0) return false;
@@ -175,16 +173,14 @@ namespace Libro.ViewModels
         private ICommand _deleteCommand;
 
         public ICommand DeleteCommand
-            => _deleteCommand ?? (_deleteCommand = new DelegateCommand<Borrower>(DeleteBorrower));
-
-        private async void DeleteBorrower(Borrower obj)
-        {
-            var res = await MessageDialog.Show($"Confirm Delete {obj.Fullname}?",
-                $"Deleting borrowers can not be undone. Click DELETE to permanently delete {obj.Fullname}.",
-                "DELETE", "CANCEL");
-            if(res) obj.Delete();
-        }
-
+            => _deleteCommand ?? (_deleteCommand = new DelegateCommand<Borrower>(async obj =>
+            {
+                var res = await MessageDialog.Show($"Confirm Delete {obj.Fullname}?",
+                    $"Deleting borrowers can not be undone. Click DELETE to permanently delete {obj.Fullname}.",
+                    "DELETE", "CANCEL");
+                if (res) obj.Delete();
+            }));
+        
         private static Students _students;
 
         public static Students Instance
@@ -197,10 +193,9 @@ namespace Libro.ViewModels
             }
         }
 
-     //   private SynchronizationContext context;
         private Students()
         {
-           // context = SynchronizationContext.Current;
+           
         }
         
         private static ICommand _payCommand;
@@ -264,21 +259,17 @@ namespace Libro.ViewModels
         public string Title { get; set; } = "Borrowers";
 
         private ICommand _addNewCommand;
-        public ICommand AddNewCommand => _addNewCommand ?? (_addNewCommand = new DelegateCommand(AddNew));
-
-        private async void AddNew(object obj)
+        public ICommand AddNewCommand => _addNewCommand ?? (_addNewCommand = new DelegateCommand(async d =>
         {
-            var borrower = new Borrower() {IsStudent = true};
-            
-            var dlg = new BorrowerEditor("","ADD") {DataContext = borrower};
-            var res = await DialogHost.Show(dlg, "RootDialog") as bool?;
-            if (res ?? false) borrower.Save();
-        }
+            var borrower = new Borrower() { IsStudent = true };
+            var dlg = new BorrowerEditor("", "ADD") { DataContext = borrower };
+
+            if (await DialogHost.Show(dlg, "RootDialog") is bool res && res) borrower.Save();
+        }));
+
 
         private ICommand _editCommand;
-        public ICommand EditCommand => _editCommand ?? (_editCommand = new DelegateCommand<Borrower>(Edit));
-
-        private async void Edit(Borrower item)
+        public ICommand EditCommand => _editCommand ?? (_editCommand = new DelegateCommand<Borrower>(async item =>
         {
             var brw = new Borrower()
             {
@@ -294,8 +285,7 @@ namespace Libro.ViewModels
             var dlg = new BorrowerEditor("", "SAVE") { DataContext = brw };
             var res = await DialogHost.Show(dlg, "RootDialog") as bool?;
 
-            if(!res ?? false)
-                return;
+            if (!(res ?? false)) return;
 
             item.Firstname = brw.Firstname;
             item.Lastname = brw.Lastname;
@@ -305,9 +295,8 @@ namespace Libro.ViewModels
             item.SchoolId = brw.SchoolId;
             item.Barcode = brw.Barcode;
             item.Save();
-           
-        }
-
+        }));
+        
         public void ShowBorrower(Borrower borrower)
         {
             ShowUnpaid = false;

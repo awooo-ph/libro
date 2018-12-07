@@ -3,22 +3,18 @@
 //
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
 
 namespace Libro
 {
-    static class Windows
+    static class NativeMethods
     {
         private const UInt32 FLASHW_STOP = 0; //Stop flashing. The system restores the window to its original state.        private const UInt32 FLASHW_CAPTION = 1; //Flash the window caption.        
-        private const UInt32 FLASHW_TRAY = 2; //Flash the taskbar button.        
+        //private const UInt32 FLASHW_TRAY = 2; //Flash the taskbar button.        
         private const UInt32 FLASHW_ALL = 3; //Flash both the window caption and taskbar button.        
-        private const UInt32 FLASHW_TIMER = 4; //Flash continuously, until the FLASHW_STOP flag is set.        
+        //private const UInt32 FLASHW_TIMER = 4; //Flash continuously, until the FLASHW_STOP flag is set.        
         private const UInt32 FLASHW_TIMERNOFG = 12; //Flash continuously until the window comes to the foreground.  
 
 

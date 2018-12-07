@@ -15,7 +15,7 @@
         WindowState="Maximized"
         DataContext="{Binding Source={x:Static local:MainViewModel.Instance}}"
         Background="{DynamicResource MaterialDesignBackground}" Foreground="{DynamicResource MaterialDesignBody}"
-        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        FontFamily="{StaticResource MaterialDesignFont}"
         Title="Libro - Library Management System" MinHeight="444" MinWidth="777">
   <Window.TaskbarItemInfo>
     <TaskbarItemInfo Overlay="{Binding Overlay,Converter={converters:PathToBitmapConverter}}"/>
@@ -74,6 +74,7 @@
                          IsChecked="True" x:Name="BooksTab"/>
             <RadioButton Content="_BORROWERS" Style="{DynamicResource MaterialDesignTabRadioButton}"
                          Cursor="Hand"
+                         local:Extensions.PlayClick="True"
                          x:Name="BorrowersTab"/>
           </UniformGrid>
           

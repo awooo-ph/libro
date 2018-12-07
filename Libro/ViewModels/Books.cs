@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -47,7 +45,7 @@ namespace Libro.ViewModels
                 BooksView.Filter = o =>
                 {
                     if (string.IsNullOrWhiteSpace(value)) return true;
-                    var bk = o as Book;
+                    if (!(o is Book bk)) return false;
                     if (bk.Title.ToLower().Contains(value.ToLower())) return true;
                     if (bk.Author.ToLower().Contains(value.ToLower())) return true;
                     if (bk.EqualsId(value)) return true;
@@ -71,29 +69,26 @@ namespace Libro.ViewModels
                 _view = new Views.BooksView() { DataContext = this };
                 return _view;
             }
-            set { }
         }
-        
-        private ICommand _addBookCommand;
-        public ICommand AddBookCommand => _addBookCommand ?? (_addBookCommand = new DelegateCommand(AddBook));
 
-        private async void AddBook(object obj)
+        private ICommand _addBookCommand;
+        public ICommand AddBookCommand => _addBookCommand ?? (_addBookCommand = new DelegateCommand(async obj =>
         {
             var dlg = new NewBookDialog();
             var res = await DialogHost.Show(dlg, "RootDialog") as bool?;
-            if (!res ?? false) return;
-            var nb = ((NewBook) dlg.DataContext);
+            if (!(res ?? false)) return;
+            var nb = ((NewBook)dlg.DataContext);
             nb.CancelRequest();
-            
-                var bk = nb.Book ?? new Book()
-                {
-                    Isbn = nb.Isbn,
-                    AccessionNumber = nb.AccessionNumber,
-                    Condition = nb.Condition,
-                    DateReceived = nb.DateReceived,
-                    Fund = nb.Fund,
-                    Price = nb.Price,
-                };
+
+            var bk = nb.Book ?? new Book()
+            {
+                Isbn = nb.Isbn,
+                AccessionNumber = nb.AccessionNumber,
+                Condition = nb.Condition,
+                DateReceived = nb.DateReceived,
+                Fund = nb.Fund,
+                Price = nb.Price,
+            };
             if (!nb.IsBookFound)
             {
                 bk.Title = nb.TemporaryBook.Title;
@@ -102,11 +97,23 @@ namespace Libro.ViewModels
                 bk.Section = nb.TemporaryBook.Section;
                 bk.Subject = nb.TemporaryBook.Subject;
             }
-                bk.Save();
-        }
-        
+            bk.Save();
+        }));
+
         private ICommand _addBooksCommand;
-        public ICommand AddBooksCommand => _addBooksCommand ?? (_addBooksCommand = new DelegateCommand(AddBooks));
+        public ICommand AddBooksCommand => _addBooksCommand ?? (_addBooksCommand = new DelegateCommand(async obj =>
+        {
+            var dlg = new NewBooksDialog();
+            var res = await DialogHost.Show(dlg, "RootDialog") as bool?;
+
+            foreach (var newBook in dlg.ISBNs)
+                newBook.CancelRequest();
+
+            if (!(res ?? false)) return;
+
+            foreach (var newBook in dlg.ISBNs)
+                newBook.Book?.Save();
+        }));
 
         private bool _multipleSelection;
 
@@ -122,17 +129,15 @@ namespace Libro.ViewModels
         }
 
         private ICommand _selectCommand;
-        public ICommand SelectBorrowerCommand => _selectCommand ?? (_selectCommand = new DelegateCommand(SelectBorrower));
-
-        private async void SelectBorrower(object obj)
+        public ICommand SelectBorrowerCommand => _selectCommand ?? (_selectCommand = new DelegateCommand(async obj =>
         {
             var dlg = new BorrowerSearch();
             var res = await DialogHost.Show(dlg, "RootDialog") as bool?;
-            if(!res ?? false)
+            if (!(res ?? false))
                 return;
             TakeoutViewModel.Barcode = (dlg.SearchResult.CurrentItem as Borrower)?.Barcode;
-        }
-
+        }));
+        
         public TakeoutViewModel TakeoutViewModel { get; } = new TakeoutViewModel(true);
 
         private ICommand _deleteCommand;
@@ -148,7 +153,7 @@ namespace Libro.ViewModels
             fd.Multiselect = false;
             fd.CheckFileExists = true;
             fd.Filter = "Image Files (*.BMP; *.JPG; *.GIF; *.PNG)|*.BMP;*.JPG;*.GIF;*.PNG";
-            if (!fd.ShowDialog() ?? false) return;
+            if (!(fd.ShowDialog() ?? false)) return;
             var p = Path.Combine(".", "Thumbnails");
             if (!Directory.Exists(p)) Directory.CreateDirectory(p);
             p = Path.Combine(p, $"{obj.Id}.pp");
@@ -168,15 +173,13 @@ namespace Libro.ViewModels
 
         public Book SelectedBook
         {
-            get { return _selectedBook; }
+            get => _selectedBook;
             set
             {
                 if (Equals(value, _selectedBook)) return;
                 _selectedBook = value;
                 OnPropertyChanged();
-                _takeouts = null;
-                _bookTakeouts = null;
-                OnPropertyChanged(nameof(Takeouts));
+                Takeouts.Refresh();
             }
         }
 
@@ -186,9 +189,14 @@ namespace Libro.ViewModels
         {
             get
             {
-                if(_takeouts != null)
-                    return _takeouts;
-                _takeouts = (ListCollectionView)CollectionViewSource.GetDefaultView(BookTakeouts);
+                if(_takeouts != null) return _takeouts;
+                _takeouts = new ListCollectionView(Takeout.Cache);
+                _takeouts.Filter = o =>
+                {
+                    if (!(o is Takeout t)) 
+                        return false;
+                    return t.BookId == SelectedBook?.Id;
+                };
                 return _takeouts;
             }
         }
@@ -237,54 +245,12 @@ namespace Libro.ViewModels
             Messenger.Default.Broadcast(Messages.TakeoutsChanged);
         }
         
-        private ObservableCollection<Takeout> _bookTakeouts;
-
-        private ObservableCollection<Takeout> BookTakeouts
-        {
-            get
-            {
-                if(_bookTakeouts != null)
-                    return _bookTakeouts;
-                _bookTakeouts = new ObservableCollection<Takeout>(Takeout.GetByBook(SelectedBook?.Id));
-                return _bookTakeouts;
-            }
-        }
-
-        private ICommand _printCardsCommand;
-        public ICommand PrintCards => _printCardsCommand ?? (_printCardsCommand = new DelegateCommand(_PrintCards));
-
-        private void _PrintCards(object obj)
-        {
-            if (SelectedBook==null) return;
-            if (SelectedBook.Id == 0) return;
-            //Card.GenerateCardAsync(SelectedBook).ContinueWith(d =>
-            //{
-            //    var path = Path.Combine(".", "Cards");
-            //    if(!Directory.Exists(path))
-            //        Directory.CreateDirectory(path);
-            //    Process.Start("winword.exe", $"\"{Path.Combine(path, $"{SelectedBook.Id}.docx")}\"");
-            //});
-        }
-
         private void DeleteSelected(Book obj)
         {
             BooksView.AddNew();
             Messenger.Default.Broadcast(Messages.BOOKS_BeginEdit);
         }
         
-        private async void AddBooks(object obj)
-        {
-            var dlg = new NewBooksDialog();
-            var res = await DialogHost.Show(dlg, "RootDialog") as bool?;
-            if(res ?? false)
-                foreach (var newBook in dlg.ISBNs)
-                    newBook.Book?.Save();
-            foreach (var newBook in dlg.ISBNs)
-            {
-                newBook.CancelRequest();
-            }
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
