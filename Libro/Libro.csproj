@@ -26,6 +26,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -115,7 +116,9 @@
     <Compile Include="Converters\YearConverter.cs" />
     <Compile Include="DataGridEx.cs" />
     <Compile Include="DateTimeHelper.cs" />
-    <Compile Include="Dialogs\BookSelector.xaml.cs" />
+    <Compile Include="Dialogs\BookSelector.xaml.cs">
+      <DependentUpon>BookSelector.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\BorrowerEditor.xaml.cs">
       <DependentUpon>BorrowerEditor.xaml</DependentUpon>
     </Compile>

@@ -4,8 +4,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -25,37 +25,49 @@ namespace Libro
         {
             Initialize();
 
-            _expirationTimer = new Timer(CheckExpiration, null, 0, Settings.Instance.ExpirationTimer*1000);
-            _penaltyUpdater = new Timer(state =>
-            { 
-                var expired = Takeout.Cache.Where(x => !x.IsReturned && IsExpired(x.TakeoutDate)).ToList();
-                foreach (var takeout in expired)
-                {
-                    var penalty = 0.0;
-                    if (Settings.Instance.PenaltyInterval == 0)
-                        penalty = Settings.Instance.Penalty;
-                    else if (Settings.Instance.PenaltyInterval == 1)
-                        penalty = ((long) Math.Ceiling((DateTime.Now - takeout.TakeoutDate)
-                            .Add(TimeSpan.FromHours(-Settings.Instance.MaximumTakeoutHours))
-                            .TotalHours));
-                    else if(Settings.Instance.PenaltyInterval == 2)
-                        penalty = ((long) Math.Ceiling((DateTime.Now - takeout.TakeoutDate)
-                            .Add(TimeSpan.FromHours(-Settings.Instance.MaximumTakeoutHours))
-                            .TotalDays)) * Settings.Instance.Penalty;
+            _expirationTimer = new Timer(Settings.Instance.ExpirationTimer*1000);
+            _penaltyUpdater = new Timer(Settings.Instance.PenaltyInterval*1000);
 
-                    if (penalty < 0) penalty = 0;
-                    takeout.Update(nameof(takeout.Penalty), penalty);
-                }
-            }, null, 0, Settings.Instance.PenaltyInterval*1000);
+            _expirationTimer.AutoReset = true;
+            _penaltyUpdater.AutoReset = true;
+
+            _expirationTimer.Elapsed += (sender, args) => CheckExpiration();
+
+            _penaltyUpdater.Elapsed += (sender, args) => CheckPenalty(); 
 
             Messenger.Default.AddListener(Libro.Messages.SettingsChanged, () =>
                 {
-                    _expirationTimer.Change(0, Settings.Instance.ExpirationTimer * 1000);
+                    _expirationTimer.Interval = Settings.Instance.ExpirationTimer * 1000;
                 });
+
+            _expirationTimer.Start();
+            _penaltyUpdater.Start();
+        }
+
+        private void CheckPenalty()
+        {
+            var expired = Takeout.Cache.Where(x => !x.IsReturned && IsExpired(x.TakeoutDate)).ToList();
+            foreach (var takeout in expired)
+            {
+                var penalty = 0.0;
+                if (Settings.Instance.PenaltyInterval == 0)
+                    penalty = Settings.Instance.Penalty;
+                else if (Settings.Instance.PenaltyInterval == 1)
+                    penalty = ((long)Math.Ceiling((DateTime.Now - takeout.TakeoutDate)
+                        .Add(TimeSpan.FromHours(-Settings.Instance.MaximumTakeoutHours))
+                        .TotalHours));
+                else if (Settings.Instance.PenaltyInterval == 2)
+                    penalty = ((long)Math.Ceiling((DateTime.Now - takeout.TakeoutDate)
+                                  .Add(TimeSpan.FromHours(-Settings.Instance.MaximumTakeoutHours))
+                                  .TotalDays)) * Settings.Instance.Penalty;
+
+                if (penalty < 0) penalty = 0;
+                takeout.Update(nameof(takeout.Penalty), penalty);
+            }
         }
 
         private bool _checking;
-        private void CheckExpiration(object state)
+        private void CheckExpiration()
         {
             if (_checking) return;
             _checking = true;
