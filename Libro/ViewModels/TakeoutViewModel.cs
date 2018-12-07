@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -9,15 +7,13 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Input;
 using Libro.Annotations;
-using Libro.Dialogs;
 using Libro.Models;
-using MaterialDesignThemes.Wpf;
 
 namespace Libro.ViewModels
 {
     class TakeoutViewModel : INotifyPropertyChanged
     {
-        private SynchronizationContext context;
+        private readonly SynchronizationContext context;
         public TakeoutViewModel(bool autoSearch)
         {
             AutoSearch = autoSearch;
@@ -107,10 +103,10 @@ namespace Libro.ViewModels
             get { return _bookCart; }
         }
 
-        private void SearchBook(string value)
+        private void SearchBook(string code)
         {
             SelectedBook = null;
-            SelectedBook = Book.Cache.FirstOrDefault(x => (x.Barcode==BookCode || x.AccessionNumber == BookCode) && !BookCart.Contains(x));
+            SelectedBook = Book.Cache.FirstOrDefault(x => (x.Barcode==code || x.AccessionNumber == code) && !BookCart.Contains(x));
         }
 
         public bool BookFound => SelectedBook != null;
@@ -130,9 +126,9 @@ namespace Libro.ViewModels
         }
 
 
-        private void SearchBarcode(string value)
+        private void SearchBarcode(string code)
         {
-            Borrower = Borrower.Cache.FirstOrDefault(x => x.Barcode == Barcode || x.SchoolId == Barcode);
+            Borrower = Borrower.Cache.FirstOrDefault(x => x.Barcode == code || x.SchoolId == code);
         }
 
         private Borrower _borrower;
