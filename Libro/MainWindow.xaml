@@ -74,6 +74,7 @@
                          IsChecked="True" x:Name="BooksTab"/>
             <RadioButton Content="_BORROWERS" Style="{DynamicResource MaterialDesignTabRadioButton}"
                          Cursor="Hand"
+                         local:Extensions.PlayClick="True"
                          x:Name="BorrowersTab"/>
           </UniformGrid>
           

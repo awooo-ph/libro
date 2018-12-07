@@ -73,14 +73,5 @@ namespace Libro
 
         public List<INavigationItem> NagivationItems => _navigationItems;
 
-        private void BorrowersTab_OnChecked(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private void BooksTab_OnClick(object sender, RoutedEventArgs e)
-        {
-            Libro.Properties.Resources.click_02.Play();
-        }
     }
 }
