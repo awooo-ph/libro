@@ -1,0 +1,14 @@
+{
+  "ServerUri": "https://sonarcloud.io",
+  "Organization": {
+    "Key": "awooo-ph-github",
+    "Name": "awooo"
+  },
+  "ProjectKey": "awooo-ph_libro.core",
+  "Profiles": {
+    "CSharp": {
+      "ProfileKey": "AWeF_BzLC8KiZyrQ-Tuq",
+      "ProfileTimestamp": "2018-11-29T18:14:41+08:00"
+    }
+  }
+}

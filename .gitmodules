@@ -1,3 +1,9 @@
 [submodule "Libro.Core"]
 	path = Libro.Core
 	url = https://github.com/awooo-ph/libro.core.git
+[submodule "NetworkComms.Net"]
+	path = NetworkComms.Net
+	url = https://github.com/MarcFletcher/NetworkComms.Net.git
+[submodule "NetworkComms"]
+	path = NetworkComms
+	url = https://github.com/awooo-ph/NetworkComms.Net.git
