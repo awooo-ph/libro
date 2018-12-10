@@ -26,6 +26,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
+    <CodeAnalysisRuleSet>Libro.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -35,6 +37,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>Libro.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
@@ -115,7 +118,9 @@
     <Compile Include="Converters\YearConverter.cs" />
     <Compile Include="DataGridEx.cs" />
     <Compile Include="DateTimeHelper.cs" />
-    <Compile Include="Dialogs\BookSelector.xaml.cs" />
+    <Compile Include="Dialogs\BookSelector.xaml.cs">
+      <DependentUpon>BookSelector.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\BorrowerEditor.xaml.cs">
       <DependentUpon>BorrowerEditor.xaml</DependentUpon>
     </Compile>
@@ -221,6 +226,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Libro.ruleset" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

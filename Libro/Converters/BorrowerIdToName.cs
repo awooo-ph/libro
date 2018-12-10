@@ -15,7 +15,7 @@ namespace Libro.Converters
         {
             var id = (long) value;
             var n = Borrower.GetById(id)?.Fullname;
-            if (UpperCase) n = n.ToUpper();
+            if (UpperCase) n = n?.ToUpper();
             return n;
         }
     }

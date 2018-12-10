@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -105,8 +103,7 @@ namespace Libro.Dialogs
         }
         
         private CancellationTokenSource _tokenSource;
-        private Task _searchTask;
-
+        
         private GoogleBooks _google = new GoogleBooks();
 
         private void SearchOnline(object obj)
@@ -117,8 +114,6 @@ namespace Libro.Dialogs
             IsSearching = false;
             IsBookFound = false;
             IsSearchingComplete = false;
-
-            var searchStart = DateTime.Now;
             
             _tokenSource?.Cancel();
             
@@ -183,7 +178,7 @@ namespace Libro.Dialogs
             }
         }
 
-        private bool _isBookFound = false;
+        private bool _isBookFound;
 
         public bool IsBookFound
         {
@@ -344,7 +339,7 @@ namespace Libro.Dialogs
                 switch (columnName)
                 {
                     case nameof(AccessionNumber):
-                    {
+                    
                         if (string.IsNullOrWhiteSpace(AccessionNumber) && !string.IsNullOrWhiteSpace(Isbn))
                             return "Accession Number is Required.";
                         if (!string.IsNullOrWhiteSpace(AccessionNumber) &&
@@ -354,13 +349,12 @@ namespace Libro.Dialogs
                             _parentList.Any(x => !string.IsNullOrWhiteSpace(AccessionNumber) && x.AccessionNumber == AccessionNumber && x != this))
                             return "Another book has the same Accession Number.";
                         break;
-                    }
-
+                    
                     case nameof(Isbn):
-                    {
                         if (_parentList!=null && string.IsNullOrWhiteSpace(Isbn)) return "ISBN is required.";
                         break;
-                    }
+                    default:
+                        return null;
                 }
                 return null;
             }
