@@ -12,12 +12,11 @@
              xmlns:cnv="clr-namespace:Libro.Converters"
              xmlns:viewModels="clr-namespace:Libro.ViewModels"
              mc:Ignorable="d" 
-             Padding="32"
              MinWidth="471"
              FocusManager.FocusedElement="{Binding ElementName=TextBox}"
              d:DesignHeight="300" d:DesignWidth="300" d:DataContext="{d:DesignInstance model:Borrower}">
     <StackPanel>
-        <Grid>
+        <Grid Margin="32">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
@@ -29,10 +28,10 @@
                 <TextBlock Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
                            Text="NEW " />
                 <TextBlock Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
-                           Visibility="{Binding IsStudent,Converter={cnv:BooleanToVisibility}}"
+                           Visibility="{Binding IsStudent,Mode=OneWay, Converter={cnv:BooleanToVisibility}}"
                            Text="STUDENT" />
                 <TextBlock Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
-                           Visibility="{Binding IsStudent,Converter={cnv:BooleanToVisibility Collapsed,Visible}}"
+                           Visibility="{Binding IsStudent,Mode=OneWay,Converter={cnv:BooleanToVisibility Collapsed,Visible}}"
                            Text="FACULTY" />
             </StackPanel>
             <StackPanel Orientation="Horizontal"
@@ -41,58 +40,62 @@
                 <TextBlock Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
                            Text="EDIT " />
                 <TextBlock Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
-                           Visibility="{Binding IsStudent,Converter={cnv:BooleanToVisibility}}"
+                           Visibility="{Binding IsStudent,Mode=OneWay,Converter={cnv:BooleanToVisibility}}"
                            Text="STUDENT" />
                 <TextBlock Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
-                           Visibility="{Binding IsStudent,Converter={cnv:BooleanToVisibility Collapsed,Visible}}"
+                           Visibility="{Binding IsStudent,Mode=OneWay,Converter={cnv:BooleanToVisibility Collapsed,Visible}}"
                            Text="FACULTY" />
             </StackPanel>
-            <!--<ListBox Grid.Column="1" TabIndex="74"
-                     Style="{DynamicResource MaterialDesignToolToggleListBox}"
+            <ComboBox Grid.Column="1" TabIndex="74"
+                     ItemsSource="{StaticResource Departments}"
+                     SelectedItem="{Binding DepartmentType}"
                      VerticalAlignment="Center"
-                     HorizontalContentAlignment="Center">
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <UniformGrid Columns="2"
-                                     Rows="1" />
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-                <ListBoxItem IsSelected="{Binding IsStudent,Converter={cnv:Inverter}}">FACULTY</ListBoxItem>
-                <ListBoxItem IsSelected="{Binding IsStudent}">STUDENT</ListBoxItem>
-            </ListBox>-->
+                     HorizontalContentAlignment="Center"/>
         </Grid>
         
         <UniformGrid Columns="2"
-                     Margin="0,8">
+                     Margin="32,8">
             <TextBox md:HintAssist.Hint="SCHOOL ID"
                      md:HintAssist.IsFloating="True"
-                     Margin="0,8,4,8"
+                     md:TextFieldAssist.RippleOnFocusEnabled="True"
+                     md:TextFieldAssist.HasFilledTextField="True"
+                     Margin="0 10 5 10"
                      x:Name="TextBox"
                      Text="{Binding SchoolId,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" />
             <TextBox md:HintAssist.Hint="LIBRARY ID"
                      md:HintAssist.IsFloating="True"
-                     Margin="4,8,0,8"
+                     md:TextFieldAssist.RippleOnFocusEnabled="True"
+                     md:TextFieldAssist.HasFilledTextField="True"
+                     Margin="5 10 0 10"
                      Text="{Binding Barcode, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" />
             
             <TextBox md:HintAssist.Hint="FIRSTNAME"
                      md:HintAssist.IsFloating="True"
-                     Margin="0,8,4,8"
+                     Margin="0 10"
+                     md:TextFieldAssist.RippleOnFocusEnabled="True"
+                     md:TextFieldAssist.HasFilledTextField="True"
                      Text="{Binding Firstname,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"/>
             <TextBox md:HintAssist.Hint="LASTNAME"
                      md:HintAssist.IsFloating="True"
-                     Margin="4,8,0,8"
+                     Margin="0 10"
+                     md:TextFieldAssist.RippleOnFocusEnabled="True"
+                     md:TextFieldAssist.HasFilledTextField="True"
                      Text="{Binding Lastname,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"/>
         </UniformGrid>
         <TextBox md:HintAssist.Hint="COURSE"
-                 Visibility="{Binding IsStudent,Converter={cnv:BooleanToVisibility}}"
+                 Visibility="{Binding HasCourse,Converter={cnv:BooleanToVisibility}}"
                  md:HintAssist.IsFloating="True"
-                 Margin="0,8"
+                 Margin="32,10"
+                 md:TextFieldAssist.RippleOnFocusEnabled="True"
+                 md:TextFieldAssist.HasFilledTextField="True"
                  Text="{Binding Course, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"/>
         <TextBox md:HintAssist.Hint="CONTACT NUMBER"
                  md:HintAssist.IsFloating="True"
-                 Margin="0,8"
+                 Margin="32,10"
+                 md:TextFieldAssist.RippleOnFocusEnabled="True"
+                 md:TextFieldAssist.HasFilledTextField="True"
                  Text="{Binding ContactNumber}" />
-    <Grid>
+    <Grid Margin="20">
       <Button ToolTip="Delete"
               Visibility="{Binding IsNew,Converter={cnv:BooleanToVisibility Collapsed,Visible}}"
               Margin="4 0 0 0"

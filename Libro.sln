@@ -9,6 +9,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaterialDesignExtensions", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Libro.Core", "..\Libro.Core\Libro.Core.csproj", "{CCEF9E29-5943-4056-90D3-4DE1A7BC7FD7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkCommsDotNet", "NetworkComms\Platforms\Net40\NetworkCommsDotNet\NetworkCommsDotNet.csproj", "{B0FD9F50-A375-44DD-AAAE-CCC2F94A99D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProtobufSerializer", "NetworkComms\Platforms\Net40\ProtobufSerializer\ProtobufSerializer.csproj", "{62977BE8-428B-4683-A098-4E3F588B3F7E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteProcedureCalls", "NetworkComms\RemoteProcedureCalls\RemoteProcedureCalls.csproj", "{BFB67E36-9DF1-473D-B5DC-D94C5199C624}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +33,18 @@ Global
 		{CCEF9E29-5943-4056-90D3-4DE1A7BC7FD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCEF9E29-5943-4056-90D3-4DE1A7BC7FD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CCEF9E29-5943-4056-90D3-4DE1A7BC7FD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0FD9F50-A375-44DD-AAAE-CCC2F94A99D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0FD9F50-A375-44DD-AAAE-CCC2F94A99D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0FD9F50-A375-44DD-AAAE-CCC2F94A99D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0FD9F50-A375-44DD-AAAE-CCC2F94A99D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62977BE8-428B-4683-A098-4E3F588B3F7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62977BE8-428B-4683-A098-4E3F588B3F7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62977BE8-428B-4683-A098-4E3F588B3F7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62977BE8-428B-4683-A098-4E3F588B3F7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFB67E36-9DF1-473D-B5DC-D94C5199C624}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFB67E36-9DF1-473D-B5DC-D94C5199C624}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFB67E36-9DF1-473D-B5DC-D94C5199C624}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFB67E36-9DF1-473D-B5DC-D94C5199C624}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

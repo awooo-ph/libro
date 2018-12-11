@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Libro"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:models="clr-namespace:Libro.Models;assembly=Libro.Core"
              StartupUri="MainWindow.xaml">
   <Application.Resources>
     <ResourceDictionary>
@@ -11,19 +12,18 @@
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignExtensions;component/Themes/MaterialDesignLightTheme.xaml" />
-        <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignExtensions;component/Themes/MaterialDesignDarkTheme.xaml" />-->
 
         <!-- primary colors -->
         <ResourceDictionary>
           <ResourceDictionary.MergedDictionaries>
-            <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Brown.xaml" />
+            <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.BlueGrey.xaml" />
           </ResourceDictionary.MergedDictionaries>
           <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="{StaticResource Primary100}"/>
           <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="{StaticResource Primary100Foreground}"/>
-          <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="{StaticResource Primary500}"/>
-          <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="{StaticResource Primary500Foreground}"/>
-          <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="{StaticResource Primary600}"/>
-          <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="{StaticResource Primary600Foreground}"/>
+          <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="{StaticResource Primary700}"/>
+          <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="{StaticResource Primary700Foreground}"/>
+          <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="{StaticResource Primary900}"/>
+          <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="{StaticResource Primary900Foreground}"/>
         </ResourceDictionary>
 
         <!-- accent color -->
@@ -44,6 +44,13 @@
         <system:String>GOOD</system:String>
         <system:String>POOR</system:String>
         <system:String>DAMAGED</system:String>
+      </x:Array>
+
+      <x:Array Type="{x:Type models:Departments}" x:Key="Departments">
+        <models:Departments>Elementary</models:Departments>
+        <models:Departments>HighSchool</models:Departments>
+        <models:Departments>College</models:Departments>
+        <models:Departments>Faculty</models:Departments>
       </x:Array>
 
       <Path x:Key="BookIcon" Fill="Black" Data="M1410 2540 c-141 -40 -1106 -353 -1140 -370 -49 -25 -117 -101 -145 -163 -52 -114 -52 -264 0 -368 14 -26 21 -50 16 -54 -5 -3 -20 -36 -32 -73 -19 -54 -23 -89 -23 -182 0 -131 22 -217 75 -290 17 -23 230 -264 474 -535 323 -359 450 -494 471 -499 15 -4 57 -2 93 4 132 23 1187 261 1217 274 19 9 38 29 48 51 16 32 16 41 4 71 -7 19 -193 246 -413 506 -527 623 -529 625 -562 632 -20 5 -180 -39 -558 -154 -359 -108 -539 -158 -556 -154 -50 10 -64 38 -64 123 0 55 5 84 17 102 14 22 85 47 580 199 309 95 568 173 574 174 6 0 176 -202 378 -451 l366 -452 0 -53 c0 -75 24 -165 51 -194 55 -58 147 -45 181 26 14 30 15 44 6 95 -8 43 -8 72 0 102 10 36 9 52 -9 105 -14 42 -23 101 -26 173 -4 99 -2 118 21 188 22 68 24 82 13 112 -13 37 -848 1059 -873 1069 -29 11 -119 4 -184 -14z m446 -647 c198 -240 362 -442 366 -449 5 -7 2 -37 -5 -68 l-13 -56 -298 369 c-164 203 -310 374 -323 380 -13 6 -36 11 -51 11 -15 0 -288 -81 -607 -179 -637 -196 -597 -189 -611 -113 -9 48 13 137 40 163 16 15 193 77 577 200 305 98 557 178 560 178 4 1 168 -196 365 -436z m-137 -1269 c44 -37 75 -84 64 -95 -11 -11 -653 -169 -686 -169 -36 0 -144 128 -109 131 4 0 149 36 322 79 173 43 329 78 347 79 20 1 42 -8 62 -25z" />

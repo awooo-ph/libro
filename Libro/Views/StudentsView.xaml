@@ -27,13 +27,13 @@
       <UniformGrid Grid.Row="0" VerticalAlignment="Stretch"
                    Rows="1">
         <UniformGrid.Resources>
-          <ResourceDictionary>
+          <!--<ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
               <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Teal.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <SolidColorBrush x:Key="SecondaryAccentBrush" Color="{StaticResource Accent700}"/>
             <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="{StaticResource Accent700Foreground}"/>
-          </ResourceDictionary>
+          </ResourceDictionary>-->
         </UniformGrid.Resources>
         <RadioButton Style="{DynamicResource MaterialDesignTabRadioButton}"
                      Height="Auto"
@@ -45,6 +45,23 @@
           <Grid>
           <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10 0">
             <TextBlock Text="ALL" TextAlignment="Center"/>
+            <TextBlock Text="View all borrowers" FontSize="7pt" Opacity="0.7"
+                       TextWrapping="Wrap" TextAlignment="Center"/>
+          </StackPanel>
+            <Rectangle Width="1" Fill="{DynamicResource MaterialDesignDivider}" HorizontalAlignment="Right"
+                       SnapsToDevicePixels="True"/>
+          </Grid>
+        </RadioButton>
+        <RadioButton Style="{DynamicResource MaterialDesignTabRadioButton}"
+                     Height="Auto"
+                     Padding="0"
+                     VerticalAlignment="Stretch"
+                     VerticalContentAlignment="Stretch"
+                     HorizontalContentAlignment="Stretch"
+                     IsChecked="{Binding ShowStudents,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+          <Grid>
+          <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="4 0">
+            <TextBlock Text="STUDENTS" TextAlignment="Center"/>
             <TextBlock Text="View all students" FontSize="7pt" Opacity="0.7"
                        TextWrapping="Wrap" TextAlignment="Center"/>
           </StackPanel>
@@ -58,28 +75,11 @@
                      VerticalAlignment="Stretch"
                      VerticalContentAlignment="Stretch"
                      HorizontalContentAlignment="Stretch"
-                     IsChecked="{Binding ShowExpired,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
-          <Grid>
-          <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="4 0">
-            <TextBlock Text="EXPIRED" TextAlignment="Center"/>
-            <TextBlock Text="Students with un-returned books" FontSize="7pt" Opacity="0.7"
-                       TextWrapping="Wrap" TextAlignment="Center"/>
-          </StackPanel>
-            <Rectangle Width="1" Fill="{DynamicResource MaterialDesignDivider}" HorizontalAlignment="Right"
-                       SnapsToDevicePixels="True"/>
-          </Grid>
-        </RadioButton>
-        <RadioButton Style="{DynamicResource MaterialDesignTabRadioButton}"
-                     Height="Auto"
-                     Padding="0"
-                     VerticalAlignment="Stretch"
-                     VerticalContentAlignment="Stretch"
-                     HorizontalContentAlignment="Stretch"
-                     IsChecked="{Binding ShowUnpaid,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                     IsChecked="{Binding ShowFaculty,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
           <Grid>
           <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10 0">
-            <TextBlock Text="UNPAID" TextAlignment="Center"/>
-            <TextBlock Text="Students with unpaid penalty" FontSize="7pt" Opacity="0.7"
+            <TextBlock Text="FACULTY" TextAlignment="Center"/>
+            <TextBlock Text="View faculty" FontSize="7pt" Opacity="0.7"
                        TextWrapping="Wrap" TextAlignment="Center"/>
           </StackPanel>
             <Rectangle Width="1" Fill="{DynamicResource MaterialDesignDivider}" HorizontalAlignment="Right"
@@ -190,7 +190,8 @@
                                                  VerticalAlignment="Bottom"/>-->
                     <StackPanel Grid.Column="1" Margin="8,0"
                                                 VerticalAlignment="Center">
-                      <TextBlock Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
+                      <TextBlock FontWeight="Bold"
+                                 FontSize="11pt"
                                                        Text="{Binding Fullname}"/>
                       <Grid Opacity="0.4" Margin="0 2 0 0">
                         <TextBlock Text="{Binding Course}"

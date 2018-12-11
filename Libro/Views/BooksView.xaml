@@ -140,6 +140,11 @@
                             <DataGridTextColumn Binding="{Binding Title}"
                                                 Header="TITLE"
                                                 EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                            <DataGridComboBoxColumn ItemsSource="{StaticResource Departments}"
+                                                    SelectedItemBinding="{Binding DepartmentType}"
+                                                    Header="DEPARTMENT"
+                                                    ElementStyle="{StaticResource MaterialDesignDataGridComboBox}"
+                                                    EditingElementStyle="{StaticResource MaterialDesignDataGridComboBox}"/>
                             <DataGridTextColumn Binding="{Binding Section}"
                                                 Header="SECTION"
                                                 EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
@@ -182,13 +187,13 @@
 
                   <UniformGrid Grid.Row="0" Rows="1" Margin="0 0 0 1">
                     <UniformGrid.Resources>
-                      <ResourceDictionary>
+                      <!--<ResourceDictionary>
                         <ResourceDictionary.MergedDictionaries>
                           <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Teal.xaml" />
                         </ResourceDictionary.MergedDictionaries>
-                        <SolidColorBrush x:Key="SecondaryAccentBrush" Color="{StaticResource Accent700}"/>
-                        <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="{StaticResource Accent700Foreground}"/>
-                      </ResourceDictionary>
+                        <SolidColorBrush x:Key="SecondaryAccentBrush" Color="{StaticResource Primary700}"/>
+                        <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="{StaticResource Primary900Foreground}"/>
+                      </ResourceDictionary>-->
                     </UniformGrid.Resources>
                     <RadioButton Content="_DETAILS" IsChecked="True" x:Name="DetailsTab" x:FieldModifier="private" Style="{DynamicResource MaterialDesignTabRadioButton}"/>
                     <!--<RadioButton Content="_CARDS" x:Name="CardsTab" x:FieldModifier="private" Style="{DynamicResource MaterialDesignTabRadioButton}"/>-->

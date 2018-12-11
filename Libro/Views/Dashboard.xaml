@@ -1,0 +1,163 @@
+﻿<UserControl x:Class="Libro.Views.Dashboard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Libro.Views"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:lv="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             xmlns:i="clr-namespace:MahApps.Metro.IconPacks;assembly=MahApps.Metro.IconPacks"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="*"/>
+      </Grid.RowDefinitions>
+      <WrapPanel HorizontalAlignment="Center" Margin="20" Grid.IsSharedSizeScope="True">
+      <md:ColorZone Margin="20" Mode="PrimaryDark" Background="#00796b"
+                    CornerRadius="7" md:ShadowAssist.ShadowDepth="Depth1">
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" SharedSizeGroup="a"/>
+          </Grid.ColumnDefinitions>
+          <Rectangle Width="1" HorizontalAlignment="Right"
+                     Fill="{StaticResource MaterialDesignDivider}"/>
+          <StackPanel Margin="20 10 20 20"
+                      VerticalAlignment="Center"
+                      Grid.Column="1">
+            <TextBlock Text="000" FontSize="22pt" HorizontalAlignment="Center"/>
+            <TextBlock Text="BOOKS" HorizontalAlignment="Center" FontSize="8pt"/>
+          </StackPanel>
+
+            <i:PackIconModern Kind="BookHardcoverOpen" Height="66" Width="66" HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              Grid.Column="0"
+                                 Margin="20 10"/>
+
+        </Grid>
+      </md:ColorZone>
+      <md:ColorZone Margin="20" Mode="PrimaryDark" Background="#bf360c"
+                    CornerRadius="7" md:ShadowAssist.ShadowDepth="Depth1">
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" SharedSizeGroup="a"/>
+          </Grid.ColumnDefinitions>
+          <Rectangle Width="1" HorizontalAlignment="Right"
+                     Fill="{StaticResource MaterialDesignDivider}"/>
+          <StackPanel Margin="20 10 20 20"
+                      VerticalAlignment="Center"
+                      Grid.Column="1">
+            <TextBlock Text="000" FontSize="22pt" HorizontalAlignment="Center"/>
+            <TextBlock Text="NOT RETURNED" HorizontalAlignment="Center" FontSize="8pt"/>
+          </StackPanel>
+
+          <i:PackIconModern Kind="BookOpenInformation" Height="66" Width="66" HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Grid.Column="0"
+                            Margin="20 10"/>
+
+        </Grid>
+      </md:ColorZone>
+      <md:ColorZone Margin="20" Mode="PrimaryDark" Background="#1976d2"
+                    CornerRadius="7" md:ShadowAssist.ShadowDepth="Depth1">
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" SharedSizeGroup="a"/>
+          </Grid.ColumnDefinitions>
+          <Rectangle Width="1" HorizontalAlignment="Right"
+                     Fill="{StaticResource MaterialDesignDivider}"/>
+          <StackPanel Margin="20 10 20 20"
+                      VerticalAlignment="Center"
+                      Grid.Column="1">
+            <TextBlock Text="000" FontSize="22pt" HorizontalAlignment="Center"/>
+            <TextBlock Text="BORROWERS" HorizontalAlignment="Center" FontSize="8pt"/>
+          </StackPanel>
+
+          <i:PackIconModern Kind="PeopleMultiple" Height="66" Width="66" HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Grid.Column="0" Margin="20 10"/>
+
+        </Grid>
+      </md:ColorZone>
+      <md:ColorZone Margin="20" Mode="PrimaryDark" Background="#d32f2f"
+                    CornerRadius="7" md:ShadowAssist.ShadowDepth="Depth1">
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" SharedSizeGroup="a"/>
+          </Grid.ColumnDefinitions>
+          <Rectangle Width="1" HorizontalAlignment="Right"
+                     Fill="{StaticResource MaterialDesignDivider}"/>
+          <StackPanel Margin="20 10 20 20"
+                      VerticalAlignment="Center"
+                      Grid.Column="1">
+            <TextBlock Text="000" FontSize="22pt" HorizontalAlignment="Center"/>
+            <TextBlock Text="UNPAID PENALTY" HorizontalAlignment="Center" FontSize="8pt"/>
+          </StackPanel>
+
+          <i:PackIconModern Kind="WarningCircle" Height="66" Width="66" HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Grid.Column="0" Margin="20 10"/>
+
+        </Grid>
+      </md:ColorZone>
+    </WrapPanel>
+      <Rectangle Fill="{StaticResource MaterialDesignDivider}" Height="1"
+                 SnapsToDevicePixels="True"
+                 VerticalAlignment="Bottom"/>
+      <Grid Grid.Row="1">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <Rectangle Fill="{StaticResource MaterialDesignDivider}" Width="1"
+                   SnapsToDevicePixels="True"
+                   HorizontalAlignment="Right"/>
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+          </Grid.RowDefinitions>
+          <TextBlock Text="TOP TEN TITLES"
+                     HorizontalAlignment="Center"
+                     Margin="20"
+                     Style="{StaticResource MaterialDesignTitleTextBlock}"/>
+        <ListBox Grid.Row="1"
+                 HorizontalContentAlignment="Stretch">
+          <ListBoxItem>
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+              </Grid.ColumnDefinitions>
+              <TextBlock Text="147" HorizontalAlignment="Center"
+                         Margin="10"
+                         VerticalAlignment="Center"/>
+              <Rectangle Width="1" Fill="{StaticResource MaterialDesignDivider}"
+                         SnapsToDevicePixels="True"
+                         HorizontalAlignment="Right"/>
+              <TextBlock Text="The quick brown fox jumps over the lazy dog."
+                         Margin="10"
+                         Grid.Column="1"
+                         TextTrimming="CharacterEllipsis"/>
+            </Grid>
+          </ListBoxItem>
+        </ListBox>
+      </Grid>
+      <Grid Column="1">
+        <lv:CartesianChart LegendLocation="Top" Margin="10">
+          <lv:CartesianChart.Series>
+            <lv:StackedAreaSeries Title="ELEMENTARY" Values="1,2,4,10,1,5,8,7,21" />
+            <lv:StackedAreaSeries Title="HIGH SCHOOL" Values="5,4,1,4,13,4,8,3,3,14"/>
+            <lv:StackedAreaSeries Title="COLLEGE" Values="1,5,3,6,5,7,6,1,4,10"/>
+            <lv:StackedAreaSeries Title="FACULTY" Values="1,5,3,6,5,7,6,1,4,10"/>
+          </lv:CartesianChart.Series>
+        </lv:CartesianChart>
+      </Grid>
+    </Grid>
+  </Grid>
+</UserControl>

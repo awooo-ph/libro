@@ -26,16 +26,6 @@ namespace Libro
     {
         public MainWindow()
         {
-            _navigationItems = new List<INavigationItem>()
-            {
-                new SubheaderNavigationItem(){Subheader = "BOOKS"},
-                new FirstLevelNavigationItem(){Label = "MANAGE BOOKS",Icon = new PackIcon(){Kind = PackIconKind.Books}},
-                new FirstLevelNavigationItem(){Label = "ADD NEW BOOK",Icon = new PackIcon(){Kind=PackIconKind.BookPlus}},
-                new SubheaderNavigationItem(){Subheader = "STUDENTS"},
-                new FirstLevelNavigationItem(){Label = "MANAGE STUDENTS",Icon = new PackIcon(){Kind=PackIconKind.AccountGroup}},
-                new FirstLevelNavigationItem(){Label = "ADD NEW STUDENT",Icon = new PackIcon(){Kind=PackIconKind.AccountPlus}},
-            };
-
             InitializeComponent();
 
             LoginDialogHost.Loaded += async (sender, args) =>
@@ -43,8 +33,6 @@ namespace Libro
                 await Task.Delay(111);
                 CheckAuthentication();
             };
-
-            Navigation.DataContext = this;
 
         }
 
@@ -68,10 +56,6 @@ namespace Libro
                 MainViewModel.Instance.Login(login);
             }
         }
-
-        private List<INavigationItem> _navigationItems;
-
-        public List<INavigationItem> NagivationItems => _navigationItems;
 
     }
 }

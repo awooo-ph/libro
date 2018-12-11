@@ -18,7 +18,7 @@ namespace Libro.ViewModels
 
         public bool ShowStudents
         {
-            get { return true; }
+            get { return _showStudents; }
             set
             {
                 if(value == _showStudents)
@@ -65,33 +65,33 @@ namespace Libro.ViewModels
             }
         }
 
-        private bool _showExpired;
+        //private bool _showExpired;
 
-        public bool ShowExpired
-        {
-            get => _showExpired;
-            set
-            {
-                if (value == _showExpired) return;
-                _showExpired = value;
-                OnPropertyChanged(nameof(ShowExpired));
-                BorrowersView.Filter = FilterBorrower;
-            }
-        }
+        //public bool ShowExpired
+        //{
+        //    get => _showExpired;
+        //    set
+        //    {
+        //        if (value == _showExpired) return;
+        //        _showExpired = value;
+        //        OnPropertyChanged(nameof(ShowExpired));
+        //        BorrowersView.Filter = FilterBorrower;
+        //    }
+        //}
 
-        private bool _ShowUnpaid;
+        //private bool _ShowUnpaid;
 
-        public bool ShowUnpaid
-        {
-            get => _ShowUnpaid;
-            set
-            {
-                if (value == _ShowUnpaid) return;
-                _ShowUnpaid = value;
-                OnPropertyChanged(nameof(ShowUnpaid));
-                BorrowersView.Filter = FilterBorrower;
-            }
-        }
+        //public bool ShowUnpaid
+        //{
+        //    get => _ShowUnpaid;
+        //    set
+        //    {
+        //        if (value == _ShowUnpaid) return;
+        //        _ShowUnpaid = value;
+        //        OnPropertyChanged(nameof(ShowUnpaid));
+        //        BorrowersView.Filter = FilterBorrower;
+        //    }
+        //}
 
 
 
@@ -130,10 +130,10 @@ namespace Libro.ViewModels
         {
             var b = (Borrower) o;
             if (b == null) return false;
-            if(!b.IsStudent) return false;
+            if(!ShowAll && (ShowFaculty && b.IsStudent || ShowStudents && !b.IsStudent)) return false;
 
-            if (ShowUnpaid && Takeout.GetUnpaidByBorrower(b.Id).Count==0) return false;
-            if (ShowExpired && Takeout.GetUnreturnedByBorrower(b.Id).Count == 0) return false;
+            //if (ShowUnpaid && Takeout.GetUnpaidByBorrower(b.Id).Count==0) return false;
+            //if (ShowExpired && Takeout.GetUnreturnedByBorrower(b.Id).Count == 0) return false;
 
             if (string.IsNullOrEmpty(SearchKeyword)) return true;
             if (b.Firstname.ToLower().Contains(SearchKeyword.ToLower())) return true;
@@ -261,7 +261,7 @@ namespace Libro.ViewModels
         private ICommand _addNewCommand;
         public ICommand AddNewCommand => _addNewCommand ?? (_addNewCommand = new DelegateCommand(async d =>
         {
-            var borrower = new Borrower() { IsStudent = true };
+            var borrower = new Borrower() { DepartmentType = Departments.College };
             var dlg = new BorrowerEditor("", "ADD") { DataContext = borrower };
 
             if (await DialogHost.Show(dlg, "RootDialog") is bool res && res) borrower.Save();
@@ -277,7 +277,7 @@ namespace Libro.ViewModels
                 Firstname = item.Firstname,
                 SchoolId = item.SchoolId,
                 Lastname = item.Lastname,
-                IsStudent = item.IsStudent,
+                DepartmentType = item.DepartmentType,
                 ContactNumber = item.ContactNumber,
                 Course = item.Course,
                 Barcode = item.Barcode
@@ -291,7 +291,7 @@ namespace Libro.ViewModels
             item.Lastname = brw.Lastname;
             item.ContactNumber = brw.ContactNumber;
             item.Course = brw.Course;
-            item.IsStudent = brw.IsStudent;
+            item.DepartmentType = brw.DepartmentType;
             item.SchoolId = brw.SchoolId;
             item.Barcode = brw.Barcode;
             item.Save();
@@ -299,8 +299,8 @@ namespace Libro.ViewModels
         
         public void ShowBorrower(Borrower borrower)
         {
-            ShowUnpaid = false;
-            ShowExpired = false;
+            //ShowUnpaid = false;
+            //ShowExpired = false;
             ShowAll = true;
             BorrowersView.MoveCurrentTo(borrower);
         }
