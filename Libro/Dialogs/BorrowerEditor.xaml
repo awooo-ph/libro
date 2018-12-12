@@ -16,7 +16,8 @@
              FocusManager.FocusedElement="{Binding ElementName=TextBox}"
              d:DesignHeight="300" d:DesignWidth="300" d:DataContext="{d:DesignInstance model:Borrower}">
     <StackPanel>
-        <Grid Margin="32">
+    <md:ColorZone Mode="PrimaryDark">
+      <Grid Margin="20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
@@ -25,25 +26,33 @@
             <StackPanel Orientation="Horizontal"
                         VerticalAlignment="Center"
                         Visibility="{Binding IsNew,Converter={cnv:BooleanToVisibility}}">
-                <TextBlock Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
-                           Text="NEW " />
+              <md:PackIcon Kind="AccountsPlus" Height="47" Width="47"/>
+              <TextBlock Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
+                         VerticalAlignment="Center"
+                           Text="  NEW " />
                 <TextBlock Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
                            Visibility="{Binding IsStudent,Mode=OneWay, Converter={cnv:BooleanToVisibility}}"
+                           VerticalAlignment="Center"
                            Text="STUDENT" />
                 <TextBlock Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
                            Visibility="{Binding IsStudent,Mode=OneWay,Converter={cnv:BooleanToVisibility Collapsed,Visible}}"
+                           VerticalAlignment="Center"
                            Text="FACULTY" />
             </StackPanel>
             <StackPanel Orientation="Horizontal"
                         VerticalAlignment="Center"
                         Visibility="{Binding IsNew,Converter={cnv:BooleanToVisibility Collapsed,Visible}}">
-                <TextBlock Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
-                           Text="EDIT " />
+              <md:PackIcon Kind="AccountEdit" Height="47" Width="47"/>
+          <TextBlock Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
+                     VerticalAlignment="Center"
+                           Text="  EDIT " />
                 <TextBlock Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
                            Visibility="{Binding IsStudent,Mode=OneWay,Converter={cnv:BooleanToVisibility}}"
+                           VerticalAlignment="Center"
                            Text="STUDENT" />
                 <TextBlock Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
                            Visibility="{Binding IsStudent,Mode=OneWay,Converter={cnv:BooleanToVisibility Collapsed,Visible}}"
+                           VerticalAlignment="Center"
                            Text="FACULTY" />
             </StackPanel>
             <ComboBox Grid.Column="1" TabIndex="74"
@@ -52,8 +61,8 @@
                      VerticalAlignment="Center"
                      HorizontalContentAlignment="Center"/>
         </Grid>
-        
-        <UniformGrid Columns="2"
+    </md:ColorZone>
+    <UniformGrid Columns="2"
                      Margin="32,8">
             <TextBox md:HintAssist.Hint="SCHOOL ID"
                      md:HintAssist.IsFloating="True"
