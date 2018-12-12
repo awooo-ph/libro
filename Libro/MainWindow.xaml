@@ -50,44 +50,51 @@
               <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal"
+                        HorizontalAlignment="Center">
               <Image Stretch="Uniform" Source="{Binding AppIcon,Mode=OneTime}"
                    Margin="10" Height="47"
                    RenderOptions.BitmapScalingMode="HighQuality"/>
               <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                <TextBlock Text="{Binding AppTitle,Mode=OneTime}" Style="{StaticResource MaterialDesignHeadlineTextBlock}"/>
+                <TextBlock Text="{Binding AppTitle,Mode=OneTime}" Style="{StaticResource MaterialDesignHeadlineTextBlock}"
+                           TextAlignment="Center"/>
                 <TextBlock Text="Library Management System Using Quick Response (QR) Technology"
+                           TextAlignment="Center"
                            Style="{StaticResource MaterialDesignSubheadingTextBlock}"
                            Opacity="0.7"
                            TextWrapping="Wrap"/>
               </StackPanel>
-            
+            </StackPanel>
+
+            <UniformGrid VerticalAlignment="Center" Rows="1" Margin="20 0"
+                         Grid.Column="0">
+              <UniformGrid.Resources>
+                <ResourceDictionary>
+                  <ResourceDictionary.MergedDictionaries>
+                    <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Teal.xaml" />
+                  </ResourceDictionary.MergedDictionaries>
+                  <SolidColorBrush x:Key="SecondaryAccentBrush" Color="{StaticResource Primary700Foreground}"/>
+                  <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="{StaticResource Accent700Foreground}"/>
+                </ResourceDictionary>
+              </UniformGrid.Resources>
+              <RadioButton Content="_DASHBOARD" Style="{DynamicResource MaterialDesignTabRadioButton}"
+                           Cursor="Hand"
+                           local:Extensions.PlayClick="True"
+                           IsChecked="True"
+                           x:Name="DashboardTab"/>
+              <RadioButton Content="_BOOKS" Style="{DynamicResource MaterialDesignTabRadioButton}"
+                           Cursor="Hand"
+                           local:Extensions.PlayClick="True"
+                           x:Name="BooksTab"/>
+              <RadioButton Content="_BORROWERS" Style="{DynamicResource MaterialDesignTabRadioButton}"
+                           Cursor="Hand"
+                           local:Extensions.PlayClick="True"
+                           x:Name="BorrowersTab"/>
+            </UniformGrid>
 
             <StackPanel Orientation="Horizontal" Grid.Column="2">
-              <UniformGrid VerticalAlignment="Center" Rows="1" Margin="0 0 47 0">
-                <UniformGrid.Resources>
-                  <ResourceDictionary>
-                    <ResourceDictionary.MergedDictionaries>
-                      <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Teal.xaml" />
-                    </ResourceDictionary.MergedDictionaries>
-                    <SolidColorBrush x:Key="SecondaryAccentBrush" Color="{StaticResource Primary700Foreground}"/>
-                    <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="{StaticResource Accent700Foreground}"/>
-                  </ResourceDictionary>
-                </UniformGrid.Resources>
-                <RadioButton Content="_DASHBOARD" Style="{DynamicResource MaterialDesignTabRadioButton}"
-                             Cursor="Hand"
-                             local:Extensions.PlayClick="True"
-                             IsChecked="True"
-                             x:Name="DashboardTab"/>
-                <RadioButton Content="_BOOKS" Style="{DynamicResource MaterialDesignTabRadioButton}"
-                         Cursor="Hand"
-                         local:Extensions.PlayClick="True"
-                         x:Name="BooksTab"/>
-                <RadioButton Content="_BORROWERS" Style="{DynamicResource MaterialDesignTabRadioButton}"
-                         Cursor="Hand"
-                         local:Extensions.PlayClick="True"
-                         x:Name="BorrowersTab"/>
-              </UniformGrid>
+              
 
               <Grid VerticalAlignment="Center">
                 <Button Style="{DynamicResource MaterialDesignToolForegroundButton}"

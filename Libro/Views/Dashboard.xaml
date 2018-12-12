@@ -7,7 +7,10 @@
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:lv="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              xmlns:i="clr-namespace:MahApps.Metro.IconPacks;assembly=MahApps.Metro.IconPacks"
+             xmlns:viewModels="clr-namespace:Libro.ViewModels"
+             xmlns:models="clr-namespace:Libro.Models;assembly=Libro.Core"
              mc:Ignorable="d" 
+             DataContext="{Binding Source={x:Static viewModels:Dashboard.Instance}}"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
       <Grid.RowDefinitions>
@@ -27,7 +30,7 @@
           <StackPanel Margin="20 10 20 20"
                       VerticalAlignment="Center"
                       Grid.Column="1">
-            <TextBlock Text="000" FontSize="22pt" HorizontalAlignment="Center"/>
+            <TextBlock Text="{Binding Source={x:Static models:Book.Cache},Path=Count,StringFormat={}#\,##0}" FontSize="22pt" HorizontalAlignment="Center"/>
             <TextBlock Text="BOOKS" HorizontalAlignment="Center" FontSize="8pt"/>
           </StackPanel>
 
@@ -50,7 +53,7 @@
           <StackPanel Margin="20 10 20 20"
                       VerticalAlignment="Center"
                       Grid.Column="1">
-            <TextBlock Text="000" FontSize="22pt" HorizontalAlignment="Center"/>
+            <TextBlock Text="{Binding UnreturnedBooks,StringFormat={}#\,##0}" FontSize="22pt" HorizontalAlignment="Center"/>
             <TextBlock Text="NOT RETURNED" HorizontalAlignment="Center" FontSize="8pt"/>
           </StackPanel>
 
@@ -73,7 +76,7 @@
           <StackPanel Margin="20 10 20 20"
                       VerticalAlignment="Center"
                       Grid.Column="1">
-            <TextBlock Text="000" FontSize="22pt" HorizontalAlignment="Center"/>
+            <TextBlock Text="{Binding Source={x:Static models:Borrower.Cache},Path=Count,StringFormat={}#\,##0}" FontSize="22pt" HorizontalAlignment="Center"/>
             <TextBlock Text="BORROWERS" HorizontalAlignment="Center" FontSize="8pt"/>
           </StackPanel>
 
@@ -95,7 +98,7 @@
           <StackPanel Margin="20 10 20 20"
                       VerticalAlignment="Center"
                       Grid.Column="1">
-            <TextBlock Text="000" FontSize="22pt" HorizontalAlignment="Center"/>
+            <TextBlock Text="{Binding UnpaidPenalty,StringFormat={}#\,##0.#0}" FontSize="22pt" HorizontalAlignment="Center"/>
             <TextBlock Text="UNPAID PENALTY" HorizontalAlignment="Center" FontSize="8pt"/>
           </StackPanel>
 
@@ -126,26 +129,28 @@
                      HorizontalAlignment="Center"
                      Margin="20"
                      Style="{StaticResource MaterialDesignTitleTextBlock}"/>
-        <ListBox Grid.Row="1"
+        <ListBox Grid.Row="1" ItemsSource="{Binding TopTitles}"
                  HorizontalContentAlignment="Stretch">
-          <ListBoxItem>
+          <ListBox.ItemTemplate>
+            <DataTemplate>
             <Grid>
               <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
               </Grid.ColumnDefinitions>
-              <TextBlock Text="147" HorizontalAlignment="Center"
+              <TextBlock Text="{Binding Count,StringFormat={}#\,##0}" HorizontalAlignment="Center"
                          Margin="10"
                          VerticalAlignment="Center"/>
               <Rectangle Width="1" Fill="{StaticResource MaterialDesignDivider}"
                          SnapsToDevicePixels="True"
                          HorizontalAlignment="Right"/>
-              <TextBlock Text="The quick brown fox jumps over the lazy dog."
+              <TextBlock Text="{Binding Title}"
                          Margin="10"
                          Grid.Column="1"
                          TextTrimming="CharacterEllipsis"/>
             </Grid>
-          </ListBoxItem>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
         </ListBox>
       </Grid>
       <Grid Column="1">
