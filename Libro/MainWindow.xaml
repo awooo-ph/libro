@@ -10,6 +10,7 @@
         xmlns:views="clr-namespace:Libro.Views"
         xmlns:converters="clr-namespace:Libro.Converters"
         xmlns:models="clr-namespace:Libro.Models;assembly=Libro.Core"
+        xmlns:i="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         WindowState="Maximized"
@@ -51,8 +52,13 @@
             </Grid.ColumnDefinitions>
 
 
-            <StackPanel Grid.Column="1" Orientation="Horizontal"
+            <Grid Grid.Column="1" 
+                  MinWidth="444"
                         HorizontalAlignment="Center">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+              </Grid.ColumnDefinitions>
               <Image Stretch="Uniform" Source="{Binding AppIcon,Mode=OneTime}"
                    Margin="10" Height="47"
                    RenderOptions.BitmapScalingMode="HighQuality"/>
@@ -65,7 +71,7 @@
                            Opacity="0.7"
                            TextWrapping="Wrap"/>
               </StackPanel>
-            </StackPanel>
+            </Grid>
 
             <UniformGrid VerticalAlignment="Center" Rows="1" Margin="20 0"
                          Grid.Column="0">
@@ -78,19 +84,40 @@
                   <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="{StaticResource Accent700Foreground}"/>
                 </ResourceDictionary>
               </UniformGrid.Resources>
-              <RadioButton Content="_DASHBOARD" Style="{DynamicResource MaterialDesignTabRadioButton}"
+              <RadioButton Style="{DynamicResource MaterialDesignTabRadioButton}"
                            Cursor="Hand"
+                           Padding="10 0"
+                           Height="40"
                            local:Extensions.PlayClick="True"
                            IsChecked="True"
-                           x:Name="DashboardTab"/>
-              <RadioButton Content="_BOOKS" Style="{DynamicResource MaterialDesignTabRadioButton}"
+                           x:Name="DashboardTab">
+                <StackPanel Orientation="Horizontal">
+                  <i:PackIconModern Kind="Pie" Height="47" Width="47" />
+                  <TextBlock Text="  DASHBOARD" VerticalAlignment="Center"/>
+                </StackPanel>
+              </RadioButton>
+              <RadioButton Style="{DynamicResource MaterialDesignTabRadioButton}"
                            Cursor="Hand"
+                           Height="40"
+                           Padding="10 0"
                            local:Extensions.PlayClick="True"
-                           x:Name="BooksTab"/>
-              <RadioButton Content="_BORROWERS" Style="{DynamicResource MaterialDesignTabRadioButton}"
+                           x:Name="BooksTab">
+                <StackPanel Orientation="Horizontal">
+                  <i:PackIconEntypo Kind="OpenBook" Height="47" Width="47"/>
+                  <TextBlock Text="  BOOKS" VerticalAlignment="Center"/>
+                </StackPanel>
+              </RadioButton>
+              <RadioButton Style="{DynamicResource MaterialDesignTabRadioButton}"
                            Cursor="Hand"
+                           Height="40"
+                           Padding="10 0"
                            local:Extensions.PlayClick="True"
-                           x:Name="BorrowersTab"/>
+                           x:Name="BorrowersTab">
+                <StackPanel Orientation="Horizontal">
+                  <i:PackIconModern Kind="PeopleMultiple" Height="47" Width="47" />
+                  <TextBlock Text="  BORROWERS" VerticalAlignment="Center"/>
+                </StackPanel>
+              </RadioButton>
             </UniformGrid>
 
             <StackPanel Orientation="Horizontal" Grid.Column="2">

@@ -13,10 +13,18 @@
              DataContext="{Binding Source={x:Static viewModels:Dashboard.Instance}}"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
+      
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+      </Grid.ColumnDefinitions>
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+    <Grid>
       <Grid.RowDefinitions>
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="*"/>
       </Grid.RowDefinitions>
+    
       <WrapPanel HorizontalAlignment="Center" Margin="20" Grid.IsSharedSizeScope="True">
       <md:ColorZone Margin="20" Mode="PrimaryDark" Background="#00796b"
                     CornerRadius="7" md:ShadowAssist.ShadowDepth="Depth1">
@@ -112,20 +120,46 @@
       <Rectangle Fill="{StaticResource MaterialDesignDivider}" Height="1"
                  SnapsToDevicePixels="True"
                  VerticalAlignment="Bottom"/>
-      <Grid Grid.Row="1">
-        <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="*"/>
-          <ColumnDefinition Width="3*"/>
-        </Grid.ColumnDefinitions>
-        <Rectangle Fill="{StaticResource MaterialDesignDivider}" Width="1"
+
+      <Grid Column="0" Grid.Row="1" MinHeight="333">
+        <lv:CartesianChart LegendLocation="Top" Margin="10" Zoom="Y" Pan="X">
+            <lv:CartesianChart.AxisX>
+              <lv:DateAxis InitialDateTime="{Binding InitialDate}"
+                           Period="Days"
+                           ShowLabels="True">
+                
+              </lv:DateAxis>
+            </lv:CartesianChart.AxisX>
+            <lv:CartesianChart.AxisY>
+              <lv:Axis ShowLabels="True"/>
+            </lv:CartesianChart.AxisY>
+            <lv:CartesianChart.Series>
+              <lv:StackedColumnSeries Title="ELEMENTARY" Values="{Binding Elementary}" />
+              <lv:StackedColumnSeries Title="HIGH SCHOOL" Values="{Binding HighSchool}"  />
+              <lv:StackedColumnSeries Title="COLLEGE" Values="{Binding College}"/>
+              <lv:StackedColumnSeries Title="FACULTY" Values="{Binding Faculty}" />
+            </lv:CartesianChart.Series>
+        </lv:CartesianChart>
+      </Grid>
+    </Grid>
+    </ScrollViewer>
+
+    <Rectangle Fill="{StaticResource MaterialDesignDivider}" Width="1" HorizontalAlignment="Right"/>
+
+    <Grid Grid.Row="0" Grid.Column="1"  MaxWidth="333">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="*"/>
+          <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Rectangle Fill="{StaticResource MaterialDesignDivider}" Height="1"
                    SnapsToDevicePixels="True"
-                   HorizontalAlignment="Right"/>
+                   VerticalAlignment="Bottom"/>
         <Grid>
           <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
           </Grid.RowDefinitions>
-          <TextBlock Text="TOP TEN TITLES"
+          <TextBlock Text="TOP TEN BOOKS"
                      HorizontalAlignment="Center"
                      Margin="20"
                      Style="{StaticResource MaterialDesignTitleTextBlock}"/>
@@ -135,34 +169,65 @@
             <DataTemplate>
             <Grid>
               <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
-              </Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
               <TextBlock Text="{Binding Count,StringFormat={}#\,##0}" HorizontalAlignment="Center"
                          Margin="10"
+                         Grid.Column="1"
                          VerticalAlignment="Center"/>
               <Rectangle Width="1" Fill="{StaticResource MaterialDesignDivider}"
                          SnapsToDevicePixels="True"
                          HorizontalAlignment="Right"/>
               <TextBlock Text="{Binding Title}"
                          Margin="10"
-                         Grid.Column="1"
+                         Grid.Column="0"
                          TextTrimming="CharacterEllipsis"/>
             </Grid>
             </DataTemplate>
           </ListBox.ItemTemplate>
         </ListBox>
       </Grid>
-      <Grid Column="1">
-        <lv:CartesianChart LegendLocation="Top" Margin="10">
-          <lv:CartesianChart.Series>
-            <lv:StackedAreaSeries Title="ELEMENTARY" Values="1,2,4,10,1,5,8,7,21" />
-            <lv:StackedAreaSeries Title="HIGH SCHOOL" Values="5,4,1,4,13,4,8,3,3,14"/>
-            <lv:StackedAreaSeries Title="COLLEGE" Values="1,5,3,6,5,7,6,1,4,10"/>
-            <lv:StackedAreaSeries Title="FACULTY" Values="1,5,3,6,5,7,6,1,4,10"/>
-          </lv:CartesianChart.Series>
-        </lv:CartesianChart>
-      </Grid>
+
+
+      <Grid Grid.Row="1">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+          </Grid.RowDefinitions>
+          <TextBlock Text="TOP TEN BORROWERS"
+                     HorizontalAlignment="Center"
+                     Margin="20"
+                     Style="{StaticResource MaterialDesignTitleTextBlock}"/>
+          <ListBox Grid.Row="1" ItemsSource="{Binding TopBorrowers}"
+                   HorizontalContentAlignment="Stretch">
+            <ListBox.ItemTemplate>
+              <DataTemplate>
+                <Grid>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                  <ColumnDefinition Width="Auto"/>
+                  </Grid.ColumnDefinitions>
+                  
+                  <Rectangle Width="1" Fill="{StaticResource MaterialDesignDivider}"
+                             SnapsToDevicePixels="True"
+                             HorizontalAlignment="Right"/>
+                  <TextBlock Text="{Binding Title}"
+                             Margin="10"
+                             Grid.Column="0"
+                             TextTrimming="CharacterEllipsis"/>
+                  <TextBlock Text="{Binding Count,StringFormat={}#\,##0}" HorizontalAlignment="Center"
+                             Margin="10"
+                             Grid.Column="1"
+                             VerticalAlignment="Center"/>
+              </Grid>
+              </DataTemplate>
+            </ListBox.ItemTemplate>
+          </ListBox>
+        </Grid>
+
     </Grid>
+
+      
   </Grid>
 </UserControl>
