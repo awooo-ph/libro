@@ -1,8 +1,11 @@
-﻿using System.Windows.Input;
+﻿using System.ServiceModel.Description;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using Jot;
 using Jot.DefaultInitializer;
 using Jot.Storage;
 using Jot.Triggers;
+using Libro.Dialogs;
 
 namespace Libro.ViewModels
 {
@@ -20,7 +23,6 @@ namespace Libro.ViewModels
         public static Settings Instance => _instance ?? (_instance = new Settings());
 
         private bool _ShowGeneralSettings = true;
-        [Trackable]
         public bool ShowGeneralSettings
         {
             get => _ShowGeneralSettings;
@@ -49,7 +51,102 @@ namespace Libro.ViewModels
             }
         }
 
+        private bool _EnableSecurity;
+
+        /// <summary>
+        /// WARNING!
+        /// Not for security. Just for show. Because I'm lazy! 
+        /// </summary>
+        [Trackable]
+        public bool EnableSecurity
+        {
+            get => _EnableSecurity;
+            set
+            {
+                if (value == _EnableSecurity) return;
+                _EnableSecurity = value;
+                OnPropertyChanged(nameof(EnableSecurity));
+            }
+        }
+
+        private string _Username;
+        /// <summary>
+        /// WARNING!
+        /// Not for security. Just for show. Because I'm lazy! 
+        /// </summary>
+        [Trackable]
+        public string Username
+        {
+            get => string.IsNullOrEmpty(_Username)?"admin":_Username;
+            set
+            {
+                if (value == _Username) return;
+                _Username = value;
+                OnPropertyChanged(nameof(Username));
+            }
+        }
+
+        private string _Password;
+        /// <summary>
+        /// WARNING!
+        /// Not for security. Just for show. Because I'm lazy!
+        /// At least hash this.
+        /// </summary>
+        [Trackable]
+        public string Password
+        {
+            get => _Password;
+            set
+            {
+                if (value == _Password) return;
+                _Password = value;
+                OnPropertyChanged(nameof(Password));
+            }
+        }
+
+        private ICommand _resetPasswordCommand;
+
+        public ICommand ResetPasswordCommand => _resetPasswordCommand ?? (_resetPasswordCommand = new DelegateCommand(
+        async d =>
+        {
+            var res = await MessageDialog.Show("RESET PASSWORD?", "Are you sure you want to reset the password?",
+                "RESET PASSWORD", "CANCEL");
+            if (!res) return;
+            Password = "";
+            await Task.Delay(1471);
+            await MessageDialog.Show("SUCCESSFUL!","Password has been reset. Enter new password on the next login.");
+        }));
+
+        private bool _ShowSmsSettings;
+
+        public bool ShowSmsSettings
+        {
+            get => _ShowSmsSettings;
+            set
+            {
+                if (value == _ShowSmsSettings) return;
+                _ShowSmsSettings = value;
+                OnPropertyChanged(nameof(ShowSmsSettings));
+            }
+        }
         
+        private bool _ShowSecurity;
+
+        public bool ShowSecurity
+        {
+            get => _ShowSecurity;
+            set
+            {
+                if (value == _ShowSecurity) return;
+                _ShowSecurity = value;
+                OnPropertyChanged(nameof(ShowSecurity));
+                if(!value)
+                Messenger.Default.Broadcast(Messages.SettingsChanged);
+            }
+        }
+
+
+
         private ICommand _toggleSettings;
 
         public ICommand ToggleSettings => _toggleSettings ?? (_toggleSettings = new DelegateCommand(d =>

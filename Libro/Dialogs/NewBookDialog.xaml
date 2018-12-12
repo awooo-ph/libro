@@ -10,6 +10,7 @@
              xmlns:model="clr-namespace:Libro.Models;assembly=Libro.Core"
              xmlns:lib="clr-namespace:Libro"
              xmlns:cnv="clr-namespace:Libro.Converters"
+             xmlns:i="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d"
              MinWidth="471"
              MaxWidth="666"
@@ -31,9 +32,15 @@
       <RowDefinition Height="*"/>
       <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
-    <TextBlock Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
-               Margin="32"
-               Text="NEW BOOK" />
+    <md:ColorZone Mode="PrimaryDark">
+      <StackPanel Orientation="Horizontal"
+                  Margin="20">
+        <i:PackIconModern Kind="BookPerspective" Height="47" Width="47"/>
+        <TextBlock Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
+               Text="  ADD NEW BOOK" 
+                   VerticalAlignment="Center"/>
+      </StackPanel>
+    </md:ColorZone>
     <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
     <StackPanel Margin="32 10">
         <Grid>
@@ -102,41 +109,30 @@
                      md:HintAssist.IsFloating="True"
                      Margin="0 8"
                      Text="{Binding TemporaryBook.Barcode,UpdateSourceTrigger=PropertyChanged}" />
-            <ComboBox IsEditable="True"
+          <ComboBox IsEditable="True"
                       Margin="8"
                       md:HintAssist.Hint="CONDITION"
                       md:HintAssist.IsFloating="True"
                       VerticalAlignment="Bottom"
                       ItemsSource="{StaticResource BookConditions}"
                       Text="{Binding Condition,UpdateSourceTrigger=PropertyChanged}" />
-            
-            <TextBox md:HintAssist.Hint="TITLE"
-                     md:HintAssist.IsFloating="True"
-                     Margin="0 8"
-                     Text="{Binding TemporaryBook.Title,UpdateSourceTrigger=PropertyChanged}" />
-            <TextBox md:HintAssist.Hint="AUTHOR"
-                     md:HintAssist.IsFloating="True"
-                     Margin="8"
-                     Text="{Binding TemporaryBook.Author,UpdateSourceTrigger=PropertyChanged}" />
-
-            <TextBox md:HintAssist.Hint="SECTION"
-                     md:HintAssist.IsFloating="True"
-                     Margin="0 8"
-                     Text="{Binding TemporaryBook.Section,UpdateSourceTrigger=PropertyChanged}" />
-            <TextBox md:HintAssist.Hint="SUBJECT"
-                     md:HintAssist.IsFloating="True"
-                     Margin="8"
-                     Text="{Binding TemporaryBook.Subject,UpdateSourceTrigger=PropertyChanged}" />
-
-            <TextBox md:HintAssist.Hint="SOURCE OF FUND"
-                     md:HintAssist.IsFloating="True"
-                     Margin="0 8"
-                     Text="{Binding Fund,UpdateSourceTrigger=PropertyChanged}" />
-            <TextBox md:HintAssist.Hint="COST PRICE"
-                     md:HintAssist.IsFloating="True"
-                     Margin="8"
-                     Text="{Binding Price,UpdateSourceTrigger=PropertyChanged}" />
         </UniformGrid>
+
+      <TextBox md:HintAssist.Hint="TITLE"
+               md:HintAssist.IsFloating="True"
+               md:TextFieldAssist.RippleOnFocusEnabled="True"
+               md:TextFieldAssist.HasFilledTextField="True"
+               Margin="0 8"
+               MaxHeight="147" 
+               TextWrapping="Wrap"
+               Text="{Binding TemporaryBook.Title,UpdateSourceTrigger=PropertyChanged}" />
+      <TextBox md:HintAssist.Hint="AUTHOR"
+               md:HintAssist.IsFloating="True"
+               md:TextFieldAssist.RippleOnFocusEnabled="True"
+               md:TextFieldAssist.HasFilledTextField="True"
+               Margin="0 8"
+               Text="{Binding TemporaryBook.Author,UpdateSourceTrigger=PropertyChanged}" />
+
         <Grid Margin="0,16"
               MaxHeight="174">
             <Grid Visibility="{Binding IsSearchingComplete,Converter={cnv:BooleanToVisibility Visible,Collapsed}}">
@@ -210,7 +206,7 @@
     <UniformGrid HorizontalAlignment="Right"
                  Columns="2"
                  Grid.Row="2"
-                 Margin="32"
+                 Margin="20"
                  Rows="1">
       <Button Margin="0,0,4,0"
               IsCancel="True"

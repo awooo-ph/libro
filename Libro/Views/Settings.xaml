@@ -16,7 +16,7 @@
       <RowDefinition Height="*"/>
     </Grid.RowDefinitions>
     <md:PackIcon Kind="Triangle" HorizontalAlignment="Right"
-                     Margin="0 2 50 0"
+                     Margin="0 2 30 0"
                      Foreground="{DynamicResource MaterialDesignDarkForeground}"/>
     <md:ColorZone Grid.Row="1" Margin="10 -2 10 10" md:ShadowAssist.ShadowEdges="Bottom,Left,Right" md:ShadowAssist.ShadowDepth="Depth1"
                       Width="333">
@@ -29,10 +29,12 @@
           <Rectangle Height="1" VerticalAlignment="Bottom" Fill="{DynamicResource MaterialDesignDivider}"/>
           <UniformGrid Rows="1">
             <RadioButton Content="_GENERAL SETTINGS" Style="{DynamicResource MaterialDesignTabRadioButton}"
-                           IsChecked="True"/>
+                           IsChecked="{Binding ShowGeneralSettings}"/>
             <RadioButton Content="_SMS CONFIG" Style="{DynamicResource MaterialDesignTabRadioButton}"
-                         Visibility="Hidden"
-                           IsChecked="{Binding ShowGeneralSettings,Converter={converters:Inverter}}"/>
+                         Visibility="Collapsed"
+                           IsChecked="{Binding ShowSmsSettings}"/>
+            <RadioButton Content="_SECURITY" Style="{DynamicResource MaterialDesignTabRadioButton}"
+                         IsChecked="{Binding ShowSecurity}"/>
           </UniformGrid>
         </Grid>
 
@@ -141,7 +143,7 @@
         </ScrollViewer>
 
         <ScrollViewer Grid.Row="1" Focusable="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"
-                        Visibility="{Binding ShowGeneralSettings,Converter={converters:BooleanToVisibility Collapsed,Visible},FallbackValue=Collapsed}">
+                        Visibility="{Binding ShowSmsSettings,Converter={converters:BooleanToVisibility},FallbackValue=Collapsed}">
           <StackPanel Margin="0 10 0 20">
             <Grid Margin="20 10">
               <Grid.ColumnDefinitions>
@@ -260,6 +262,51 @@
                   </TextBox>
                 </StackPanel>
             </Grid>
+          </StackPanel>
+        </ScrollViewer>
+
+        <ScrollViewer Focusable="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"
+                      Grid.Row="1"
+                        Visibility="{Binding ShowSecurity,Converter={converters:BooleanToVisibility},FallbackValue=Collapsed}">
+          <StackPanel Margin="0 0 0 20">
+            
+            <Grid Margin="20 10">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+              </Grid.ColumnDefinitions>
+              <StackPanel Margin="0 0 20 0" VerticalAlignment="Center">
+                <TextBlock Text="ENABLE SECURITY" Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
+                             FontSize="14pt"/>
+                <TextBlock Style="{DynamicResource MaterialDesignSubheadingTextBlock}"
+                             TextWrapping="Wrap"
+                             FontSize="10pt"
+                             Opacity="0.7"
+                           Visibility="{Binding EnableSecurity,Converter={converters:BooleanToVisibility}}"
+                             Text="Indomitable security is in effect."/>
+                <TextBlock Style="{DynamicResource MaterialDesignSubheadingTextBlock}"
+                           TextWrapping="Wrap"
+                           FontSize="10pt"
+                           Opacity="0.7"
+                           Visibility="{Binding EnableSecurity,Converter={converters:BooleanToVisibility Collapsed,Visible}}"
+                           Text="Security is disabled."/>
+              </StackPanel>
+              <ToggleButton Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                            IsChecked="{Binding EnableSecurity,Mode=TwoWay}"
+                            Grid.Column="1" VerticalAlignment="Center"/>
+            </Grid>
+
+            <TextBox Margin="20 10" Text="{Binding Username,Mode=TwoWay}"
+                     IsEnabled="{Binding EnableSecurity}"
+                     md:TextFieldAssist.RippleOnFocusEnabled="True"
+                     md:TextFieldAssist.HasFilledTextField="True"
+                     md:HintAssist.Hint="USERNAME"
+                     md:HintAssist.IsFloating="True"/>
+
+            <Button Margin="20 10"
+                    IsEnabled="{Binding EnableSecurity}"
+                    Content="_RESET PASSWORD"
+                    Command="{Binding ResetPasswordCommand}"/>
           </StackPanel>
         </ScrollViewer>
       </Grid>

@@ -14,8 +14,10 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Libro.Dialogs;
 using Libro.Properties;
+using Libro.ViewModels;
 using MaterialDesignExtensions.Model;
 using MaterialDesignThemes.Wpf;
+using Settings = Libro.ViewModels.Settings;
 
 namespace Libro
 {
@@ -45,6 +47,7 @@ namespace Libro
 
         private async void CheckAuthentication()
         {
+            if (!Settings.Instance.EnableSecurity) return;
             if (!LoginDialogHost.IsLoaded) return;
             if (_isAuthenticating) return;
             
@@ -54,8 +57,13 @@ namespace Libro
                 var login = await LoginDialog.Show();
                 _isAuthenticating = false;
                 MainViewModel.Instance.Login(login);
+                CheckAuthentication();
             }
         }
 
+        private void DashboardTab_OnChecked(object sender, RoutedEventArgs e)
+        {
+            Dashboard.Instance.Refresh();
+        }
     }
 }

@@ -283,9 +283,17 @@ namespace Libro.ViewModels
                 Barcode = item.Barcode
             };
             var dlg = new BorrowerEditor("", "SAVE") { DataContext = brw };
-            var res = await DialogHost.Show(dlg, "RootDialog") as bool?;
+            var res = await DialogHost.Show(dlg, "RootDialog");
 
-            if (!(res ?? false)) return;
+            if (res is string s && s == "DELETE")
+            {
+                var res2 = await MessageDialog.Show($"DELETE {item.Fullname.ToUpper()}?",
+                    $"Deleting borrowers can not be undone. Click DELETE to permanently delete {item.Fullname}.",
+                    "DELETE", "CANCEL");
+                if (res2) item.Delete();
+            }
+
+            if (!(res as bool? ?? false)) return;
 
             item.Firstname = brw.Firstname;
             item.Lastname = brw.Lastname;

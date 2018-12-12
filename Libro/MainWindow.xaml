@@ -90,6 +90,7 @@
                            Height="40"
                            local:Extensions.PlayClick="True"
                            IsChecked="True"
+                           Checked="DashboardTab_OnChecked"
                            x:Name="DashboardTab">
                 <StackPanel Orientation="Horizontal">
                   <i:PackIconModern Kind="Pie" Height="47" Width="47" />
@@ -124,7 +125,7 @@
               </RadioButton>
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Grid.Column="2">
+            <StackPanel Orientation="Horizontal" Grid.Column="2" Margin="20 0">
               
 
               <Grid VerticalAlignment="Center">

@@ -21,7 +21,6 @@
         <ColumnDefinition Width="*"/>
       </Grid.ColumnDefinitions>
 
-      <Rectangle Fill="{StaticResource PrimaryHueDarkBrush}" Grid.ColumnSpan="2"/>
       <Grid Margin="20 20 10 10" Grid.RowSpan="2" VerticalAlignment="Top" HorizontalAlignment="Center">
       <i:Modern Kind="Alert" Height="74" Width="74"/>
       </Grid>
@@ -37,7 +36,7 @@
                  Grid.Row="1" Grid.Column="1"/>
 
       <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
-            Margin="20">
+            Margin="10">
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="Auto"/>
           <ColumnDefinition Width="*"/>

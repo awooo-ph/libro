@@ -143,9 +143,11 @@ namespace Libro.ViewModels
         private ICommand _deleteCommand;
         public ICommand DeleteCommand => _deleteCommand ?? (_deleteCommand = new DelegateCommand<Book>(async book =>
         {
+            if (book == null) return;
             var res = await MessageDialog.Show("CONFIRM DELETE", $"Are you sure you want to delete \"{book?.Title}\"?",
                 "DELETE", "CANCEL", false);
             if (!(res ?? false)) return;
+            book.Delete();
         },d=>d!=null));
 
         private ICommand _changeThumbnailCommand;

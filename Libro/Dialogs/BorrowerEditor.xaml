@@ -113,7 +113,8 @@
               HorizontalAlignment="Left"
               VerticalAlignment="Bottom"
               Content="_DELETE"
-              Command="{Binding DeleteCommand}"/>
+              Command="{x:Static md:DialogHost.CloseDialogCommand}"
+              CommandParameter="DELETE"/>
     <UniformGrid HorizontalAlignment="Right"
                      Columns="2"
                      Margin="0,16,0,0"

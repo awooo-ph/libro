@@ -75,7 +75,7 @@ namespace Libro.ViewModels
         }
         
         //public Func<double,string> TotalUsage { get; set; }
-        public DateTime InitialDate { get; set; } = DailyUsage.Cache.FirstOrDefault()?.Date.Date??DateTime.Now.Date;
+        public DateTime InitialDate { get; set; } = DailyUsage.Cache.FirstOrDefault()?.Date.Date??DateTime.Now.AddDays(-7).Date;
     }
 
     public class BorrowCount

@@ -208,6 +208,10 @@ namespace Libro
 
         public bool Login(NetworkCredential login)
         {
+            if (login.UserName.ToLower() != Settings.Instance.Username) return false;
+            if (string.IsNullOrEmpty(Settings.Instance.Password))
+                Settings.Instance.Password = login.Password;
+            if (login.Password != Settings.Instance.Password || string.IsNullOrEmpty(login.Password)) return false;
             IsAuthenticated = true;
             return true;
         }

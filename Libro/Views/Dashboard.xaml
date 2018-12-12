@@ -122,17 +122,12 @@
                  VerticalAlignment="Bottom"/>
 
       <Grid Column="0" Grid.Row="1" MinHeight="333">
-        <lv:CartesianChart LegendLocation="Top" Margin="10" Zoom="Y" Pan="X">
+        <lv:CartesianChart LegendLocation="Top" Margin="10" Zoom="Xy" Pan="X">
             <lv:CartesianChart.AxisX>
               <lv:DateAxis InitialDateTime="{Binding InitialDate}"
                            Period="Days"
-                           ShowLabels="True">
-                
-              </lv:DateAxis>
+                           ShowLabels="True"/>
             </lv:CartesianChart.AxisX>
-            <lv:CartesianChart.AxisY>
-              <lv:Axis ShowLabels="True"/>
-            </lv:CartesianChart.AxisY>
             <lv:CartesianChart.Series>
               <lv:StackedColumnSeries Title="ELEMENTARY" Values="{Binding Elementary}" />
               <lv:StackedColumnSeries Title="HIGH SCHOOL" Values="{Binding HighSchool}"  />
