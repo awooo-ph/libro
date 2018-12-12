@@ -141,7 +141,12 @@ namespace Libro.ViewModels
         public TakeoutViewModel TakeoutViewModel { get; } = new TakeoutViewModel(true);
 
         private ICommand _deleteCommand;
-        public ICommand DeleteCommand => _deleteCommand ?? (_deleteCommand = new DelegateCommand<Book>(DeleteSelected));
+        public ICommand DeleteCommand => _deleteCommand ?? (_deleteCommand = new DelegateCommand<Book>(async book =>
+        {
+            var res = await MessageDialog.Show("CONFIRM DELETE", $"Are you sure you want to delete \"{book?.Title}\"?",
+                "DELETE", "CANCEL", false);
+            if (!(res ?? false)) return;
+        },d=>d!=null));
 
         private ICommand _changeThumbnailCommand;
 
@@ -245,11 +250,6 @@ namespace Libro.ViewModels
             Messenger.Default.Broadcast(Messages.TakeoutsChanged);
         }
         
-        private void DeleteSelected(Book obj)
-        {
-            BooksView.AddNew();
-            Messenger.Default.Broadcast(Messages.BOOKS_BeginEdit);
-        }
         
         public event PropertyChangedEventHandler PropertyChanged;
 

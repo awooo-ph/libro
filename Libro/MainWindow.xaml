@@ -73,9 +73,9 @@
               </StackPanel>
             </Grid>
 
-            <UniformGrid VerticalAlignment="Center" Rows="1" Margin="20 0"
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20 0"
                          Grid.Column="0">
-              <UniformGrid.Resources>
+              <StackPanel.Resources>
                 <ResourceDictionary>
                   <ResourceDictionary.MergedDictionaries>
                     <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Teal.xaml" />
@@ -83,7 +83,7 @@
                   <SolidColorBrush x:Key="SecondaryAccentBrush" Color="{StaticResource Primary700Foreground}"/>
                   <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="{StaticResource Accent700Foreground}"/>
                 </ResourceDictionary>
-              </UniformGrid.Resources>
+              </StackPanel.Resources>
               <RadioButton Style="{DynamicResource MaterialDesignTabRadioButton}"
                            Cursor="Hand"
                            Padding="10 0"
@@ -96,6 +96,8 @@
                   <TextBlock Text="  DASHBOARD" VerticalAlignment="Center"/>
                 </StackPanel>
               </RadioButton>
+              <Rectangle Width="1" Fill="{StaticResource PrimaryHueDarkForegroundBrush}"
+                         Margin="7 0" Opacity="0.7" SnapsToDevicePixels="True"/>
               <RadioButton Style="{DynamicResource MaterialDesignTabRadioButton}"
                            Cursor="Hand"
                            Height="40"
@@ -107,6 +109,8 @@
                   <TextBlock Text="  BOOKS" VerticalAlignment="Center"/>
                 </StackPanel>
               </RadioButton>
+              <Rectangle Width="1" Fill="{StaticResource PrimaryHueDarkForegroundBrush}"
+                         Margin="7 0" Opacity="0.7" SnapsToDevicePixels="True"/>
               <RadioButton Style="{DynamicResource MaterialDesignTabRadioButton}"
                            Cursor="Hand"
                            Height="40"
@@ -118,7 +122,7 @@
                   <TextBlock Text="  BORROWERS" VerticalAlignment="Center"/>
                 </StackPanel>
               </RadioButton>
-            </UniformGrid>
+            </StackPanel>
 
             <StackPanel Orientation="Horizontal" Grid.Column="2">
               
@@ -213,14 +217,14 @@
                 </Popup>
               </Grid>
 
-              <md:PopupBox>
+              <!--<md:PopupBox>
 
                 <md:PopupBox.PopupContent>
                   <StackPanel>
 
                   </StackPanel>
                 </md:PopupBox.PopupContent>
-              </md:PopupBox>
+              </md:PopupBox>-->
 
             </StackPanel>
           </Grid>

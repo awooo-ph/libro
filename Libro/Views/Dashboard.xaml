@@ -163,6 +163,8 @@
                      HorizontalAlignment="Center"
                      Margin="20"
                      Style="{StaticResource MaterialDesignTitleTextBlock}"/>
+          <Rectangle Height="1" Fill="{StaticResource MaterialDesignDivider}"
+                     VerticalAlignment="Bottom"/>
         <ListBox Grid.Row="1" ItemsSource="{Binding TopTitles}"
                  HorizontalContentAlignment="Stretch">
           <ListBox.ItemTemplate>
@@ -199,6 +201,8 @@
                      HorizontalAlignment="Center"
                      Margin="20"
                      Style="{StaticResource MaterialDesignTitleTextBlock}"/>
+        <Rectangle Height="1" Fill="{StaticResource MaterialDesignDivider}"
+                   VerticalAlignment="Bottom"/>
           <ListBox Grid.Row="1" ItemsSource="{Binding TopBorrowers}"
                    HorizontalContentAlignment="Stretch">
             <ListBox.ItemTemplate>

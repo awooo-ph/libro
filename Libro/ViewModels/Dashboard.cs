@@ -21,7 +21,12 @@ namespace Libro.ViewModels
             get
             {
                 if (_topTitles != null) return _topTitles;
-                _topTitles = new List<TopBook>(Book.GetTopTitle().Select(d=>new TopBook(){Title = d.Title,Count=d.Usage}));
+                _topTitles = new List<TopBook>(Book.GetTopTitle().Select(d=>new TopBook()
+                {
+                    Title = d.Title,
+                    Count=d.Usage,
+                    Picture = d.Picture
+                }));
                 return _topTitles;
             }
         }
@@ -81,6 +86,7 @@ namespace Libro.ViewModels
 
     public class TopBook
     {
+        public string Picture { get; set; }
         public string Title { get; set; }
         public long Count { get; set; }
     }

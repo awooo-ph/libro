@@ -92,7 +92,8 @@
                               md:DataGridAssist.ColumnHeaderPadding="8"
                               FrozenColumnCount="1">
                         <DataGrid.InputBindings>
-                            <KeyBinding Key="Delete" Command="{Binding SelectedBook.DeleteCommand}"/>
+                            <KeyBinding Key="Delete" Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid},Path=DataContext.DeleteCommand}"
+                                        CommandParameter="{Binding}"/>
                         </DataGrid.InputBindings>
                         <DataGrid.Columns>
                             <!--<DataGridCheckBoxColumn Visibility="{Binding Source={x:Static local:Books.Instance},Path=MultipleSelection,Converter={cnv:BooleanToVisibility}}"
@@ -160,6 +161,7 @@
                 </Grid>
 
                 <Grid Grid.Column="1"
+                      Visibility="{Binding SelectedBook,Converter={cnv:BooleanToVisibility}}"
                       IsEnabled="{Binding SelectedBook,Converter={cnv:IsNullToBoolean Type={x:Type model:Book}},FallbackValue=False}"
                       Margin="0 0 0 8">
                     <Grid.RowDefinitions>
@@ -195,9 +197,9 @@
                         <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="{StaticResource Primary900Foreground}"/>
                       </ResourceDictionary>-->
                     </UniformGrid.Resources>
-                    <RadioButton Content="_DETAILS" IsChecked="True" x:Name="DetailsTab" x:FieldModifier="private" Style="{DynamicResource MaterialDesignTabRadioButton}"/>
+                    <RadioButton Content="_BOOK INFORMATION" IsChecked="True" x:Name="DetailsTab" x:FieldModifier="private" Style="{DynamicResource MaterialDesignTabRadioButton}"/>
                     <!--<RadioButton Content="_CARDS" x:Name="CardsTab" x:FieldModifier="private" Style="{DynamicResource MaterialDesignTabRadioButton}"/>-->
-                    <RadioButton Content="ACTIVITY _LOG" x:Name="HistoryTab" x:FieldModifier="private" Style="{DynamicResource MaterialDesignTabRadioButton}"/>
+                    <RadioButton Content="BORROWER'S CARD" x:Name="HistoryTab" x:FieldModifier="private" Style="{DynamicResource MaterialDesignTabRadioButton}"/>
                     <RadioButton Content="_BORROW" x:Name="TakeoutTab" x:FieldModifier="private" Style="{DynamicResource MaterialDesignTabRadioButton}"/>
                   </UniformGrid>
                   
@@ -206,6 +208,7 @@
                                      Grid.Row="1"
                                      Width="555">
                         <!-- Details -->
+            <md:TransitionerSlide>
                         <Grid DataContext="{Binding SelectedBook}">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -467,13 +470,15 @@
                             <UniformGrid Grid.Row="2" Rows="1"
                                          Margin="16,16,16,8">
                               <Button Content="_DELETE" Style="{DynamicResource MaterialDesignRaisedLightButton}"
-                                      Command="{Binding DeleteCommand}"/>
+                                      Command="{Binding RelativeSource={RelativeSource AncestorType=views:BooksView},Path=DataContext.DeleteCommand}"
+                                      CommandParameter="{Binding}"/>
                               <Rectangle IsHitTestVisible="False"/>
                               <Button Command="{Binding SaveCommand}" Content="_SAVE CHANGES"/>
                             </UniformGrid>
                         </Grid>
-
-                        <!--Card catalog-->
+            </md:TransitionerSlide>
+            <!--Card catalog-->
+            <md:TransitionerSlide>
                         <Grid>
                         <UniformGrid Columns="1"
                                      Rows="3"                                    
@@ -611,7 +616,9 @@
                                 <md:PackIcon Kind="Printer"/>
                             </Button>
                         </Grid>
-                        <!-- Logs -->
+            </md:TransitionerSlide>
+            <!-- Logs -->
+            <md:TransitionerSlide>
                         <Grid>
                             <DataGrid ItemsSource="{Binding Takeouts}" AutoGenerateColumns="False"
                                       CanUserAddRows="False" CanUserDeleteRows="False"
@@ -632,7 +639,9 @@
                                 </DataGrid.Columns>
                             </DataGrid>
                         </Grid>
-                        <!--Takeout-->
+            </md:TransitionerSlide> 
+            <!--Takeout-->
+            <md:TransitionerSlide>
                         <Grid  Margin="16">
                         <Grid Visibility="{Binding SelectedBook.IsBorrowed,Converter={cnv:BooleanToVisibility Collapsed,Visible}}">
                             <Grid.RowDefinitions>
@@ -817,10 +826,11 @@
                                 </GroupBox>
                             </StackPanel>
                         </Grid>
-                    </md:Transitioner>
+            </md:TransitionerSlide>
+          </md:Transitioner>
 
                 </Grid>
-                <md:ColorZone Grid.Column="1"
+                <!--<md:ColorZone Grid.Column="1"
                               Visibility="{Binding SelectedBook,Converter={cnv:BooleanToVisibility Collapsed,Visible}}"
                          Mode="Inverted"
                               Padding="32"
@@ -839,7 +849,7 @@
                                    VerticalAlignment="Center"
                                    Style="{StaticResource MaterialDesignHeadlineTextBlock}"/>
                     </Grid>
-                </md:ColorZone>
+                </md:ColorZone>-->
 
                 <Rectangle Grid.Column="1"
                            Grid.Row="0"
